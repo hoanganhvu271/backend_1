@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 
             // console.log(models.Test)
             Question.belongsTo(models.Test, { foreignKey: 'MaBaiThi' });
-            Question.belongsTo(models.Option, { foreignKey: 'MaCauHoi', targetKey: 'MaCauHoi', as: 'LuaChon' });
+            Question.hasMany(models.Option, { foreignKey: 'MaCauHoi', targetKey: 'MaCauHoi', as: 'LuaChon' });
 
         }
     }
