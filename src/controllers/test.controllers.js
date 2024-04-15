@@ -1,48 +1,57 @@
 
-const { getAllTest, getTestById, createNewTest } = require('../services/test.service')
+const { getAllTest, getTestById, createNewTest, deleteTestById } = require('../services/test.service')
 const { getQuestionOfTest } = require('../services/question.service')
 
 const getTestList = async (req, res) => {
 
     var tests = await getAllTest()
-    if (tests) {
+    if (tests.status === 200) {
         const response = {
             code: 1,
             status: 200,
             message: "successfully",
-            data: tests
+            data: tests.data
         };
 
         res.status(200).json(response);
     }
-    else {
+    else if (tests.status === 500) {
         const response = {
             code: 0,
             status: 500,
-            message: "internal server error",
+            message: "Internal Server Error",
         };
 
         res.status(500).json(response);
     }
+    else {
+        const response = {
+            code: 0,
+            status: 404,
+            message: "Không tìm thấy bài thi",
+        };
+
+        res.status(404).json(response);
+    }
 }
 
-const getQuestionHandler = async (req, res) => {
+const getQuestionByTestHandler = async (req, res) => {
     const testId = req.params.id;
     var metadata = await getTestById(testId);
     var questions = await getQuestionOfTest(testId)
     // console.log(questions)
-    if (questions) {
+    if (metadata.status === 200) {
         const response = {
             code: 1,
             status: 200,
             message: "successfully",
-            metadata: metadata[0],
-            data: questions
+            metadata: metadata.data[0],
+            data: questions.data
         };
 
         res.status(200).json(response);
     }
-    else {
+    else if (metadata.status === 500) {
         const response = {
             code: 0,
             status: 500,
@@ -50,6 +59,15 @@ const getQuestionHandler = async (req, res) => {
         };
 
         res.status(500).json(response);
+    }
+    else {
+        const response = {
+            code: 0,
+            status: 404,
+            message: "Không tìm thấy bài thi",
+        };
+
+        res.status(404).json(response);
     }
 }
 
@@ -62,11 +80,22 @@ const postTestHandler = async (req, res) => {
     // console.log(questionList)
     var status = await createNewTest(test, questionList)
     if (status) {
-        res.status(200).json("ok nhe hehe")
+        res.status(200).json("Tao thanh cong")
     }
     else {
-        res.status(500).json("nguuu")
+        res.status(500).json("Internal Server Error")
     }
 }
 
-module.exports = { getTestList, getQuestionHandler, postTestHandler }
+const deleteTestHandler = async (req, res) => {
+    var testId = req.params.id
+    var status = await deleteTestById(testId)
+    if (status) {
+        res.status(200).json("Xoa thanh cong")
+    }
+    else {
+        res.status(200).json("Internal Server Error")
+    }
+}
+
+module.exports = { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler }
