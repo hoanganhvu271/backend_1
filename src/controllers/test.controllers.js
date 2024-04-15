@@ -1,5 +1,5 @@
 
-const { getAllTest, getTestById, createNewTest, deleteTestById } = require('../services/test.service')
+const { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById } = require('../services/test.service')
 const { getQuestionOfTest } = require('../services/question.service')
 
 const getTestList = async (req, res) => {
@@ -98,4 +98,16 @@ const deleteTestHandler = async (req, res) => {
     }
 }
 
-module.exports = { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler }
+const updateTestHandler = async (req, res) => {
+    var testId = req.params
+    var updateData = req.body
+    var status = await updateTestById(testId, updateData)
+    if (status) {
+        res.status(200).json("Cập nhật thành công!")
+    }
+    else {
+        res.status(500).json("Cập nhật thất bại!")
+    }
+}
+
+module.exports = { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler }

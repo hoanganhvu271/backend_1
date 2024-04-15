@@ -1,5 +1,5 @@
 
-const { getAllStudent, getStudentById, createNewStudent, deleteStudentById } = require('../services/student.service')
+const { getAllStudent, getStudentById, createNewStudent, deleteStudentById, updateStudentById } = require('../services/student.service')
 
 const getStudentHandler = async (req, res) => {
     var students = await getAllStudent();
@@ -79,7 +79,7 @@ const postStudentHandler = (req, res) => {
     }
     else {
         //409 : conflict 
-        res.status(409).json("mã sinh viên đã tồn tại");
+        res.status(409).json("Mã sinh viên đã tồn tại");
     }
 }
 
@@ -96,4 +96,19 @@ const deleteStudentHandler = async (req, res) => {
     }
 }
 
-module.exports = { getStudentHandler, getStudentByIdHandler, postStudentHandler, deleteStudentHandler }
+const updateStudentHandler = async (req, res) => {
+    const studentId = req.params.id;
+    const updatedData = req.body;
+
+    const status = updateStudentById(studentId, updatedData);
+    if (status === 1) {
+        res.status(200).json("Cập nhật thành công!");
+    }
+    else if (status === 0) {
+        res.status(500).json("Internal Server Error");
+    }
+    else {
+        res.status(409).json("Mã sinh viên đã tồn tại")
+    }
+}
+module.exports = { getStudentHandler, getStudentByIdHandler, postStudentHandler, deleteStudentHandler, updateStudentHandler }

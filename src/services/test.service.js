@@ -48,22 +48,23 @@ const createNewTest = async (test, questionList) => {
     let t;
     try {
         t = await sequelize.transaction();
+        var mbt = 'BT07'
         await db.Test.create(
             {
-                MaBaiThi: 'BT10',
+                MaBaiThi: mbt,
                 TenBaithi: test.examName,
                 ThoiGianBatDau: test.examDateTime,
                 ThoiGianThi: parseInt(test.examTime),
                 SoLuongCau: parseInt(test.numQuestions),
                 TheLoai: 'Trắc nghiệm',
-                TrangThai: 'Mở'
+                TrangThai: 'Đóng'
 
             },
             { transaction: t }
         )
 
         for (var i = 0; i < questionList.length; i++) {
-            await createNewQuestion(questionList[i], 'BT10', i + 1, t);
+            await createNewQuestion(questionList[i], mbt, i + 1, t);
         }
         await t.commit();
         return true
@@ -89,4 +90,46 @@ const deleteTestById = async (testId) => {
     }
 }
 
-module.exports = { getAllTest, getTestById, createNewTest, deleteTestById }
+const updateTestById = async (id, updateData) => {
+    var t
+    try {
+        const result = sequelize.transaction(async () => {
+            var test = await db.Test.findByPk(id)
+            metadata = updateData.metadata
+            data = updateData.data
+
+            test.TenBaithi = metadata.examName,
+                test.ThoiGianBatDau = metadata.examDateTime,
+                test.ThoiGianThi = parseInt(metadata.examTime),
+                test.SoLuongCau = parseInt(metadata.numQuestions)
+
+            test.save()
+
+            var len = data.length
+            for (var i = 1; i <= len; i++) {
+                var questionId = 'C' + String(i).padStart(2, '0')
+                var question = await db.Question.findOne({
+                    where: {
+                        MaBaiThi: test.MaBaiThi,
+                        MaCauHoi: questionId
+                    }
+                })
+                if (question) {
+                    //update
+                }
+                else {
+                    //create
+                }
+            }
+        })
+        if (result) {
+            return true
+        }
+
+    }
+    catch (e) {
+        return false;
+    }
+}
+
+module.exports = { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById }

@@ -83,4 +83,24 @@ const deleteStudentById = async (id) => {
     }
 }
 
-module.exports = { getAllStudent, getStudentById, createNewStudent, deleteStudentById }
+const updateStudentById = async (id, data) => {
+    var student = await db.Student.findByPk(id)
+    var existStudent = await db.Student.findByPk(data.msv)
+    if (existStudent) {
+        return -1
+    }
+    try {
+        student.MSV = data.msv
+        student.Ten = data.name
+        student.Lop = data.class
+        student.Email = data.email
+        student.TaiKhoan = data.account
+        student.MatKhau = data.password
+        student.save()
+        return 1
+    } catch (err) {
+        return 0
+    }
+}
+
+module.exports = { getAllStudent, getStudentById, createNewStudent, deleteStudentById, updateStudentById }
