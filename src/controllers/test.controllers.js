@@ -99,8 +99,9 @@ const deleteTestHandler = async (req, res) => {
 }
 
 const updateTestHandler = async (req, res) => {
-    var testId = req.params
+    var testId = req.params.id
     var updateData = req.body
+    // console.log(updateData)
     var status = await updateTestById(testId, updateData)
     if (status) {
         res.status(200).json("Cập nhật thành công!")

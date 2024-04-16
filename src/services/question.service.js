@@ -1,4 +1,5 @@
 
+const { default: Transaction } = require("sequelize/lib/transaction");
 const db = require("../models/index");
 
 const getAllQuestion = async () => {

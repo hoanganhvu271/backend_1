@@ -100,11 +100,12 @@ const updateStudentHandler = async (req, res) => {
     const studentId = req.params.id;
     const updatedData = req.body;
 
-    const status = updateStudentById(studentId, updatedData);
-    if (status === 1) {
+    const status = await updateStudentById(studentId, updatedData);
+
+    if (status == 1) {
         res.status(200).json("Cập nhật thành công!");
     }
-    else if (status === 0) {
+    else if (status == 0) {
         res.status(500).json("Internal Server Error");
     }
     else {

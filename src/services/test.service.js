@@ -55,7 +55,7 @@ const createNewTest = async (test, questionList) => {
                 TenBaithi: test.examName,
                 ThoiGianBatDau: test.examDateTime,
                 ThoiGianThi: parseInt(test.examTime),
-                SoLuongCau: parseInt(test.numQuestions),
+                SoLuongCau: parseInt(questionList.length),
                 TheLoai: 'Trắc nghiệm',
                 TrangThai: 'Đóng'
 
@@ -90,44 +90,88 @@ const deleteTestById = async (testId) => {
     }
 }
 
-const updateTestById = async (id, updateData) => {
+const updateTestById = async (testId, updateData) => {
     var t
     try {
-        const result = sequelize.transaction(async () => {
-            var test = await db.Test.findByPk(id)
-            metadata = updateData.metadata
-            data = updateData.data
+        t = await sequelize.transaction()
+        var test = await db.Test.findOne({
+            where: { MaBaiThi: testId },
+            transaction: t
+        })
+        // console.log(updateData)
+        metadata = updateData.metadata
+        data = updateData.data
+        // console.log(metadata)
 
-            test.TenBaithi = metadata.examName,
-                test.ThoiGianBatDau = metadata.examDateTime,
-                test.ThoiGianThi = parseInt(metadata.examTime),
-                test.SoLuongCau = parseInt(metadata.numQuestions)
+        test.TenBaithi = metadata.examName
+        test.ThoiGianBatDau = metadata.examDateTime
+        test.ThoiGianThi = parseInt(metadata.examTime)
+        test.SoLuongCau = parseInt(data.length)
 
-            test.save()
+        await test.save({ transaction: t })
 
-            var len = data.length
-            for (var i = 1; i <= len; i++) {
-                var questionId = 'C' + String(i).padStart(2, '0')
-                var question = await db.Question.findOne({
-                    where: {
-                        MaBaiThi: test.MaBaiThi,
-                        MaCauHoi: questionId
-                    }
-                })
-                if (question) {
-                    //update
-                }
-                else {
-                    //create
+        var len = data.length
+
+        for (var i = 0; i < len; i++) {
+
+            var questionId = 'C' + String(i + 1).padStart(2, '0')
+            var question = await db.Question.findOne({
+                where: {
+                    MaBaiThi: testId,
+                    MaCauHoi: questionId
+                },
+                transaction: t
+
+            },)
+            if (question) {
+                //update
+                question.DeBai = data[i].questionContent
+                question.SoThuTu = i + 1
+                await question.save({ transaction: t })
+                for (var j = 1; j <= 4; j++) {
+                    var answerProperty = 'answer' + j
+                    var answerId = String.fromCharCode('A'.charCodeAt(0) + j - 1)
+
+                    var answer = await db.Option.findOne({
+                        where: {
+                            MaCauHoi: questionId,
+                            MaLuaChon: answerId,
+                            MaBaiThi: testId,
+                        },
+                        transaction: t
+                    })
+
+                    // console.log(data[i][answerProperty])
+
+                    answer.NoiDung = data[i][answerProperty]
+                    await answer.save({ transaction: t })
                 }
             }
-        })
-        if (result) {
-            return true
+            else {
+                //create
+                await createNewQuestion(data[i], testId, i + 1, t);
+            }
         }
+        for (var i = len; i < test.SoLuongCau; i++) {
+            var questionId = 'C' + String(i + 1).padStart(2, '0')
+            var question = await db.Question.destroy({
+                where: {
+                    MaBaiThi: testId,
+                    MaCauHoi: questionId
+                },
+                transaction: t
+
+            },)
+
+
+        }
+        await t.commit();
+        return true;
 
     }
     catch (e) {
+        console.log(e);
+        await t.rollback();
         return false;
     }
 }
