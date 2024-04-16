@@ -4,6 +4,11 @@ const router = express.Router()
 const { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler } = require('../controllers/test.controllers')
 const { getStudentHandler, getStudentByIdHandler, postStudentHandler, deleteStudentHandler,
     updateStudentHandler } = require('../controllers/student.controllers')
+const { isAuth } = require('../middleware/auth.middleware')
+
+
+router.use(isAuth);
+
 
 
 //tests
