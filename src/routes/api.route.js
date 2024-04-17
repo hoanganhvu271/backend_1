@@ -7,7 +7,7 @@ const { getStudentHandler, getStudentByIdHandler, postStudentHandler, deleteStud
 const { isAuth } = require('../middleware/auth.middleware')
 
 
-router.use(isAuth);
+//router.use(isAuth);
 
 
 
