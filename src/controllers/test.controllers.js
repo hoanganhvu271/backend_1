@@ -96,6 +96,28 @@ const postTestHandler = async (req, res) => {
   }
 };
 
+const deleteTestHandler = async (req, res) => {
+  var testId = req.params.id;
+  var status = await deleteTestById(testId);
+  if (status) {
+    res.status(200).json("Xoa thanh cong");
+  } else {
+    res.status(200).json("Internal Server Error");
+  }
+};
+
+const updateTestHandler = async (req, res) => {
+  var testId = req.params.id;
+  var updateData = req.body;
+  // console.log(updateData)
+  var status = await updateTestById(testId, updateData);
+  if (status) {
+    res.status(200).json("Cập nhật thành công!");
+  } else {
+    res.status(500).json("Cập nhật thất bại!");
+  }
+};
+
 module.exports = {
   getTestList,
   getQuestionByTestHandler,
