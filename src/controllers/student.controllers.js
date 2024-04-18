@@ -145,8 +145,6 @@ const getStudentInresultHandler = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   getStudentHandler,
   getStudentByIdHandler,

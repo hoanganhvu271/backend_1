@@ -6,7 +6,7 @@ const port = process.env.PORT || 8888
 const viewEngine = require('./config/viewEngine.config')
 const mainRoutes = require('./routes/main.route')
 const apiRoutes = require('./routes/api.route')
-const connection = require('./config/connectDB')
+const { connection } = require('./config/connectDB')
 
 //test connection
 connection()
