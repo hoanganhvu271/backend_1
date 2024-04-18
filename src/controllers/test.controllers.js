@@ -4,9 +4,10 @@ const {
   createNewTest,
   deleteTestById,
   updateTestById,
+  getTestByStudentId,
 } = require("../services/test.service");
 const { getQuestionOfTest } = require("../services/question.service");
-
+const { getStudentById } = require("../services/student.service");
 const getTestList = async (req, res) => {
   var tests = await getAllTest();
   if (tests.status === 200) {
@@ -118,10 +119,22 @@ const updateTestHandler = async (req, res) => {
   }
 };
 
+const getTestWithStudent = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const data = { status: null, stuInfor: null, testList: null };
+  const dataTest = await getTestByStudentId(id);
+  data.status = dataTest.status;
+  data.testList = dataTest.data;
+  const stuInfor = await getStudentById(id);
+  data.stuInfor = stuInfor.data;
+  res.json(data);
+};
 module.exports = {
   getTestList,
   getQuestionByTestHandler,
   postTestHandler,
   deleteTestHandler,
   updateTestHandler,
+  getTestWithStudent,
 };

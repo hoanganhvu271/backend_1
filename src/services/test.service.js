@@ -1,6 +1,7 @@
 const db = require("../models/index");
 const { sequelize } = require("../config/connectDB");
 const { createNewQuestion } = require("./question.service");
+const { where } = require("sequelize");
 
 const getAllTest = async () => {
   var data = { status: null, data: null };
@@ -25,7 +26,7 @@ const getAllTest = async () => {
 const getTestById = async (id) => {
   var data = { status: null, data: null };
   try {
-    const tests = await db.Test.findAll({ where: { MaBaiThi: id } });
+    const tests = await db.Test.findAll({ raw: true, where: { MaBaiThi: id } });
     if (tests.length > 0) {
       data.status = 200;
       data.data = tests;
@@ -161,10 +162,35 @@ const updateTestById = async (testId, updateData) => {
   }
 };
 
+const getTestByStudentId = async (stuID) => {
+  try {
+    const data = { status: null, data: [] };
+    const listTest = await db.Test.findAll({
+      raw: true,
+      include: {
+        model: db.Result,
+        where: {
+          MSV: stuID,
+        },
+      },
+    });
+    if (listTest.length > 0) {
+      data.status = 200;
+      data.data = listTest;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
+    throw error;
+  }
+};
 module.exports = {
   getAllTest,
   getTestById,
   createNewTest,
   deleteTestById,
   updateTestById,
+  getTestByStudentId,
 };

@@ -7,6 +7,7 @@ const {
   postTestHandler,
   deleteTestHandler,
   updateTestHandler,
+  getTestWithStudent,
 } = require("../controllers/test.controllers");
 const {
   getStudentHandler,
@@ -16,6 +17,12 @@ const {
   updateStudentHandler,
   getStudentInresultHandler,
 } = require("../controllers/student.controllers");
+
+const {
+  getResultWithIdStuAndIdTest,
+  getDetailTestWithIdStuAndIdTest,
+} = require("../controllers/result.controllers");
+
 const { isAuth } = require("../middleware/auth.middleware");
 
 //router.use(isAuth);
@@ -37,5 +44,6 @@ router.put("/update-student/:id", updateStudentHandler);
 //quan
 router.get("/result/get-all-student", getStudentInresultHandler);
 router.get("/result/get-all-student/:id", getStudentByIdHandler);
-//router.get("/result/detail/:id", getDetailStudentWithTest);
+router.get("/result/detail/:id", getTestWithStudent);
+router.get("/result/detail/:id/:idTest", getDetailTestWithIdStuAndIdTest);
 module.exports = router;

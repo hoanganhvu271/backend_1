@@ -8,8 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // console.log(models.Test)
-      Result.belongsTo(models.Test, { foreignKey: "MaBaiThi" });
-      //Result.belongsTo(models.Student, {foreignKey:"MaSinhVien"});
+      Result.hasOne(models.Test, {
+        foreignKey: "MaBaiThi",
+        targetKey: "MaBaiThi",
+      });
+      Result.belongsTo(models.Student, { foreignKey: "MSV" });
     }
   }
   Result.init(
@@ -18,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         primaryKey: true,
       },
-      MaSinhVien: DataTypes.STRING,
+      MSV: DataTypes.STRING,
       MaBaiThi: DataTypes.STRING,
       Diem: DataTypes.FLOAT,
     },

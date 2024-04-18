@@ -26,7 +26,10 @@ const getAllStudent = async () => {
 const getStudentById = async (id) => {
   var data = { status: null, data: null };
   try {
-    const students = await db.Student.findAll({ where: { MSV: id } });
+    const students = await db.Student.findAll({
+      raw: true,
+      where: { MSV: id },
+    });
     if (students.length > 0) {
       data.status = 200;
       data.data = students;
