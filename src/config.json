@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "hvxk2003",
-    "database": "javasql",
+    "password": "",
+    "database": "testbtl",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
