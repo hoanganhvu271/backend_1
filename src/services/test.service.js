@@ -176,4 +176,29 @@ const updateTestById = async (testId, updateData) => {
     }
 }
 
-module.exports = { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById }
+const searchTestByName = async (name) => {
+    var data = { status: null, data: null };
+    const { Op } = require("sequelize");
+    try {
+        const tests = await db.Test.findAll({
+            where: {
+                TenBaithi: { [Op.like]: '%' + name.replace(/"/g, '') + '%' }
+            }
+        });
+
+        if (tests.length > 0) {
+            data.status = 200
+            data.data = tests
+        }
+        else {
+            data.status = 404
+        }
+        return data
+    } catch (error) {
+        data.status = 500
+        return data
+    }
+
+}
+
+module.exports = { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById, searchTestByName }

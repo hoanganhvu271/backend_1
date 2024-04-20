@@ -1,5 +1,5 @@
 
-const { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById } = require('../services/test.service')
+const { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById, searchTestByName } = require('../services/test.service')
 const { getQuestionOfTest } = require('../services/question.service')
 
 const getTestList = async (req, res) => {
@@ -80,10 +80,18 @@ const postTestHandler = async (req, res) => {
     // console.log(questionList)
     var status = await createNewTest(test, questionList)
     if (status) {
-        res.status(200).json("Tao thanh cong")
+        res.status(200).json({
+            code: 1,
+            error: 200,
+            message: "Tạo bài thi thành công!"
+        })
     }
     else {
-        res.status(500).json("Internal Server Error")
+        res.status(500).json({
+            code: 0,
+            status: 500,
+            message: "Tạo bài thi thất bại!"
+        })
     }
 }
 
@@ -91,10 +99,18 @@ const deleteTestHandler = async (req, res) => {
     var testId = req.params.id
     var status = await deleteTestById(testId)
     if (status) {
-        res.status(200).json("Xoa thanh cong")
+        res.status(200).json({
+            code: 1,
+            error: 200,
+            message: "Xóa thành công!"
+        })
     }
     else {
-        res.status(200).json("Internal Server Error")
+        res.status(500).json({
+            code: 0,
+            status: 500,
+            message: "Xóa thất bại!"
+        })
     }
 }
 
@@ -104,11 +120,51 @@ const updateTestHandler = async (req, res) => {
     // console.log(updateData)
     var status = await updateTestById(testId, updateData)
     if (status) {
-        res.status(200).json("Cập nhật thành công!")
+        res.status(200).json({
+            code: 1,
+            error: 200,
+            message: "Cập nhật thành công!"
+        })
     }
     else {
-        res.status(500).json("Cập nhật thất bại!")
+        res.status(500).json({
+            code: 0,
+            message: "Cập nhật thất bại!"
+        })
     }
 }
 
-module.exports = { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler }
+const searchTestHandler = async (req, res) => {
+    var name = req.query.name
+    var tests = await searchTestByName(name)
+    if (tests.status === 200) {
+        const response = {
+            code: 1,
+            status: 200,
+            message: "successfully",
+            data: tests.data
+        };
+
+        res.status(200).json(response);
+    }
+    else if (tests.status === 404) {
+        const response = {
+            code: 0,
+            status: 404,
+            message: "Không tìm thấy bài thi",
+        };
+
+        res.status(404).json(response);
+    }
+    else if (tests.status === 500) {
+        const response = {
+            code: 0,
+            status: 500,
+            message: "Lỗi tìm kiếm",
+        };
+
+        res.status(500).json(response);
+    }
+}
+
+module.exports = { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler, searchTestHandler }

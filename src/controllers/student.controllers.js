@@ -71,15 +71,29 @@ const postStudentHandler = (req, res) => {
     student = req.body
     var status = createNewStudent(student)
     if (status == 1) {
-        res.status(200).json("OK");
+        res.status(200).json({
+            code: 1,
+            status: 200,
+            message: "Tạo sinh viên thành công!",
+
+        });
 
     }
     else if (status == 0) {
-        res.status(500).json("Error");
+        res.status(500).json({
+            code: 0,
+            status: 500,
+            message: "Tạo sinh viên thất bại!"
+
+        });
     }
     else {
         //409 : conflict 
-        res.status(409).json("Mã sinh viên đã tồn tại");
+        res.status(409).json({
+            code: -1,
+            status: 409,
+            message: "Mã sinh viên đã tồn tại"
+        });
     }
 }
 
@@ -88,11 +102,19 @@ const deleteStudentHandler = async (req, res) => {
     studentId = req.params
     var status = deleteStudentById(studentId)
     if (status) {
-        res.status(200).json("OK");
-
+        res.status(200).json({
+            code: 1,
+            status: 200,
+            message: "Xóa sinh viên thành công!"
+        });
     }
     else {
-        res.status(500).json("Error");
+        res.status(500).json({
+            code: 0,
+            status: 500,
+            message: "Xóa sinh viên thất bại!"
+
+        });
     }
 }
 
@@ -103,13 +125,27 @@ const updateStudentHandler = async (req, res) => {
     const status = await updateStudentById(studentId, updatedData);
 
     if (status == 1) {
-        res.status(200).json("Cập nhật thành công!");
+        res.status(200).json({
+            code: 1,
+            status: 200,
+            message: "Cập nhật sinh viên thành công"
+
+        });
     }
     else if (status == 0) {
-        res.status(500).json("Internal Server Error");
+        res.status(500).json({
+            code: 0,
+            status: 500,
+            message: "Cập nhật sinh viên thất bại"
+        });
     }
     else {
-        res.status(409).json("Mã sinh viên đã tồn tại")
+        res.status(409).json({
+            code: -1,
+            status: 409,
+            message: "Mã sinh viên đã tồn tại"
+        })
     }
 }
+
 module.exports = { getStudentHandler, getStudentByIdHandler, postStudentHandler, deleteStudentHandler, updateStudentHandler }

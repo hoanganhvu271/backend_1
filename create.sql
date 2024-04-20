@@ -64,3 +64,15 @@ CREATE TABLE KetQuaTungCau (
     FOREIGN KEY (MaKetQua) REFERENCES KetQua(MaKetQua)  ON delete cascade on update cascade,
     FOREIGN KEY (MaCauHoi, MaLuaChon) REFERENCES LuaChon(MaCauHoi, MaLuaChon)  ON delete cascade on update cascade
 );
+
+
+CREATE TABLE Admin(
+    AdminName Varchar(20) primary key,
+    Name Varchar(50),
+    Password Varchar(20),
+    Email Varchar(30)
+)
+
+Insert into Admin values(
+	'admin', 'Hoang Anh Vu', '1', 'hoanganhvu271103@gmail.com'
+) 
