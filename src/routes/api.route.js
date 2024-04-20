@@ -12,8 +12,6 @@ router.use(isAuth)
 
 //User
 
-
-
 //Admin
 router.use(isAdmin)
 //tests
