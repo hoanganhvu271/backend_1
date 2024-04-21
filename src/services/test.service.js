@@ -254,6 +254,23 @@ const getIdTestWithDate = async (ngay) => {
   return listId;
 
 }
+
+const getTestByText = async (inputText) => {
+  try {
+    const tests = await db.Test.findAll({
+      where: {
+        TenBaiThi: {
+          [db.Sequelize.Op.like]: `%${inputText}%`
+        }
+      }
+    });
+    return tests;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    return null;
+  }
+}
+
 module.exports = {
   getAllTest,
   getTestById,
@@ -262,5 +279,6 @@ module.exports = {
   updateTestById,
   getTestByStudentId, getIdTestWithDate,
   searchTestByName,
-  getAllTestPerPage
+  getAllTestPerPage,
+  getTestByText
 };

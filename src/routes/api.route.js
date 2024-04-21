@@ -11,7 +11,7 @@ const {
     deleteTestHandler,
     updateTestHandler,
     getTestWithStudent,
-    searchTestHandler, getQuestionHandlernoAns, getResultList, getDetailList, postSubmit
+    searchTestHandler, getQuestionHandlernoAns, getResultList, getDetailList, postSubmit, getSearchTest
 } = require("../controllers/test.controllers");
 const {
     getStudentHandler,
@@ -50,6 +50,7 @@ router.get('/result-list/:msv/:mkq', isAuth, getDetailList)
 
 router.post('/new-test', isAuth, postTestHandler)
 router.post('/submit', isAuth, postSubmit)
+router.get('/search-test', isAuth, getSearchTest)
 
 //Admin
 //vu1
