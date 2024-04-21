@@ -6,8 +6,7 @@ const {
   updateStudentById,
   getStudentCondition,
 } = require("../services/student.service");
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
+
 const getStudentHandler = async (req, res) => {
   var students = await getAllStudent();
   // console.log(questions)
@@ -234,59 +233,7 @@ const createNewStudentHandler = async (req, res) => {
 
   }
 }
-const checkLoginUser = async (req, res) => {
-  //check valid user and password
-  if (!req.body.msv || !req.body.password) {
-    const response = {
-      code: 0,
-      status: 400,
-      message: "Yêu cầu điền thông tin đầy đủ",
-    };
 
-    res.status(400).json(response);
-  }
-  // check database
-  let data = await getStudentById(req.body.msv);
-  //status = 200 -> tim thay sinh vien -> check password 
-  //status = 404 -> khong tim thay sinh vien -> response failed to login 
-  //status = 500 -> lỗi trong quá trình xử lý
-  if (data.status === 404) {
-    const response = {
-      code: 0,
-      status: 404,
-      message: "Đăng nhập thất bại",
-    };
-    res.status(404).json(response);
-  }
-  if (data.status === 500) {
-    const response = {
-      code: 0,
-      status: 500,
-      message: "Truy vấn cơ sở dữ liệu thất bại",
-    };
-    res.status(500).json(response);
-  }
-  if (data.status === 200) {
-    var ok = await bcrypt.compareSync(req.body.password, data.data[0].MatKhau);
-    if (ok) {
-      const response = {
-        code: 1,
-        status: 200,
-        message: "Đăng nhập thành công",
-        data: [data]
-      };
-      res.status(200).json(response);
-    }
-    else {
-      const response = {
-        code: 0,
-        status: 404,
-        message: "Đăng nhập thất bại",
-      };
-      res.status(404).json(response);
-    }
-  }
-}
 module.exports = {
   getStudentHandler,
   getStudentByIdHandler,
@@ -295,5 +242,4 @@ module.exports = {
   updateStudentHandler,
   getStudentInresultHandler,
   createNewStudentHandler,
-  checkLoginUser
 };

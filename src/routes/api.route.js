@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const { checkLoginUser } = require("../controllers/auth.controllers");
+
 const {
     getTestList,
     getQuestionByTestHandler,
@@ -18,7 +20,7 @@ const {
     updateStudentHandler,
     getStudentInresultHandler,
     createNewStudentHandler,
-    checkLoginUser
+
 } = require("../controllers/student.controllers");
 
 const {
@@ -71,7 +73,7 @@ router.get("/result/detail/:id/:idTest", getDetailTestWithIdStuAndIdTest);
 
 
 //dat
-router.post("/loginStudent", checkLoginUser);
+router.post("/login/:role", checkLoginUser);
 router.post("/createNewstudent", createNewStudentHandler);
 router.get("/getAllStatic", getAllResultHandler);
 router.get("/getAllStaticWithIdResult/:id", getAllStaticWithIdResult);
