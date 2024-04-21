@@ -70,79 +70,55 @@ const getStudentByIdHandler = async (req, res) => {
 };
 
 const postStudentHandler = (req, res) => {
-<<<<<<< HEAD
-    student = req.body
-    var status = createNewStudent(student)
-    if (status == 1) {
-        res.status(200).json({
-            code: 1,
-            status: 200,
-            message: "Tạo sinh viên thành công!",
-
-        });
-
-    }
-    else if (status == 0) {
-        res.status(500).json({
-            code: 0,
-            status: 500,
-            message: "Tạo sinh viên thất bại!"
-
-        });
-    }
-    else {
-        //409 : conflict 
-        res.status(409).json({
-            code: -1,
-            status: 409,
-            message: "Mã sinh viên đã tồn tại"
-        });
-    }
-}
-
-
-const deleteStudentHandler = async (req, res) => {
-    studentId = req.params
-    var status = deleteStudentById(studentId)
-    if (status) {
-        res.status(200).json({
-            code: 1,
-            status: 200,
-            message: "Xóa sinh viên thành công!"
-        });
-    }
-    else {
-        res.status(500).json({
-            code: 0,
-            status: 500,
-            message: "Xóa sinh viên thất bại!"
-
-        });
-    }
-}
-=======
-  student = req.body;
-  var status = createNewStudent(student);
+  student = req.body
+  var status = createNewStudent(student)
   if (status == 1) {
-    res.status(200).json("OK");
-  } else if (status == 0) {
-    res.status(500).json("Error");
-  } else {
-    //409 : conflict
-    res.status(409).json("Mã sinh viên đã tồn tại");
+    res.status(200).json({
+      code: 1,
+      status: 200,
+      message: "Tạo sinh viên thành công!",
+
+    });
+
   }
-};
+  else if (status == 0) {
+    res.status(500).json({
+      code: 0,
+      status: 500,
+      message: "Tạo sinh viên thất bại!"
+
+    });
+  }
+  else {
+    //409 : conflict 
+    res.status(409).json({
+      code: -1,
+      status: 409,
+      message: "Mã sinh viên đã tồn tại"
+    });
+  }
+}
+
 
 const deleteStudentHandler = async (req, res) => {
-  studentId = req.params;
-  var status = deleteStudentById(studentId);
+  studentId = req.params
+  var status = deleteStudentById(studentId)
   if (status) {
-    res.status(200).json("OK");
-  } else {
-    res.status(500).json("Error");
+    res.status(200).json({
+      code: 1,
+      status: 200,
+      message: "Xóa sinh viên thành công!"
+    });
   }
-};
->>>>>>> c8653b136360af7b4f582da79e61ac5416ea6cac
+  else {
+    res.status(500).json({
+      code: 0,
+      status: 500,
+      message: "Xóa sinh viên thất bại!"
+
+    });
+  }
+}
 
 const updateStudentHandler = async (req, res) => {
   const studentId = req.params.id;
@@ -150,41 +126,31 @@ const updateStudentHandler = async (req, res) => {
 
   const status = await updateStudentById(studentId, updatedData);
 
-<<<<<<< HEAD
-    if (status == 1) {
-        res.status(200).json({
-            code: 1,
-            status: 200,
-            message: "Cập nhật sinh viên thành công"
+  if (status == 1) {
+    res.status(200).json({
+      code: 1,
+      status: 200,
+      message: "Cập nhật sinh viên thành công"
 
-        });
-    }
-    else if (status == 0) {
-        res.status(500).json({
-            code: 0,
-            status: 500,
-            message: "Cập nhật sinh viên thất bại"
-        });
-    }
-    else {
-        res.status(409).json({
-            code: -1,
-            status: 409,
-            message: "Mã sinh viên đã tồn tại"
-        })
-    }
+    });
+  }
+  else if (status == 0) {
+    res.status(500).json({
+      code: 0,
+      status: 500,
+      message: "Cập nhật sinh viên thất bại"
+    });
+  }
+  else {
+    res.status(409).json({
+      code: -1,
+      status: 409,
+      message: "Mã sinh viên đã tồn tại"
+    })
+  }
 }
 
-module.exports = { getStudentHandler, getStudentByIdHandler, postStudentHandler, deleteStudentHandler, updateStudentHandler }
-=======
-  if (status == 1) {
-    res.status(200).json("Cập nhật thành công!");
-  } else if (status == 0) {
-    res.status(500).json("Internal Server Error");
-  } else {
-    res.status(409).json("Mã sinh viên đã tồn tại");
-  }
-};
+
 
 const getStudentInresultHandler = async (req, res) => {
   var value = req.query.value;
@@ -232,4 +198,3 @@ module.exports = {
   updateStudentHandler,
   getStudentInresultHandler,
 };
->>>>>>> c8653b136360af7b4f582da79e61ac5416ea6cac

@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler,
-    searchTestHandler } = require('../controllers/test.controllers')
+    searchTestHandler, getTestWithStudent } = require('../controllers/test.controllers')
 const { getStudentHandler, getStudentByIdHandler, postStudentHandler, deleteStudentHandler,
-    updateStudentHandler } = require('../controllers/student.controllers')
+    updateStudentHandler, getStudentInresultHandler } = require('../controllers/student.controllers')
 const { isAuth, isAdmin } = require('../middleware/auth.middleware')
 const { getStatisticsHandler } = require('../controllers/statistic.controllers')
+const { getDetailTestWithIdStuAndIdTest } = require('../controllers/result.controllers')
 
 router.use(isAuth)
 
