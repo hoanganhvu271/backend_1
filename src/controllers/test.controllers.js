@@ -6,12 +6,7 @@ const { getStudentById } = require('../services/student.service')
 const getTestList = async (req, res) => {
   var tests = await getAllTest();
   if (tests.status === 200) {
-    const response = {
-      code: 1,
-      status: 200,
-      message: "successfully",
-      data: tests.data,
-    };
+
 
     var tests = await getAllTest();
     if (tests.status === 200) {

@@ -32,6 +32,8 @@ const { getStatisticsHandler } = require("../controllers/statistic.controllers")
 const { isAuth, isAdmin } = require("../middleware/auth.middleware");
 //User
 
+router.use(isAuth)
+
 //Admin
 router.use(isAdmin)
 //tests

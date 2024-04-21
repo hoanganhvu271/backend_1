@@ -9,17 +9,14 @@ const getAllTest = async () => {
   var data = { status: null, data: null };
   try {
     const tests = await db.Test.findAll();
-    console.log(tests);
     if (tests.length > 0) {
       data.status = 200;
       data.data = tests;
     } else {
-      console.log("Không tìm thấy bài thi");
       data.status = 404;
     }
     return data;
   } catch (error) {
-    console.error("Lỗi khi truy vấn dữ liệu:", error);
     data.status = 500;
     return data;
   }
