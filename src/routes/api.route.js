@@ -56,8 +56,8 @@ router.get("/result/detail/:id/:idTest", getDetailTestWithIdStuAndIdTest);
 router.get("/loginStudent", checkLoginUser);
 router.post("/createNewstudent", createNewStudentHandler);
 router.get("/getAllStatic", getAllResultHandler);
-router.get("/getAllStaticWithIdResult", getAllStaticWithIdResult);
-router.get("/getAllStaticWithDate", getAllStaticWithIdDate);
+router.get("/getAllStaticWithIdResult/:id", getAllStaticWithIdResult);
+router.get("/getAllStaticWithDate/:date", getAllStaticWithIdDate);
 
 
 //loc ket qua theo ki thi va ngay thang

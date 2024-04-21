@@ -68,7 +68,7 @@ const getAllResultHandler = async (req, res) => {
 
 }
 const getAllStaticWithIdResult = async (req, res) => {
-  const idResult = req.body.id;
+  const idResult = req.params.id;;
 
   const data = await getResultWithIdResult(idResult);
   if (data.status === 404) {
@@ -97,7 +97,7 @@ const getAllStaticWithIdResult = async (req, res) => {
 
 }
 const getAllStaticWithIdDate = async (req, res) => {
-  const ngay = req.body.ngay;
+  const ngay = req.params.date;
   if (!req.body.ngay) {
     res.status(404).json({
       code: 0,
