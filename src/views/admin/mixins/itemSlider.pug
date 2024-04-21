@@ -1,0 +1,18 @@
+mixin item-arrow(title, icon, items)
+  li.nav-item.dropdown
+    a.dropdown-toggle(href='javascript:;' button-dropdown-item)
+      span.icon-holder
+        i(class= icon)
+      span.title= title
+      span(class="arrow" arrow)
+        i.ti-angle-right
+    ul.dropdown-menu
+      each item in items
+        li
+          a.sidebar-link(href= item.href) #{item.title}
+mixin normal-item(title, icon, href)
+  li.nav-item.mT-30.actived
+      a.sidebar-link(href= href)
+        span.icon-holder
+          i(class= icon)
+        span.title= title
