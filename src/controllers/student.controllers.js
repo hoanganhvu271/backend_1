@@ -267,7 +267,8 @@ const checkLoginUser = async (req, res) => {
     res.status(500).json(response);
   }
   if (data.status === 200) {
-    if (bcrypt.compareSync(req.body.password, data.data[0].MatKhau)) {
+    var ok = await bcrypt.compareSync(req.body.password, data.data[0].MatKhau);
+    if (ok) {
       const response = {
         code: 1,
         status: 200,

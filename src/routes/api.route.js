@@ -28,7 +28,8 @@ const {
     getAllStaticWithIdResult,
 } = require("../controllers/result.controllers");
 
-const { getStatisticsHandler } = require("../controllers/statistics.controllers");
+const { getStatisticsHandler } = require("../controllers/statistic.controllers");
+const { isAuth, isAdmin } = require("../middleware/auth.middleware");
 //User
 
 //Admin
@@ -60,7 +61,7 @@ router.get("/result/detail/:id/:idTest", getDetailTestWithIdStuAndIdTest);
 
 
 //dat
-router.get("/loginStudent", checkLoginUser);
+router.post("/loginStudent", checkLoginUser);
 router.post("/createNewstudent", createNewStudentHandler);
 router.get("/getAllStatic", getAllResultHandler);
 router.get("/getAllStaticWithIdResult/:id", getAllStaticWithIdResult);

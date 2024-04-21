@@ -16,7 +16,8 @@ connection()
 app.use(express.json()) // for json
 app.use(express.urlencoded({ extended: true })); // for form data
 app.use(trimInputs)
-// app.use('/', mainRoutes)
+
+app.use('/', mainRoutes)
 app.use('/api', apiRoutes)
 //express-session
 viewEngine(app)
