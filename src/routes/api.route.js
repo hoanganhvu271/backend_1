@@ -8,7 +8,7 @@ const {
     deleteTestHandler,
     updateTestHandler,
     getTestWithStudent,
-    searchTestHandler
+    searchTestHandler, getQuestionHandlernoAns, getResultList, getDetailList, postTestHandler, postSubmit
 } = require("../controllers/test.controllers");
 const {
     getStudentHandler,
@@ -32,10 +32,10 @@ const { getStatisticsHandler } = require("../controllers/statistic.controllers")
 const { isAuth, isAdmin } = require("../middleware/auth.middleware");
 //User
 
-router.use(isAuth)
+// router.use(isAuth)
 
-//Admin
-router.use(isAdmin)
+// //Admin
+// router.use(isAdmin)
 //tests
 router.get('/get-test', getTestList)
 router.get('/get-test/:id', getQuestionByTestHandler)
@@ -43,6 +43,14 @@ router.get('/search-test', searchTestHandler)
 router.post('/new-test', postTestHandler)
 router.delete('/delete-test/:id', deleteTestHandler)
 router.put('/update-test/:id', updateTestHandler)
+
+//hiep
+router.get('/thi/:id', getQuestionHandlernoAns)
+router.get('/result-list/:msv', getResultList)
+router.get('/result-list/:msv/:mkq', getDetailList)
+
+router.post('/new-test', postTestHandler)
+router.post('/submit', postSubmit)
 
 //students
 router.get('/get-student', getStudentHandler)

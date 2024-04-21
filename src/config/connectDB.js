@@ -1,8 +1,15 @@
 const { Sequelize } = require("sequelize");
 
+<<<<<<< HEAD
 const sequelize = new Sequelize("javasql", "root", "hvxk2003", {
   host: "localhost",
   dialect: "mysql",
+=======
+const sequelize = new Sequelize('javasql', 'root', '1111', {
+    host: 'localhost',
+    port: '3307',
+    dialect: 'mysql'
+>>>>>>> bf70bcffc4a8e42c38f762b3a50eeeed2648ea64
 });
 const connection = async () => {
   try {

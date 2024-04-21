@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       MaKetQua: {
         type: DataTypes.STRING,
+        primaryKey: true
       },
       MaBaiThi: {
         type: DataTypes.STRING,

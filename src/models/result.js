@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       MSV: DataTypes.STRING,
       MaBaiThi: DataTypes.STRING,
       Diem: DataTypes.FLOAT,
+      ThoiGianLamBai: DataTypes.STRING,
+      ThoiGianNopBai: DataTypes.STRING
     },
     {
       // options
