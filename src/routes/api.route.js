@@ -8,7 +8,7 @@ const {
     deleteTestHandler,
     updateTestHandler,
     getTestWithStudent,
-    searchTestHandler, getQuestionHandlernoAns, getResultList, getDetailList, postTestHandler, postSubmit
+    searchTestHandler, getQuestionHandlernoAns, getResultList, getDetailList, postSubmit
 } = require("../controllers/test.controllers");
 const {
     getStudentHandler,
