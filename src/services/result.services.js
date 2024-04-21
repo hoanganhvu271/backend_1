@@ -87,7 +87,39 @@ const getResultWithIdResult = async (idResult) => {
   return data;
 }
 const getResultWithDate = async (Date) => {
+  const data = {
+    status: null,
+    data: null,
+  };
 
+
+  try {
+    const res = await db.Result.findAll({
+      raw: true,
+      where: {
+        MaBaiThi: idResult
+      },
+    });
+    //console.log(res);
+    //neu ton tai -> 200
+    // khong ton tai -> 400
+    //truy van loi -> 500
+    if (res.length > 0) {
+      data.status = 200;
+      data.data = res;
+    }
+    else {
+      data.status = 404;
+      data.data = null;
+    }
+
+  }
+  catch (e) {
+    console.log(e);
+    data.status = 500;
+
+  }
+  return data;
 }
 module.exports = {
   getResultByIdStuAndIdTest,

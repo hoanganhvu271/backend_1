@@ -68,7 +68,8 @@ const getAllResultHandler = async (req, res) => {
 
 }
 const getAllStaticWithIdResult = async (req, res) => {
-  const idResult = req.params.id;;
+  const idResult = req.params.id;
+
 
   const data = await getResultWithIdResult(idResult);
   if (data.status === 404) {

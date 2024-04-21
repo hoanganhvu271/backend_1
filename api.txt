@@ -16,6 +16,7 @@ một số status phổ biến:
 - 400: lỗi kiểm tra dữ liệu 
 - 409: conflict dữ liệu
 - 500: lỗi khi truy vấn
+- 404: không tìm thấy dữ liệu
 
 
 
