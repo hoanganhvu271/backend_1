@@ -1,5 +1,5 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
 const { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler,
     searchTestHandler } = require('../controllers/test.controllers')
@@ -32,5 +32,10 @@ router.put('/update-student/:id', updateStudentHandler)
 //statistics
 router.get('/statistics/:id', getStatisticsHandler)
 
-module.exports = router
 
+//quan
+router.get("/result/get-all-student", getStudentInresultHandler);
+router.get("/result/get-all-student/:id", getStudentByIdHandler);
+router.get("/result/detail/:id", getTestWithStudent);
+router.get("/result/detail/:id/:idTest", getDetailTestWithIdStuAndIdTest);
+module.exports = router;

@@ -45,6 +45,7 @@ const getStatisticById = async (id) => {
                 average: average,
                 rangeOfPoint: rangeOfPoint,
                 ranking: students
+
             }
             return data
         }
