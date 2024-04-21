@@ -24,6 +24,23 @@ const getTestById = async (id) => {
     }
 }
 
+const getTestByText = async (inputText) => {
+    try {
+        const tests = await db.Test.findAll({
+            where: {
+                TenBaiThi: {
+                    [db.Sequelize.Op.like]: `%${inputText}%`
+                }
+            }
+        });
+        return tests;
+    } catch (error) {
+        console.error("Lỗi khi truy vấn dữ liệu:", error);
+        return null;
+    }
+}
+
+
 const createNewTest = async (test, questionList) => {
     try {
         await db.Test.create(
@@ -45,4 +62,4 @@ const createNewTest = async (test, questionList) => {
 }
 
 
-module.exports = { getAllTest, getTestById, createNewTest }
+module.exports = { getAllTest, getTestById, getTestByText, createNewTest }
