@@ -6,7 +6,8 @@ const {
   updateStudentById,
   getStudentCondition,
 } = require("../services/student.service");
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const getStudentHandler = async (req, res) => {
   var students = await getAllStudent();
   // console.log(questions)
@@ -189,7 +190,102 @@ const getStudentInresultHandler = async (req, res) => {
     res.status(500).json(response);
   }
 };
+const createNewStudentHandler = async (req, res) => {
+  try {
+    //resq.body
+    //validate user
+    if (!req.body.msv || !req.body.name || !req.body.class || !req.body.email || !req.body.account || !req.body.password) {
+      return res.status(400).json({
+        code: 0,
+        message: "Vui lòng nhập đầy đủ thông tin",
+      });
+    }
 
+    if (req.body.password && req.body.password.length < 9) {
+      return res.status(400).json({
+        code: 0,
+        message: "Mật khẩu tối thiểu 9 ký tự",
+        EC: '0',
+        DT: ''
+      });
+    }
+    let data = await createNewStudent(req.body);
+    if (data == -1) {
+      return res.status(409).json({
+        code: 0,
+        message: "Sinh Viên đã tồn tại trong cơ sở dữ liệu",
+        EC: '0',
+        DT: ''
+      });
+    }
+    return res.status(200).json({
+      code: data,
+      message: "Sinh Viên được tạo thành công",
+      EC: '0',
+      DT: ''
+    });
+  } catch (error) {
+    return res.status(500).json({
+      code: 0,
+
+      message: "Lỗi khi tạo sinh viên",
+
+    })
+
+  }
+}
+const checkLoginUser = async (req, res) => {
+  //check valid user and password
+  if (!req.body.msv || !req.body.password) {
+    const response = {
+      code: 0,
+      status: 400,
+      message: "Yêu cầu điền thông tin đầy đủ",
+    };
+
+    res.status(400).json(response);
+  }
+  // check database
+  let data = await getStudentById(req.body.msv);
+  //status = 200 -> tim thay sinh vien -> check password 
+  //status = 404 -> khong tim thay sinh vien -> response failed to login 
+  //status = 500 -> lỗi trong quá trình xử lý
+  if (data.status === 404) {
+    const response = {
+      code: 0,
+      status: 404,
+      message: "Đăng nhập thất bại",
+    };
+    res.status(404).json(response);
+  }
+  if (data.status === 500) {
+    const response = {
+      code: 0,
+      status: 500,
+      message: "Truy vấn cơ sở dữ liệu thất bại",
+    };
+    res.status(500).json(response);
+  }
+  if (data.status === 200) {
+    if (bcrypt.compareSync(req.body.password, data.data[0].MatKhau)) {
+      const response = {
+        code: 1,
+        status: 200,
+        message: "Đăng nhập thành công",
+        data: [data]
+      };
+      res.status(200).json(response);
+    }
+    else {
+      const response = {
+        code: 0,
+        status: 404,
+        message: "Đăng nhập thất bại",
+      };
+      res.status(404).json(response);
+    }
+  }
+}
 module.exports = {
   getStudentHandler,
   getStudentByIdHandler,
@@ -197,4 +293,6 @@ module.exports = {
   deleteStudentHandler,
   updateStudentHandler,
   getStudentInresultHandler,
+  createNewStudentHandler,
+  checkLoginUser
 };

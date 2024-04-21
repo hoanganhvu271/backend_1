@@ -1,16 +1,34 @@
 const express = require("express");
 const router = express.Router();
 
-const { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler,
-    searchTestHandler, getTestWithStudent } = require('../controllers/test.controllers')
-const { getStudentHandler, getStudentByIdHandler, postStudentHandler, deleteStudentHandler,
-    updateStudentHandler, getStudentInresultHandler } = require('../controllers/student.controllers')
-const { isAuth, isAdmin } = require('../middleware/auth.middleware')
-const { getStatisticsHandler } = require('../controllers/statistic.controllers')
-const { getDetailTestWithIdStuAndIdTest } = require('../controllers/result.controllers')
+const {
+    getTestList,
+    getQuestionByTestHandler,
+    postTestHandler,
+    deleteTestHandler,
+    updateTestHandler,
+    getTestWithStudent,
+    searchTestHandler
+} = require("../controllers/test.controllers");
+const {
+    getStudentHandler,
+    getStudentByIdHandler,
+    postStudentHandler,
+    deleteStudentHandler,
+    updateStudentHandler,
+    getStudentInresultHandler,
+    createNewStudentHandler,
+    checkLoginUser
+} = require("../controllers/student.controllers");
 
-router.use(isAuth)
+const {
+    getAllResultHandler,
+    getDetailTestWithIdStuAndIdTest,
+    getAllStaticWithIdDate,
+    getAllStaticWithIdResult,
+} = require("../controllers/result.controllers");
 
+const { getStatisticsHandler } = require("../controllers/statistics.controllers");
 //User
 
 //Admin
@@ -39,4 +57,17 @@ router.get("/result/get-all-student", getStudentInresultHandler);
 router.get("/result/get-all-student/:id", getStudentByIdHandler);
 router.get("/result/detail/:id", getTestWithStudent);
 router.get("/result/detail/:id/:idTest", getDetailTestWithIdStuAndIdTest);
+
+
+//dat
+router.get("/loginStudent", checkLoginUser);
+router.post("/createNewstudent", createNewStudentHandler);
+router.get("/getAllStatic", getAllResultHandler);
+router.get("/getAllStaticWithIdResult/:id", getAllStaticWithIdResult);
+router.get("/getAllStaticWithDate/:date", getAllStaticWithIdDate);
+
+
+//loc ket qua theo ki thi va ngay thang
+// router.get("/admin/get", getAllStaticHandler);
+
 module.exports = router;

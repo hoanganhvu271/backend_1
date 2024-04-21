@@ -2,6 +2,8 @@ const db = require("../models/index");
 const { sequelize } = require("../config/connectDB");
 const { createNewQuestion } = require("./question.service");
 const { where } = require("sequelize");
+const Sequelize = require('sequelize');
+
 
 const getAllTest = async () => {
   var data = { status: null, data: null };
@@ -167,6 +169,30 @@ const updateTestById = async (testId, updateData) => {
     return false;
   }
 }
+const searchTestByName = async (name) => {
+  var data = { status: null, data: null };
+  const { Op } = require("sequelize");
+  try {
+    const tests = await db.Test.findAll({
+      where: {
+        TenBaithi: { [Op.like]: '%' + name.replace(/"/g, '') + '%' }
+      }
+    });
+
+    if (tests.length > 0) {
+      data.status = 200
+      data.data = tests
+    }
+    else {
+      data.status = 404
+    }
+    return data
+  } catch (error) {
+    data.status = 500
+    return data
+  }
+
+}
 const getTestByStudentId = async (stuID) => {
   try {
     const data = { status: null, data: [] };
@@ -191,5 +217,45 @@ const getTestByStudentId = async (stuID) => {
     throw error;
   }
 };
+const getIdTestWithDate = async (ngay) => {
+  try {
+    const listId = await db.Test.findAll({
+      attributes: ['MaBaiThi'], // Chỉ lấy trường id
+      raw: true,
+      where: {
+        ThoiGianBatDau: {
+          [Sequelize.Op.like]: `%${ngay}%`
+        }
+      }
+    });
+    return listId;
+  } catch (error) {
+    console.log("lỗi xảy ra khi truy vấn dữ liệu", error);
+  }
 
-module.exports = { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById, getTestByStudentId }
+
+  return listId;
+
+  //   if (listTest.length > 0) {
+  //     data.status = 200;
+  //     data.data = listTest;
+  //   } else {
+  //     data.status = 404;
+  //   }
+  //   return data;
+  // } catch (error) {
+  //   console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
+  //   throw error;
+  // }
+
+}
+module.exports = {
+  getAllTest,
+  getTestById,
+  createNewTest,
+  deleteTestById,
+  updateTestById,
+  getTestByStudentId, getIdTestWithDate,
+  searchTestByName
+
+};
