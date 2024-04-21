@@ -1,6 +1,7 @@
 
 const { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById, searchTestByName, getTestByStudentId } = require('../services/test.service')
 const { getQuestionOfTest } = require('../services/question.service')
+const { getStudentById } = require('../services/student.service')
 
 const getTestList = async (req, res) => {
   var tests = await getAllTest();
