@@ -1,7 +1,8 @@
 const { raw } = require("mysql2");
 const db = require("../models/index");
 const { where, Op } = require("sequelize");
-
+const bcrypt = require("bcrypt")
+const saltRounds = 10
 const getAllStudent = async () => {
   var data = { status: null, data: null };
 
@@ -45,6 +46,7 @@ const getStudentById = async (id) => {
 };
 
 const createNewStudent = async (student) => {
+
   try {
     studentData = await db.Student.findAll({
       where: { MSV: student.msv },
@@ -53,13 +55,14 @@ const createNewStudent = async (student) => {
     if (studentData.length > 0) {
       return -1;
     }
+    var hashpassword = await bcrypt.hash(student.password, saltRounds);
     await db.Student.create({
       MSV: student.msv,
       Ten: student.name,
       Lop: student.class,
       Email: student.email,
       TaiKhoan: student.account,
-      MatKhau: student.password,
+      MatKhau: hashpassword,
     });
     return 1;
   } catch (error) {

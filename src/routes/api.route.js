@@ -16,11 +16,15 @@ const {
   deleteStudentHandler,
   updateStudentHandler,
   getStudentInresultHandler,
+  createNewStudentHandler,
+  checkLoginUser
 } = require("../controllers/student.controllers");
 
 const {
-  getResultWithIdStuAndIdTest,
+  getAllResultHandler,
   getDetailTestWithIdStuAndIdTest,
+  getAllStaticWithIdDate,
+  getAllStaticWithIdResult,
 } = require("../controllers/result.controllers");
 
 const { isAuth } = require("../middleware/auth.middleware");
@@ -46,4 +50,17 @@ router.get("/result/get-all-student", getStudentInresultHandler);
 router.get("/result/get-all-student/:id", getStudentByIdHandler);
 router.get("/result/detail/:id", getTestWithStudent);
 router.get("/result/detail/:id/:idTest", getDetailTestWithIdStuAndIdTest);
+
+
+//dat
+router.get("/loginStudent", checkLoginUser);
+router.post("/createNewstudent", createNewStudentHandler);
+router.get("/getAllStatic", getAllResultHandler);
+router.get("/getAllStaticWithIdResult", getAllStaticWithIdResult);
+router.get("/getAllStaticWithDate", getAllStaticWithIdDate);
+
+
+//loc ket qua theo ki thi va ngay thang
+// router.get("/admin/get", getAllStaticHandler);
+
 module.exports = router;
