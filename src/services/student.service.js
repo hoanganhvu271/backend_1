@@ -74,20 +74,23 @@ const createNewStudent = async (student) => {
     studentData = await db.Student.findAll({
       where: { MSV: student.msv },
     });
+    console.log(studentData)
 
     if (studentData.length > 0) {
       return -1;
     }
-    var hashpassword = await bcrypt.hash(student.password, saltRounds);
-    await db.Student.create({
-      MSV: student.msv,
-      Ten: student.name,
-      Lop: student.class,
-      Email: student.email,
-      TaiKhoan: student.account,
-      MatKhau: hashpassword,
-    });
-    return 1;
+    else {
+      var hashpassword = await bcrypt.hash(student.password, saltRounds);
+      await db.Student.create({
+        MSV: student.msv,
+        Ten: student.name,
+        Lop: student.class,
+        Email: student.email,
+        TaiKhoan: student.account,
+        MatKhau: hashpassword,
+      });
+      return 1;
+    }
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
     return 0;

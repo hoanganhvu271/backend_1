@@ -102,9 +102,9 @@ const getStudentByIdHandler = async (req, res) => {
   }
 };
 
-const postStudentHandler = (req, res) => {
+const postStudentHandler = async (req, res) => {
   student = req.body
-  var status = createNewStudent(student)
+  var status = await createNewStudent(student)
   if (status == 1) {
     res.status(200).json({
       code: 1,
@@ -112,7 +112,6 @@ const postStudentHandler = (req, res) => {
       message: "Tạo sinh viên thành công!",
 
     });
-
   }
   else if (status == 0) {
     res.status(500).json({

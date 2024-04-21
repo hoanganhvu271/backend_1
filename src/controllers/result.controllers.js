@@ -117,8 +117,12 @@ const getAllStaticWithIdDate = async (req, res) => {
       if (dataId.status === 200) {
         data.push(dataId.data);
       }
-
+      else {
+        return data
+      }
     }
+
+
 
     if (data.length > 0) {
       res.status(200).json({

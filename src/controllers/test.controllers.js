@@ -198,6 +198,7 @@ const getDetailList = async (req, res) => {
 
 const postTestHandler = async (req, res) => {
   var reqBody = req.body;
+  console.log(reqBody)
   var test = reqBody.metadata;
   var questionList = reqBody.data;
 

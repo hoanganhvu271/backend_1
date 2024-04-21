@@ -64,7 +64,7 @@ const createNewTest = async (test, questionList) => {
   let t;
   try {
     t = await sequelize.transaction();
-    var mbt = "BT07";
+    var mbt = "BT15";
     await db.Test.create(
       {
         MaBaiThi: mbt,

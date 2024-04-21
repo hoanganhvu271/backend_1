@@ -37,53 +37,53 @@ const { isAuth, isAdmin } = require("../middleware/auth.middleware");
 
 
 //Guest
+
 router.post("/login/:role", checkLoginUser);
 router.post("/createNewstudent", createNewStudentHandler);
 
 //User
-router.use(isAuth)
-//hiep
-router.get('/thi/:id', getQuestionHandlernoAns)
-router.get('/result-list/:msv', getResultList)
-router.get('/result-list/:msv/:mkq', getDetailList)
 
-router.post('/new-test', postTestHandler)
-router.post('/submit', postSubmit)
+//hiep
+router.get('/thi/:id', isAuth, getQuestionHandlernoAns)
+router.get('/result-list/:msv', isAuth, getResultList)
+router.get('/result-list/:msv/:mkq', isAuth, getDetailList)
+
+router.post('/new-test', isAuth, postTestHandler)
+router.post('/submit', isAuth, postSubmit)
 
 //Admin
-router.use(isAdmin)
 //vu1
-router.get('/get-test', getTestList)
-router.get('/get-test-per-page', getTestByPage)
-router.get('/get-test/:id', getQuestionByTestHandler)
-router.get('/search-test', searchTestHandler)
-router.post('/new-test', postTestHandler)
-router.delete('/delete-test/:id', deleteTestHandler)
-router.put('/update-test/:id', updateTestHandler)
+router.get('/get-test', isAdmin, getTestList)
+router.get('/get-test-per-page', isAdmin, getTestByPage)
+router.get('/get-test/:id', isAdmin, getQuestionByTestHandler)
+router.get('/search-test', isAdmin, searchTestHandler)
+router.post('/new-test', isAdmin, postTestHandler)
+router.delete('/delete-test/:id', isAdmin, deleteTestHandler)
+router.put('/update-test/:id', isAdmin, updateTestHandler)
 
 //vu2
-router.get('/get-student', getStudentHandler)
-router.get('/get-student/:id', getStudentByIdHandler)
-router.get('/get-student-per-page', getStudentByPage)
-router.post('/new-student', postStudentHandler)
-router.delete('/delete-student/:id', deleteStudentHandler)
-router.put('/update-student/:id', updateStudentHandler)
+router.get('/get-student', isAdmin, getStudentHandler)
+router.get('/get-student/:id', isAdmin, getStudentByIdHandler)
+router.get('/get-student-per-page', isAdmin, getStudentByPage)
+router.post('/new-student', isAdmin, postStudentHandler)
+router.delete('/delete-student/:id', isAdmin, deleteStudentHandler)
+router.put('/update-student/:id', isAdmin, updateStudentHandler)
 
 //vu3
-router.get('/statistics/:id', getStatisticsHandler)
+router.get('/statistics/:id', isAdmin, getStatisticsHandler)
 
 
 //quan
-router.get("/result/get-all-student", getStudentInresultHandler);
-router.get("/result/get-all-student/:id", getStudentByIdHandler);
-router.get("/result/detail/:id", getTestWithStudent);
-router.get("/result/detail/:id/:idTest", getDetailTestWithIdStuAndIdTest);
+router.get("/result/get-all-student", isAdmin, getStudentInresultHandler);
+router.get("/result/get-all-student/:id", isAdmin, getStudentByIdHandler);
+router.get("/result/detail/:id", isAdmin, getTestWithStudent);
+router.get("/result/detail/:id/:idTest", isAdmin, getDetailTestWithIdStuAndIdTest);
 
 
 //dat
-router.get("/getAllStatic", getAllResultHandler);
-router.get("/getAllStaticWithIdResult/:id", getAllStaticWithIdResult);
-router.get("/getAllStaticWithDate/:date", getAllStaticWithIdDate);
+router.get("/getAllStatic", isAdmin, getAllResultHandler);
+router.get("/getAllStaticWithIdResult/:id", isAdmin, getAllStaticWithIdResult);
+router.get("/getAllStaticWithDate/:date", isAdmin, getAllStaticWithIdDate);
 
 
 //loc ket qua theo ki thi va ngay thang
