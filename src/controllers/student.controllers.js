@@ -5,6 +5,7 @@ const {
   deleteStudentById,
   updateStudentById,
   getStudentCondition,
+  getAllStudentPerPage
 } = require("../services/student.service");
 
 const getStudentHandler = async (req, res) => {
@@ -39,6 +40,38 @@ const getStudentHandler = async (req, res) => {
     res.status(500).json(response);
   }
 };
+
+const getStudentByPage = async (req, res) => {
+  var students = await getAllStudentPerPage(req.query.page);
+  if (students.status === 200) {
+    var hiddenStudents = students.data.map((student) => {
+      const { TaiKhoan, MatKhau, ...rest } = student;
+      return rest;
+    });
+    const response = {
+      code: 1,
+      status: 200,
+      message: "successfully",
+      data: hiddenStudents,
+    };
+
+    res.status(200).json(response);
+  } else if (students.status === 404) {
+    const response = {
+      code: 0,
+      status: 404,
+      message: "Không tìm thấy sinh viên",
+    };
+    res.status(404).json(response);
+  } else {
+    const response = {
+      code: 0,
+      status: 500,
+      message: "Internal Server Error",
+    };
+    res.status(500).json(response);
+  }
+}
 
 const getStudentByIdHandler = async (req, res) => {
   const id = req.params.id;
@@ -242,4 +275,5 @@ module.exports = {
   updateStudentHandler,
   getStudentInresultHandler,
   createNewStudentHandler,
+  getStudentByPage
 };

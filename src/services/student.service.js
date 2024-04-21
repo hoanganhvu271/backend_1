@@ -24,6 +24,29 @@ const getAllStudent = async () => {
   }
 };
 
+const getAllStudentPerPage = async (page) => {
+  var data = { status: null, data: null };
+  try {
+    const students = await db.Student.findAll({
+      limit: 10,
+      offset: (page - 1) * 10,
+      raw: true
+    });
+    if (students.length > 0) {
+      data.status = 200;
+      data.data = students;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+
+    data.status = 500;
+    return data;
+  }
+
+}
+
 const getStudentById = async (id) => {
   var data = { status: null, data: null };
   try {
@@ -171,4 +194,5 @@ module.exports = {
   deleteStudentById,
   updateStudentById,
   getStudentCondition,
+  getAllStudentPerPage
 };

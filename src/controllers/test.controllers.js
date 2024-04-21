@@ -1,5 +1,5 @@
 
-const { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById, searchTestByName, getTestByStudentId } = require('../services/test.service')
+const { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById, searchTestByName, getTestByStudentId, getAllTestPerPage } = require('../services/test.service')
 const { getQuestionOfTest, getQuestionOfTestUser } = require('../services/question.service')
 const { getStudentById } = require('../services/student.service')
 const { getDetailListWithIdResultandIdStu } = require('../services/detail.services')
@@ -39,6 +39,37 @@ const getTestList = async (req, res) => {
     }
   }
 };
+
+const getTestByPage = async (req, res) => {
+  var tests = await getAllTestPerPage(req.query.page)
+  if (tests.status === 200) {
+    const response = {
+      code: 1,
+      status: 200,
+      message: "successfully",
+      data: tests.data,
+
+    }
+    res.status(200).json(response);
+  } else if (tests.status === 500) {
+    const response = {
+      code: 0,
+      status: 500,
+      message: "Internal Server Error",
+    };
+
+    res.status(500).json(response);
+  } else {
+    const response = {
+      code: 0,
+      status: 404,
+      message: "Không tìm thấy bài thi",
+    };
+
+    res.status(404).json(response);
+  }
+}
+
 
 const getQuestionByTestHandler = async (req, res) => {
   const testId = req.params.id;
@@ -290,7 +321,7 @@ const postSubmit = async (req, res) => {
   }
 }
 
-module.exports = { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler, searchTestHandler, getTestWithStudent, getResultList, getDetailList, postTestHandler, getQuestionHandlernoAns, postSubmit }
+module.exports = { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler, searchTestHandler, getTestWithStudent, getResultList, getDetailList, postTestHandler, getQuestionHandlernoAns, postSubmit, getTestByPage }
 
 
 

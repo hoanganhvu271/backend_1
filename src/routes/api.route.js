@@ -5,6 +5,7 @@ const { checkLoginUser } = require("../controllers/auth.controllers");
 
 const {
     getTestList,
+    getTestByPage,
     getQuestionByTestHandler,
     postTestHandler,
     deleteTestHandler,
@@ -20,6 +21,7 @@ const {
     updateStudentHandler,
     getStudentInresultHandler,
     createNewStudentHandler,
+    getStudentByPage
 
 } = require("../controllers/student.controllers");
 
@@ -32,20 +34,14 @@ const {
 
 const { getStatisticsHandler } = require("../controllers/statistic.controllers");
 const { isAuth, isAdmin } = require("../middleware/auth.middleware");
+
+
+//Guest
+router.post("/login/:role", checkLoginUser);
+router.post("/createNewstudent", createNewStudentHandler);
+
 //User
-
-// router.use(isAuth)
-
-// //Admin
-// router.use(isAdmin)
-//tests
-router.get('/get-test', getTestList)
-router.get('/get-test/:id', getQuestionByTestHandler)
-router.get('/search-test', searchTestHandler)
-router.post('/new-test', postTestHandler)
-router.delete('/delete-test/:id', deleteTestHandler)
-router.put('/update-test/:id', updateTestHandler)
-
+router.use(isAuth)
 //hiep
 router.get('/thi/:id', getQuestionHandlernoAns)
 router.get('/result-list/:msv', getResultList)
@@ -54,14 +50,26 @@ router.get('/result-list/:msv/:mkq', getDetailList)
 router.post('/new-test', postTestHandler)
 router.post('/submit', postSubmit)
 
-//students
+//Admin
+router.use(isAdmin)
+//vu1
+router.get('/get-test', getTestList)
+router.get('/get-test-per-page', getTestByPage)
+router.get('/get-test/:id', getQuestionByTestHandler)
+router.get('/search-test', searchTestHandler)
+router.post('/new-test', postTestHandler)
+router.delete('/delete-test/:id', deleteTestHandler)
+router.put('/update-test/:id', updateTestHandler)
+
+//vu2
 router.get('/get-student', getStudentHandler)
 router.get('/get-student/:id', getStudentByIdHandler)
+router.get('/get-student-per-page', getStudentByPage)
 router.post('/new-student', postStudentHandler)
 router.delete('/delete-student/:id', deleteStudentHandler)
 router.put('/update-student/:id', updateStudentHandler)
 
-//statistics
+//vu3
 router.get('/statistics/:id', getStatisticsHandler)
 
 
@@ -73,8 +81,6 @@ router.get("/result/detail/:id/:idTest", getDetailTestWithIdStuAndIdTest);
 
 
 //dat
-router.post("/login/:role", checkLoginUser);
-router.post("/createNewstudent", createNewStudentHandler);
 router.get("/getAllStatic", getAllResultHandler);
 router.get("/getAllStaticWithIdResult/:id", getAllStaticWithIdResult);
 router.get("/getAllStaticWithDate/:date", getAllStaticWithIdDate);

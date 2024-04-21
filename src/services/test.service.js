@@ -22,6 +22,26 @@ const getAllTest = async () => {
   }
 };
 
+const getAllTestPerPage = async (page) => {
+  var data = { status: null, data: null };
+  try {
+    const tests = await db.Test.findAll({
+      limit: 10,
+      offset: (page - 1) * 10
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    data.status = 500;
+    return data;
+  }
+}
+
 const getTestById = async (id) => {
   var data = { status: null, data: null };
   try {
@@ -233,18 +253,6 @@ const getIdTestWithDate = async (ngay) => {
 
   return listId;
 
-  //   if (listTest.length > 0) {
-  //     data.status = 200;
-  //     data.data = listTest;
-  //   } else {
-  //     data.status = 404;
-  //   }
-  //   return data;
-  // } catch (error) {
-  //   console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
-  //   throw error;
-  // }
-
 }
 module.exports = {
   getAllTest,
@@ -253,6 +261,6 @@ module.exports = {
   deleteTestById,
   updateTestById,
   getTestByStudentId, getIdTestWithDate,
-  searchTestByName
-
+  searchTestByName,
+  getAllTestPerPage
 };
