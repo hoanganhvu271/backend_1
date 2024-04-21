@@ -1,7 +1,8 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('javasql', 'root', 'hvxk2003', {
+const sequelize = new Sequelize('javasql', 'root', '1111', {
     host: 'localhost',
+    port: '3307',
     dialect: 'mysql'
 });
 const connection = async () => {
@@ -13,4 +14,4 @@ const connection = async () => {
     }
 }
 
-module.exports = connection;
+module.exports = { connection, sequelize };
