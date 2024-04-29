@@ -152,4 +152,5 @@ module.exports = {
   deleteStudentHandler,
   updateStudentHandler,
   getStudentInresultHandler,
+  getAllStudent,
 };

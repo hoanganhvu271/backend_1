@@ -1,0 +1,40 @@
+extends ../../layout/default.pug
+include ../../mixins/pagination.pug
+
+block main
+  .row.align-items-center.justify-content-between.mb-6
+    .d-flex.align-items-center
+      span.title Lớp:
+      .dropdown.ml-2
+        button.btn.btn-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown')
+          | D21CQCN01
+        ul.dropdown-menu
+          li
+            a.dropdown-item(href='#') Normal
+          li
+            a.dropdown-item.active(href='#') Active
+          li
+            a.dropdown-item.disabled(href='#') Disabled
+      .search-wrapper.d-flex.align-items-center.ml-2
+        input(type="text" class="form-control search-box" placeholder="Something clever..")
+        button.btn.btn-light Lọc
+  hr
+  h5 Danh sách sinh viên
+  table(class="table table-striped")
+    thead
+      tr
+        th STT
+        th Mã sinh viên
+        th Họ và tên
+        th Lớp
+        th Chi tiết
+    tbody
+      each student, index in studentList
+        tr
+          td #{index + 1}
+          td #{student.MSV}
+          td #{student.Ten}
+          td #{student.Lop}
+          td
+            a.btn.btn-primary(href=`/admin/pages/viewResult/student/${student.studentId}`) Xem chi tiết
+  +pagination(5)
