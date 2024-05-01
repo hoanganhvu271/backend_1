@@ -160,6 +160,48 @@ const getStudentCondition = async (condition, keyword) => {
     }
   }
 };
+const getStudentWithFindObject = async (find, pagination) => {
+  const data = { status: null, data: null };
+  try {
+    const students = await db.Student.findAll({
+      where: find,
+      limit: pagination.limit,
+      offset: pagination.offset,
+      raw: true,
+    });
+    if (students.length > 0) {
+      data.status = 200;
+      data.data = students;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+const getCountStudentWithFindObject = async (find) => {
+  const data = { status: null, data: null };
+  try {
+    const students = await db.Student.findAll({
+      raw: true,
+      where: find,
+    });
+    if (students.length > 0) {
+      data.status = 200;
+      data.data = students;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
 
 module.exports = {
   getAllStudent,
@@ -168,4 +210,6 @@ module.exports = {
   deleteStudentById,
   updateStudentById,
   getStudentCondition,
+  getStudentWithFindObject,
+  getCountStudentWithFindObject,
 };

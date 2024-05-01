@@ -2,6 +2,7 @@ extends ../../layout/default.pug
 include ../../mixins/pagination.pug
 
 block main
+  p.title #{test.TenBaithi}
   .row.align-items-center.justify-content-between.mb-6
     .d-flex.align-items-center
       span.title Lớp:
@@ -27,14 +28,17 @@ block main
         th Mã sinh viên
         th Họ và tên
         th Lớp
+        th Điểm
         th Chi tiết
     tbody
-      each student, index in studentList
+      each result, index in resultList
         tr
           td #{index + 1}
-          td #{student.MSV}
+          td #{result.MSV}
+          - var student = studentList.find(student => student.MSV === result.MSV)
           td #{student.Ten}
           td #{student.Lop}
+          td #{result.Diem}
           td
-            a.btn.btn-primary(href=`/admin/pages/viewResult/student/${student.studentId}`) Xem chi tiết
+            a.btn.btn-primary(href=`/admin/pages/viewResult/student/${result.MSV}`) Xem chi tiết
   +pagination(5)

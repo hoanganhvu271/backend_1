@@ -57,6 +57,13 @@
   height: 120px;
   display: flex;
 }
+.dropdown-menu-1{
+  background-color: #cae0f6;
+  width: 50px;
+}
+.dropdown-item{
+  background-color: #b2ffa8;
+}
 .search-box-test{
   height: 40px;
   width: 400px;

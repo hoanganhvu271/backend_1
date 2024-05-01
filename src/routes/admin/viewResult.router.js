@@ -6,8 +6,9 @@ const controllerResult = require("../../controllers/admin/result/result.controll
 router.get("/", controllerResult.index);
 
 router.get("/student", controllerResult.student);
-router.get("/student/:id", controllerResult.studentWithId);
-router.get("/student/:id/:testId", controllerResult.detailStudentAndTest);
+router.get("/student/:studentId", controllerResult.studentWithId);
+router.get("/student/:studentId/:testId",controllerResult.detailStudentAndTest);
 router.get("/test", controllerResult.test);
-router.get("/test/:id", controllerResult.testWithId);
+router.get("/test/:testId", controllerResult.testWithId);
+router.get("/test/:testId/:studentId", controllerResult.detailStudentAndTest);
 module.exports = router;
