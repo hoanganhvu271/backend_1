@@ -261,7 +261,7 @@ const updateTestHandler = async (req, res) => {
 }
 
 const searchTestHandler = async (req, res) => {
-  var name = req.query.name
+  var name = req.query.text
   var tests = await searchTestByName(name)
   if (tests.status === 200) {
     const response = {

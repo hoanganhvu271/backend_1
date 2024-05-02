@@ -53,10 +53,10 @@ router.post('/submit', isAuth, postSubmit)
 
 //Admin
 //vu1
-router.get('/get-test', isAdmin, getTestList)
-router.get('/get-test-per-page', isAdmin, getTestByPage)
-router.get('/get-test/:id', isAdmin, getQuestionByTestHandler)
-router.get('/search-test', isAdmin, searchTestHandler)
+router.get('/get-test', isAuth, getTestList)
+router.get('/get-test-per-page', isAuth, getTestByPage)
+router.get('/get-test/:id', isAuth, getQuestionByTestHandler)
+router.get('/search-test', isAuth, searchTestHandler)
 router.post('/new-test', isAdmin, postTestHandler)
 router.delete('/delete-test/:id', isAdmin, deleteTestHandler)
 router.put('/update-test/:id', isAdmin, updateTestHandler)

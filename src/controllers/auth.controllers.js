@@ -64,6 +64,7 @@ const checkLoginUser = async (req, res) => {
         else {
             // check database
             let data = await getStudentById(req.body.msv);
+            console.log(data)
             //status = 200 -> tim thay sinh vien -> check password 
             //status = 404 -> khong tim thay sinh vien -> response failed to login 
             //status = 500 -> lỗi trong quá trình xử lý

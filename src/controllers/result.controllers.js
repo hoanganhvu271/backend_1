@@ -98,15 +98,15 @@ const getAllStaticWithIdResult = async (req, res) => {
 }
 const getAllStaticWithIdDate = async (req, res) => {
   const ngay = req.params.date;
-  if (!req.body.ngay) {
+  if (!req.params.date) {
     res.status(404).json({
       code: 0,
       message: "hay nhap day du du lieu",
       data: null
     })
   }
-
-  // truy vấn đến bài thi  với date được lấy từ req, sau đó trả về 1 danh sách các id bài thi 
+  else{
+    // truy vấn đến bài thi  với date được lấy từ req, sau đó trả về 1 danh sách các id bài thi 
   // từ id bài thi truy vấn trong ketqua và hiển thị tất cả bài thi có trong bảng kết quả 
   try {
     const listId = await getIdTestWithDate(ngay);
@@ -149,6 +149,9 @@ const getAllStaticWithIdDate = async (req, res) => {
       data: null
     })
   }
+  }
+
+  
 }
 
 module.exports = {

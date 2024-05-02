@@ -54,6 +54,7 @@ const getStudentById = async (id) => {
       raw: true,
       where: { MSV: id },
     });
+
     if (students.length > 0) {
       data.status = 200;
       data.data = students;
