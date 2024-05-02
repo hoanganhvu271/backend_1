@@ -127,3 +127,50 @@ btnLocStu.forEach(function (btn) {
     window.location.href = url;
   });
 });
+
+const sidebar_toggle = document.getElementById("sidebar-toggle");
+const body = document.querySelector("body");
+
+sidebar_toggle.addEventListener("click", function () {
+  if (body.classList.contains("is-collapsed")) {
+    body.classList.remove("is-collapsed");
+    localStorage.setItem("sidebarState", "expanded"); // Lưu trạng thái là expanded
+  } else {
+    body.classList.add("is-collapsed");
+    localStorage.setItem("sidebarState", "collapsed"); // Lưu trạng thái là collapsed
+  }
+});
+document.addEventListener("DOMContentLoaded", function () {
+  const storedState = localStorage.getItem("sidebarState");
+  if (storedState === "collapsed") {
+    body.classList.add("is-collapsed");
+  } else {
+    body.classList.remove("is-collapsed");
+  }
+});
+
+const btnAdmin = document.querySelectorAll("[admin-btn]");
+console.log(btnAdmin);
+const dropdownAdminProfile = document.querySelectorAll(
+  "[dropdown-admin-profile]"
+);
+console.log(dropdownAdminProfile);
+btnAdmin.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    dropdownAdminProfile.forEach(function (dropdown) {
+      dropdown.classList.toggle("show");
+    });
+  });
+  //bam ra ngoai thi dong
+  document.addEventListener("click", function (event) {
+    if (
+      !btn.contains(event.target) &&
+      !dropdownAdminProfile[0].contains(event.target)
+    ) {
+      dropdownAdminProfile.forEach(function (dropdown) {
+        console.log("Test");
+        dropdown.classList.remove("show");
+      });
+    }
+  });
+});

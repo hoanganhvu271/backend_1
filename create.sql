@@ -64,3 +64,18 @@ CREATE TABLE KetQuaTungCau (
     FOREIGN KEY (MaKetQua) REFERENCES KetQua(MaKetQua)  ON delete cascade on update cascade,
     FOREIGN KEY (MaCauHoi, MaLuaChon) REFERENCES LuaChon(MaCauHoi, MaLuaChon)  ON delete cascade on update cascade
 );
+
+
+CREATE TABLE Admin (
+    UserName VARCHAR(50) PRIMARY KEY,
+    Email VARCHAR(50),
+    Facebook VARCHAR(50),
+    Instagram VARCHAR(50),
+    FirstName VARCHAR(20),
+    LastName VARCHAR(20),
+    Pass VARCHAR(50),
+    Avatar VARCHAR(50)
+);
+INSERT INTO Admin (UserName, Email, Facebook, Instagram, FirstName, LastName, Pass, Avatar)
+VALUES
+('admin', 'admin@gmail.com', 'facebook.com/admin', 'instagram.com/admin', 'Admin', 'Admin', '123456', 'admin.jpg');
