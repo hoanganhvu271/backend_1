@@ -1,9 +1,10 @@
 {
   "development": {
     "username": "root",
-    "password": "",
-    "database": "testbtl",
+    "password": "1111",
+    "database": "javasql",
     "host": "127.0.0.1",
+    "port": "3307",
     "dialect": "mysql"
   },
   "test": {

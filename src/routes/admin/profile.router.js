@@ -4,9 +4,9 @@ const db = require("../../models/index");
 const profileController = require("../../controllers/admin/profile/profile.controller");
 
 router.get("/", profileController.index);
-router.patch("/save-profile", async (req, res) => {
+router.put("/save-profile/:adminId", async (req, res) => {
   try {
-    const adminId = req.user.id; // Lấy ID của admin từ session hoặc jwt payload
+    const adminId = req.params.adminId; // Lấy ID của admin từ đường dẫn URL
     const updatedData = req.body; // Dữ liệu cập nhật từ form
 
     // Tìm admin cần cập nhật
@@ -28,5 +28,6 @@ router.patch("/save-profile", async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 module.exports = router;

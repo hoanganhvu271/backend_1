@@ -1,7 +1,8 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("testbtl", "root", "", {
+const sequelize = new Sequelize("javasql", "root", "1111", {
   host: "localhost",
+  port: "3307",
   dialect: "mysql",
 });
 const connection = async () => {
