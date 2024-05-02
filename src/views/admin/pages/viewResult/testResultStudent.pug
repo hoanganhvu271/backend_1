@@ -2,23 +2,23 @@ extends ../../layout/default.pug
 include ../../mixins/pagination.pug
 
 block main
-  p.title #{test.TenBaithi}
+  p.title(style="font-size:26px;font-weight:bold;") #{test.TenBaithi}
   .row.align-items-center.justify-content-between.mb-6
     .d-flex.align-items-center
       span.title Lớp:
       .dropdown.ml-2
-        button.btn.btn-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown')
-          | D21CQCN01
+        button.btn.btn-primary.dropdown-toggle#dropdownButton(type='button' data-bs-toggle='dropdown')
+          | #{className}
         ul.dropdown-menu
+          each lop, index in [1,2,3,4,5,6,7,8,9,10]
+            li
+              - var lopStr = "DCCN" + ("0" + lop).slice(-2)
+              a.dropdown-item(data-class = lopStr) #{lopStr}
           li
-            a.dropdown-item(href='#') Normal
-          li
-            a.dropdown-item.active(href='#') Active
-          li
-            a.dropdown-item.disabled(href='#') Disabled
+            a.dropdown-item(data-class = "all") Tất cả
       .search-wrapper.d-flex.align-items-center.ml-2
-        input(type="text" class="form-control search-box" placeholder="Something clever..")
-        button.btn.btn-light Lọc
+        input(type="text" class="form-control search-box" tim-kiem-stu placeholder="---Tìm kiếm---" value=keyword)
+        button.btn.btn-light(btn-loc-stu) Lọc
   hr
   h5 Danh sách sinh viên
   table(class="table table-striped")
@@ -32,13 +32,13 @@ block main
         th Chi tiết
     tbody
       each result, index in resultList
-        tr
-          td #{index + 1}
-          td #{result.MSV}
-          - var student = studentList.find(student => student.MSV === result.MSV)
-          td #{student.Ten}
-          td #{student.Lop}
-          td #{result.Diem}
-          td
-            a.btn.btn-primary(href=`/admin/pages/viewResult/student/${result.MSV}`) Xem chi tiết
-  +pagination(5)
+        - var student = studentList.find(student => student.MSV === result.MSV)
+        - if (student)
+            tr
+              td #{index + 1}
+              td #{result.MSV}
+              td #{student.Ten}
+              td #{student.Lop}
+              td #{result.Diem}
+              td
+                a.btn.btn-primary(btn-detail-test-and-student idStudent = student.MSV) Xem chi tiết

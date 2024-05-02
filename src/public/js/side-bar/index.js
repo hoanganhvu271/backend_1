@@ -18,3 +18,22 @@ list_button_dropdown.forEach((button) => {
     }
   });
 });
+
+const studentResult = document.querySelectorAll("[result-student]");
+const testResult = document.querySelectorAll("[result-test]");
+
+studentResult.forEach((student) => {
+  student.addEventListener("click", (e) => {
+    const url = new URL(window.location.href);
+    url.pathname = `/admin/result/student`;
+    window.location.href = url;
+  });
+});
+
+testResult.forEach((test) => {
+  test.addEventListener("click", (e) => {
+    const url = new URL(window.location.href);
+    url.pathname = `/admin/result/test`;
+    window.location.href = url;
+  });
+});

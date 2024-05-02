@@ -6,11 +6,11 @@ include ../../mixins/test.pug
 block main
   br
   .search-wrapper.d-flex.align-items-center
-    input(type="text" class="form-control search-box-test" placeholder="Something clever..")
-    button.btn.btn-light Lọc
+    input(type="text" class="form-control search-box-test" tim-kiem-test placeholder="---Tìm kiếm---" value=keyword)
+    button.btn.btn-light(btn-loc-test) Lọc
   br
   h4 Danh sách bài thi
-  .test-list.overflow-auto
+  .test-list
     each test in tests
       +testMixin(test)
-  +pagination(5)
+  +pagination(pagination)

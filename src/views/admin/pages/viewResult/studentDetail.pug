@@ -41,5 +41,5 @@ block main
                 td #{test.TenBaithi}
                 td #{test['Results.Diem']}
                 td
-                  a.btn.btn-primary(href=`/admin/pages/viewResult/test/${test.testId}`) Xem chi tiết
+                  a.btn.btn-primary(btn-detail-test-with-idStu idTest = test.MaBaiThi) Xem chi tiết
         +pagination(pagination)

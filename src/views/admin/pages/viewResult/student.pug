@@ -17,8 +17,8 @@ block main
           li
             a.dropdown-item(data-class = "all") Tất cả
       .search-wrapper.d-flex.align-items-center.ml-2
-        input(type="text" class="form-control search-box" placeholder="--- Tìm kiếm ---")
-        button.btn.btn-light Lọc
+        input(type="text" class="form-control search-box" tim-kiem placeholder="--- Tìm kiếm ---" value=keyword)
+        button.btn.btn-light(btn-loc) Lọc
   hr
   h5 Danh sách sinh viên
   table(class="table table-striped")
@@ -37,5 +37,5 @@ block main
           td #{student.Ten}
           td #{student.Lop}
           td
-            a.btn.btn-primary(href=`/admin/pages/viewResult/student/${student.studentId}`) Xem chi tiết
+            a.btn.btn-primary( idStu = student.MSV btn-detail) Xem chi tiết
   +pagination(pagination)

@@ -162,11 +162,13 @@ const getStudentCondition = async (condition, keyword) => {
 };
 const getStudentWithFindObject = async (find, pagination) => {
   const data = { status: null, data: null };
+  console.log(pagination.limit, pagination.offset);
+  console.log(find);
   try {
     const students = await db.Student.findAll({
       where: find,
-      limit: pagination.limit,
-      offset: pagination.offset,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
       raw: true,
     });
     if (students.length > 0) {

@@ -186,6 +186,54 @@ const getTestByStudentId = async (stuID) => {
     throw error;
   }
 };
+const getTestByStudentIdWithPage = async (stuID, pagination) => {
+  try {
+    const data = { status: null, data: [] };
+    const listTest = await db.Test.findAll({
+      raw: true,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      include: {
+        model: db.Result,
+        where: {
+          MSV: stuID,
+        },
+      },
+    });
+    if (listTest.length > 0) {
+      data.status = 200;
+      data.data = listTest;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
+    throw error;
+  }
+};
+const getTestWithFindObjectAndPage = async (find, pagination) => {
+  const data = { status: null, data: null };
+  try {
+    const tests = await db.Test.findAll({
+      where: find,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      raw: true,
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
 module.exports = {
   getAllTest,
   getTestById,
@@ -193,4 +241,6 @@ module.exports = {
   deleteTestById,
   updateTestById,
   getTestByStudentId,
+  getTestByStudentIdWithPage,
+  getTestWithFindObjectAndPage,
 };

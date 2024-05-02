@@ -5,10 +5,9 @@
 }
 .test-list{
   width: 100%;
-  height: 600px;
-  background-color: #f2f2f2;
   border-radius: 10px;
   margin-bottom: 20px;
+  margin-top: 20px;
 ;
 }
 .content-test-name{
