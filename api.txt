@@ -1,0 +1,28 @@
+1.check login
+2.check register
+3.Hiển thị bảng thống kê tổng hợp kết quả của tất cả sinh viên tham gia các
+kỳ thi (Fix dữ liệu với frontend).
+4.Các thống kê bao gồm tổng số lần tham gia, tỷ lệ hoàn thành, điểm trung
+bình, phân phối điểm số (ví dụ: biểu đồ)
+5.Cung cấp khả năng lọc kết quả theo kỳ thi, ngày tháng, hoặc một số tiêu
+chí cụ thể khác.
+6.Tích hợp tính năng xuất báo cáo dưới dạng PDF hoặc Excel.
+7.Các chức năng này có thể fix dữ liệu để hiển thị
+
+
+------
+một số status phổ biến:
+- 200: dữ liệu được trả về thành công
+- 400: lỗi kiểm tra dữ liệu 
+- 409: conflict dữ liệu
+- 500: lỗi khi truy vấn
+
+
+
+---- database
+1. MSV
+2. Ten
+3. Lop
+4. Email
+5. TaiKhoan
+6> MatKhau
