@@ -31,16 +31,31 @@ const getResultByIdStuAndIdTest = async (idStu, idTest) => {
     return data;
   }
 };
+<<<<<<< HEAD
 const getAllResult = async (req, res) => {
 
+=======
+const getResultByIdTest = async (idTest) => {
+>>>>>>> cc0e4a888a0021d248065e392b40eb8d56d388f9
   const data = {
     status: null,
     data: null,
   };
   try {
+<<<<<<< HEAD
     const res = await db.Result.findAll();
     // console.log(res);
     if (res.length > 0) {
+=======
+    const res = await db.Result.findAll({
+      raw: true,
+      where: {
+        MaBaiThi: idTest,
+      },
+    });
+    //console.log(res);
+    if (res) {
+>>>>>>> cc0e4a888a0021d248065e392b40eb8d56d388f9
       data.status = 200;
       data.data = res;
     } else {
@@ -52,6 +67,7 @@ const getAllResult = async (req, res) => {
     data.status = 500;
     return data;
   }
+<<<<<<< HEAD
 }
 
 const getResultWithIdResult = async (idResult) => {
@@ -254,4 +270,10 @@ module.exports = {
   getResultWithIdResult,
   getResultWithDate,
   getResultByIdStuAndIdTest, getResultListofStudent, getResultbyIdStuandIdResult, createNewResult
+=======
+};
+module.exports = {
+  getResultByIdStuAndIdTest,
+  getResultByIdTest,
+>>>>>>> cc0e4a888a0021d248065e392b40eb8d56d388f9
 };
