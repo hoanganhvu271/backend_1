@@ -1,7 +1,7 @@
 const { default: Transaction } = require("sequelize/lib/transaction");
 const db = require("../models/index");
 const { sequelize } = require('../config/connectDB')
-
+const { Op } = require('sequelize')
 const { createNewDetail } = require('./detail.services')
 
 const getResultByIdStuAndIdTest = async (idStu, idTest) => {
@@ -89,7 +89,39 @@ const getResultWithIdResult = async (idResult) => {
   }
   return data;
 }
-const getResultWithDate = async (Date) => {
+const getResultWithDate = async (date) => {
+
+  const data = { status: null, data: null };
+  try {
+    const res = await db.Result.findAll({
+      raw: true,
+      where: {
+        ThoiGianLamBai: {
+          [Op.like]: `%${date}%`,
+        },
+      },
+    });
+
+
+    if (res.length > 0) {
+      data.status = 200;
+      data.data = res;
+    }
+    else {
+      data.status = 404;
+      data.data = null;
+    }
+
+  }
+  catch (e) {
+    console.log(e);
+    data.status = 500;
+
+  }
+  return data;
+
+
+
 
 }
 
@@ -181,7 +213,7 @@ const createNewResult = async (test, questionList) => {
   let t;
   try {
     t = await sequelize.transaction();
-    var mkq = 'KQ03'
+    var mkq = 'KQ10'
     var diem = await tinhdiem(questionList, test.mabaithi, t)
 
     let tongdiem = 0

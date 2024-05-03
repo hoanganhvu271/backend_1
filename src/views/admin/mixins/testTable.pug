@@ -1,0 +1,45 @@
+include ./pagination.pug
+mixin test-table(tests, pagination)
+    .container-fluid
+        .card.mb-4
+            .card-header.pb-0.bgc-light-blue-500.c-white
+                h5 Danh sách bài thi
+            .card-body
+                .align-items-center.justify-content-between
+                    .d-flex.align-items-center.mb-3
+                        .search-wrapper.d-flex.align-items-center.ml-2
+                            input(type="text" class="form-control search-box" tim-kiem placeholder="--- Tìm kiếm ---" value=keyword)
+                            button.btn.cur-p.bgc-light-blue-500.btn-color(btn-loc).ml-2 Lọc
+                        button.btn.cur-p.bgc-light-blue-500.btn-color.ml-5
+                            a.submit-btn(href="./test/new-test")  Tạo mới 
+                table.table
+                    thead
+                        tr
+                            th ID
+                            th Tên bài thi
+                            th Bắt đầu
+                            th Thời lượng
+                            th Trạng thái
+                            th Chỉnh sửa
+                            th Xóa
+                    tbody 
+                        each test in tests
+                            tr(id=test.MaBaiThi)
+                                td.fw-600=test.MaBaiThi
+                                td=test.TenBaithi
+                                td=test.ThoiGianBatDau
+                                td=test.ThoiGianThi + ' phút'
+                                td 
+                                    if test.TrangThai == "Mở"
+                                        span.badge.badge-sm.bg-gradient-success=test.TrangThai 
+                                    else 
+                                        span.badge.badge-sm.bg-gradient-secondary=test.TrangThai
+                                td
+                                    a.mb-0(href="./test/edit-test/" + test.MaBaiThi)
+                                        button.btn.cur-p.bgc-light-blue-500.btn-color Chỉnh sửa
+                                td
+                                    a.mb-0(onclick=`confirmDelete('${test.MaBaiThi}')`)
+                                        button.btn.btn-primary.bgc-light-blue-500.btn-color Xóa              
+                +pagination(pagination)
+                    
+            

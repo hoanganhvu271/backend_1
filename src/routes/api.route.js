@@ -28,7 +28,7 @@ const {
 const {
     getAllResultHandler,
     getDetailTestWithIdStuAndIdTest,
-    getAllStaticWithIdDate,
+    getAllStaticWithDate,
     getAllStaticWithIdResult,
 } = require("../controllers/result.controllers");
 
@@ -40,7 +40,11 @@ const { isAuth, isAdmin } = require("../middleware/auth.middleware");
 
 router.post("/login/:role", checkLoginUser);
 router.post("/createNewstudent", createNewStudentHandler);
-
+router.post('/new-test', postTestHandler)
+router.delete('/delete-test/:id', deleteTestHandler)
+router.post('/new-student', postStudentHandler)
+router.delete('/delete-student/:id', deleteStudentHandler)
+router.put('/update-test/:id', updateTestHandler)
 //User
 
 //hiep
@@ -53,20 +57,19 @@ router.post('/submit', isAuth, postSubmit)
 
 //Admin
 //vu1
-router.get('/get-test', isAdmin, getTestList)
-router.get('/get-test-per-page', isAdmin, getTestByPage)
-router.get('/get-test/:id', isAdmin, getQuestionByTestHandler)
-router.get('/search-test', isAdmin, searchTestHandler)
-router.post('/new-test', isAdmin, postTestHandler)
-router.delete('/delete-test/:id', isAdmin, deleteTestHandler)
+router.get('/get-test', isAuth, getTestList)
+router.get('/get-test-per-page', isAuth, getTestByPage)
+router.get('/get-test/:id', isAuth, getQuestionByTestHandler)
+router.get('/search-test', isAuth, searchTestHandler)
+
+
 router.put('/update-test/:id', isAdmin, updateTestHandler)
 
 //vu2
 router.get('/get-student', isAdmin, getStudentHandler)
 router.get('/get-student/:id', isAdmin, getStudentByIdHandler)
 router.get('/get-student-per-page', isAdmin, getStudentByPage)
-router.post('/new-student', isAdmin, postStudentHandler)
-router.delete('/delete-student/:id', isAdmin, deleteStudentHandler)
+
 router.put('/update-student/:id', isAdmin, updateStudentHandler)
 
 //vu3
@@ -83,7 +86,7 @@ router.get("/result/detail/:id/:idTest", isAdmin, getDetailTestWithIdStuAndIdTes
 //dat
 router.get("/getAllStatic", isAdmin, getAllResultHandler);
 router.get("/getAllStaticWithIdResult/:id", isAdmin, getAllStaticWithIdResult);
-router.get("/getAllStaticWithDate/:date", isAdmin, getAllStaticWithIdDate);
+router.get("/getAllStaticWithDate/:date", isAdmin, getAllStaticWithDate);
 
 
 //loc ket qua theo ki thi va ngay thang

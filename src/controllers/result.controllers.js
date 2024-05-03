@@ -1,6 +1,6 @@
 const { getResultByIdStuAndIdTest, getAllResult, getResultWithIdResult, getResultWithDate } = require("../services/result.services");
 const { getStudentById } = require("../services/student.service");
-const { getTestById, getIdTestWithDate } = require("../services/test.service");
+const { getTestById } = require("../services/test.service");
 const { getQuestionOfTest } = require("../services/question.service");
 const { getDetailListWithIdResult } = require("../services/detail.services");
 const detail = require("../models/detail");
@@ -96,59 +96,50 @@ const getAllStaticWithIdResult = async (req, res) => {
   }
 
 }
-const getAllStaticWithIdDate = async (req, res) => {
-  const ngay = req.params.date;
-  if (!req.body.ngay) {
+const getAllStaticWithDate = async (req, res) => {
+  if (!req.params.date) {
     res.status(404).json({
       code: 0,
       message: "hay nhap day du du lieu",
       data: null
     })
   }
+  else {
+    // truy vấn đến bài thi  với date được lấy từ req, sau đó trả về 1 danh sách các id bài thi 
+    // từ id bài thi truy vấn trong ketqua và hiển thị tất cả bài thi có trong bảng kết quả 
+    try {
+      const data = await getResultWithDate(req.params.date);
 
-  // truy vấn đến bài thi  với date được lấy từ req, sau đó trả về 1 danh sách các id bài thi 
-  // từ id bài thi truy vấn trong ketqua và hiển thị tất cả bài thi có trong bảng kết quả 
-  try {
-    const listId = await getIdTestWithDate(ngay);
-    data = []
-    for (var i = 0; i < listId.length; i++) {
-      var id = listId[i].MaBaiThi;
-      const dataId = await getResultWithIdResult(id);
-      if (dataId.status === 200) {
-        data.push(dataId.data);
+
+      if (data.status === 200) {
+        res.status(200).json({
+          code: 1,
+          status: 200,
+          message: "Tất cả kết quả bài thi vào ngày " + req.params.date,
+          data: data.data
+        });
       }
       else {
-        return data
+        res.status(404).json({
+          code: 0,
+          status: 404,
+          message: "Không tìm thấy dữ liệu",
+          data: data
+        });
       }
-    }
 
-
-
-    if (data.length > 0) {
-      res.status(200).json({
-        code: 1,
-        status: 200,
-        message: "Tất cả kết quả bài thi vào ngày " + ngay,
-        data: data
-      });
-    }
-    else {
-      res.status(404).json({
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
         code: 0,
-        status: 404,
-        message: "Không tìm thấy dữ liệu",
-        data: data
-      });
+        status: 500,
+        message: "Internal Server Error",
+        data: null
+      })
     }
-
-  } catch (error) {
-    res.status(500).json({
-      code: 0,
-      status: 500,
-      message: "Internal Server Error",
-      data: null
-    })
   }
+
+
 }
 
 module.exports = {
@@ -156,6 +147,6 @@ module.exports = {
   getDetailTestWithIdStuAndIdTest,
   getAllResultHandler,
   getAllStaticWithIdResult,
-  getAllStaticWithIdDate
+  getAllStaticWithDate
 
 };

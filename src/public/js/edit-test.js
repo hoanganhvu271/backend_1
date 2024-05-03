@@ -13,9 +13,9 @@ document.getElementById('fileOption').addEventListener('change', function () {
 });
 
 
-function render() {
+function render(questions) {
 
-    var numQuestions = parseInt(document.getElementById('numQuestions').value);
+    var numQuestions = questions.length;
     var questionsContainer = document.getElementById('questionsContainer');
 
     // Xóa các câu hỏi cũ trước khi tạo mới
@@ -57,6 +57,7 @@ function render() {
         questionInput.cols = 140;
         questionInput.rows = 3;
         questionInput.id = 'question' + i;
+        questionInput.value = questions[i - 1].DeBai;
 
 
         questionTitle.appendChild(questionLabel);
@@ -83,6 +84,11 @@ function render() {
             answerInput.rows = "1";
             answerInput.name = 'question' + i + 'answer' + j;
             answerInput.id = 'question' + i + 'answer' + j;
+            answerInput.value = questions[i - 1].LuaChon[j - 1].NoiDung;
+
+            if (questions[i - 1].LuaChon[j - 1].Dung == 1) {
+                answerCheckbox.classList.add('checked');
+            }
 
             answerDiv.appendChild(answerCheckbox);
             answerDiv.appendChild(answerInput);
@@ -94,110 +100,6 @@ function render() {
 };
 
 
-
-document.getElementById('excel-file').addEventListener('change', function (event) {
-    var file = event.target.files[0];
-    var reader = new FileReader();
-    var questionsContainer = document.getElementById('questionsContainer');
-
-    // Xóa các câu hỏi cũ trước khi tạo mới
-    questionsContainer.innerHTML = '';
-
-
-    reader.onload = function (e) {
-        var data = new Uint8Array(e.target.result);
-        var workbook = XLSX.read(data, { type: 'array' });
-        var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-        var excelData = XLSX.utils.sheet_to_json(firstSheet);
-
-        // questionInput.value = row.question;
-        // answerInput.value = row['answer' + j];
-        currentNumber = excelData.length + 1;
-
-        // Xử lý dữ liệu từ tệp Excel và tạo các trường input câu hỏi và đáp án
-        excelData.forEach(function (row, index) {
-            var questionContent = document.createElement('div');
-            questionContent.className = 'question-content';
-            questionContent.id = index;
-
-            var questionDiv = document.createElement('div');
-            questionDiv.className = 'question-container';
-
-            var questionTitle = document.createElement('div');
-            questionTitle.className = 'question-title';
-
-            // new
-            var deleteQuestionButton = document.createElement('div');
-            deleteQuestionButton.className = 'delete-question';
-
-            var iconDelete = document.createElement('i');
-            iconDelete.className = 'ti-close';
-            deleteQuestionButton.appendChild(iconDelete);
-            deleteQuestionButton.onclick = function () {
-                DeleteQuestion(this.parentNode.parentNode.id);
-            }
-
-            questionDiv.appendChild(deleteQuestionButton);
-
-            //old
-            var questionLabel = document.createElement('label');
-            questionLabel.textContent = 'Câu hỏi ' + (parseInt(index) + parseInt(1)) + ':';
-
-            var questionInput = document.createElement('textarea');
-            questionInput.cols = 140;
-            questionInput.rows = 3;
-            questionInput.value = row.question;
-            questionInput.id = 'question' + index;
-
-
-            questionTitle.appendChild(questionLabel);
-            questionTitle.appendChild(questionInput);
-            questionDiv.appendChild(questionTitle);
-            questionContent.appendChild(questionDiv);
-            // Tạo 4 ô input cho 4 đáp án và checkbox cho đáp án đúng
-
-
-            for (var j = 1; j <= 4; j++) {
-                var answerDiv = document.createElement('div');
-                answerDiv.className = 'answer-container';
-
-                var answerCheckbox = document.createElement('div');
-                answerCheckbox.className = 'checkbox';
-                answerCheckbox.id = index + 'checkbox' + j;
-                answerCheckbox.onclick = function () {
-                    toggleCheckbox(this.id);
-                };
-                answerCheckbox.textContent = String.fromCharCode('A'.charCodeAt(0) + j - 1);
-
-                var answerInput = document.createElement('textarea');
-                answerInput.cols = "140";
-                answerInput.rows = "1";
-                answerInput.value = row['answer' + j];
-                answerInput.id = 'question' + index + 'answer' + j;
-                answerInput.name = 'question' + index + 'answer' + j;
-
-                answerDiv.appendChild(answerCheckbox);
-                answerDiv.appendChild(answerInput);
-
-                questionContent.appendChild(answerDiv);
-                questionsContainer.appendChild(questionContent);
-            }
-        });
-
-        excelData.forEach(function (row, index) {
-            for (var i = 1; i <= 4; i++) {
-                if (row['correct'] == i) {
-                    // console.log(i);
-                    toggleCheckbox(index + 'checkbox' + i);
-                }
-            }
-        });
-
-
-    };
-
-    reader.readAsArrayBuffer(file); //đọc xong mới xử lý onload()
-});
 
 function Add() {
 
@@ -286,7 +188,7 @@ function toggleCheckbox(idElement) {
     }
 }
 
-function Save() {
+function Save(id) {
 
     var examDate = document.getElementById('examDate').value;
     var examTime = document.getElementById('timeStart').value;
@@ -327,13 +229,15 @@ function Save() {
         })
     }
 
-    const backendURL = 'http://localhost:8080/api/new-test';
+
+
+    const backendURL = 'http://localhost:8080/api/update-test/' + id;
 
     // console.log(questions)
     // console.log(formData);
 
     const options = {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },

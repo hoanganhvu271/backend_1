@@ -64,7 +64,7 @@ const createNewTest = async (test, questionList) => {
   let t;
   try {
     t = await sequelize.transaction();
-    var mbt = "BT15";
+    var mbt = "BT16";
     await db.Test.create(
       {
         MaBaiThi: mbt,
@@ -234,33 +234,62 @@ const getTestByStudentId = async (stuID) => {
     throw error;
   }
 };
-const getIdTestWithDate = async (ngay) => {
+
+const getTestWithFindObject = async (find, pagination) => {
+  const data = { status: null, data: null };
+  // console.log(pagination.limit, pagination.offset);
+  // console.log(find);
   try {
-    const listId = await db.Test.findAll({
-      attributes: ['MaBaiThi'], // Chỉ lấy trường id
+    const tests = await db.Test.findAll({
+      where: find,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
       raw: true,
-      where: {
-        ThoiGianBatDau: {
-          [Sequelize.Op.like]: `%${ngay}%`
-        }
-      }
     });
-    return listId;
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
   } catch (error) {
-    console.log("lỗi xảy ra khi truy vấn dữ liệu", error);
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
   }
+};
 
+const getCountTestWithFindObject = async (find) => {
+  const data = { status: null, data: null };
+  try {
+    const tests = await db.Test.findAll({
+      raw: true,
+      where: find,
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
 
-  return listId;
-
-}
 module.exports = {
   getAllTest,
   getTestById,
   createNewTest,
   deleteTestById,
   updateTestById,
-  getTestByStudentId, getIdTestWithDate,
+  getTestByStudentId,
   searchTestByName,
-  getAllTestPerPage
+  getAllTestPerPage,
+  getCountTestWithFindObject,
+  getTestWithFindObject
 };
