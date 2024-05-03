@@ -1,9 +1,9 @@
-const { param } = require('../../routes/api.route');
-const { getTestById, getCountTestWithFindObject, getTestWithFindObject } = require('../../services/test.service');
-const { getQuestionOfTest } = require('../../services/question.service');
-const paginationHelper = require('../../helpers/paginationHelper');
+// const { param } = require('../../../../routes/api.route');
+const { getTestById, getCountTestWithFindObject, getTestWithFindObject } = require('../../../services/test.service');
+const { getQuestionOfTest } = require('../../../routes/api.route');
+const paginationHelper = require('../../../helpers/paginationHelper');
 const { Op } = require('sequelize');
-const testService = require('../../services/test.service');
+const testService = require('../../../services/test.service');
 
 const testListPaginate = async (req, res) => {
     const find = {};
@@ -39,15 +39,12 @@ const testListPaginate = async (req, res) => {
 
     var data = testList.data;
 
-    // console.log(testList);
+    // console.log(data);
     for (var i = 0; i < data.length; i++) {
         var y = data[i].ThoiGianBatDau;
         var timeFormat = new Date(y)
         data[i].ThoiGianBatDau = timeFormat.toLocaleString()
     }
-
-    console.log(data);
-
 
     res.render("admin/pages/viewTest/index.pug", {
         titlePage: "Danh sách bài thi",

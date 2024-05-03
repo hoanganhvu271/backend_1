@@ -1,6 +1,6 @@
 // const studentController = require("../../student.controllers");
-const studentServices = require("../../services/student.service");
-const paginationHelper = require("../../helpers/paginationHelper");
+const studentServices = require("../../../services/student.service");
+const paginationHelper = require("../../../helpers/paginationHelper");
 const { Op } = require("sequelize");
 
 module.exports.student = async (req, res) => {

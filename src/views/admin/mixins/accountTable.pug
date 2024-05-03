@@ -2,15 +2,15 @@ include ./pagination.pug
 mixin account-table(students, pagination)
     .container-fluid
         .card.mb-4
-            .card-header.pb-0.bgc-light-blue-500.c-white
+            .card-header.pb-0.ptit-color.c-white
                 h5 Quản lý tài khoản sinh viên
             .card-body
                 .align-items-center.justify-content-between
                     .d-flex.align-items-center.mb-3
-                        .search-wrapper.d-flex.align-items-center.ml-2
+                        .search-wrapper.d-flex.align-items-center
                             input(type="text" class="form-control search-box" tim-kiem placeholder="--- Tìm kiếm ---" value=keyword)
-                            button.btn.cur-p.bgc-light-blue-500.btn-color(btn-loc).ml-2 Lọc
-                        button.btn.cur-p.bgc-light-blue-500.btn-color.ml-5
+                            button.btn.cur-p.ptit-color.btn-color(btn-loc).ml-2 Lọc
+                        button.btn.cur-p.ptit-color.btn-color.ml-5
                             a.submit-btn( onclick=`openPopUp('add-new-student')`)  Tạo mới 
                 table.table
                     thead
@@ -29,11 +29,11 @@ mixin account-table(students, pagination)
                                 td=student.Lop
                                 td=student.Email
                                 td
-                                    a.mb-0(href="./edit-test/")
-                                        button.btn.cur-p.bgc-light-blue-500.btn-color Chỉnh sửa
+                                    a.mb-0
+                                        button.btn.cur-p.ptit-color.btn-color(onclick=`getStudentData('edit-student','${student.MSV}')`) Chỉnh sửa
                                 td
                                     a.mb-0
-                                        button.btn.btn-primary.bgc-light-blue-500.btn-color(onclick=`confirmDeleteAccount('${student.MSV}')`) Xóa              
+                                        button.btn.btn-primary.ptit-color.btn-color(onclick=`confirmDeleteAccount('${student.MSV}')`) Xóa              
                 +pagination(pagination)
                     
             

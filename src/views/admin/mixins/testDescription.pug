@@ -1,7 +1,7 @@
 mixin test-description(metadata)
     .container-fluid.mt-4
     .card.mb-4
-        .card-header.pb-0.bgc-blue-500.c-white
+        .card-header.pb-0.ptit-color.c-white
             h5.mb-10 Tạo mới bài thi
         .card-body
             .container
@@ -55,8 +55,12 @@ mixin test-description(metadata)
                                     label(for='excelFile') Tải lên tệp (Excel):
                                     input.form-control-file(type='file', id='excel-file', name='excelFile', accept='.xls,.xlsx')
             .form-group.ml-3
-                button.btn.bgc-blue-500.text-white.mr-5(type='submit', onclick='render()') Tạo bài thi
-                button.btn.bgc-blue-500.text-white.px-4(onclick=`Save('${metadata.MaBaiThi}')`)
-                    i.ti-save
+                button.btn.ptit-color.text-white.mr-5(type='submit', onclick='render()') Tạo bài thi
+                if metadata
+                    button.btn.ptit-color.text-white.px-4(onclick=`Save('${metadata.MaBaiThi}')`)
+                        i.ti-save
+                else 
+                    button.btn.ptit-color.text-white.px-4(onclick='Save()')
+                        i.ti-save
 
                     

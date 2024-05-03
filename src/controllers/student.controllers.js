@@ -156,7 +156,6 @@ const deleteStudentHandler = async (req, res) => {
 const updateStudentHandler = async (req, res) => {
   const studentId = req.params.id;
   const updatedData = req.body;
-
   const status = await updateStudentById(studentId, updatedData);
 
   if (status == 1) {

@@ -4,6 +4,10 @@
 
 }
 
+.ptit-color {
+    background-color: rgb(195, 43, 43);
+}
+
 .add-new-student,
 .edit-student {
     display: none;
@@ -34,7 +38,7 @@
 .add-new-student-container h1,
 .edit-student-container h1 {
     font-size: 26px;
-    margin-left: 100px;
+    /* margin-left: 100px; */
     margin-bottom: 20px;
     color: #000;
 }
@@ -42,14 +46,14 @@
 .add-new-student-container label,
 .edit-student-container label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .add-new-student-container input,
 .edit-student-container input {
     width: 100%;
     padding: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -278,4 +282,9 @@
 
 .text-gradient.text-dark {
     background-image: linear-gradient(310deg, #141727, #3A416F);
+}
+
+.checked {
+    background-color: #c32b2b !important;
+    color: #ffff !important;
 }

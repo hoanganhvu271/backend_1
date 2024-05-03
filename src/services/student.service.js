@@ -84,7 +84,8 @@ const deleteStudentById = async (id) => {
 const updateStudentById = async (id, data) => {
   var student = await db.Student.findByPk(id);
   var existStudent = await db.Student.findByPk(data.msv);
-  // console.log(existStudent)
+
+  // console.log(id)
   if (existStudent) {
     return -1;
   }

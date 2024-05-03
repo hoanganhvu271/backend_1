@@ -2,15 +2,15 @@ include ./pagination.pug
 mixin test-table(tests, pagination)
     .container-fluid
         .card.mb-4
-            .card-header.pb-0.bgc-light-blue-500.c-white
+            .card-header.pb-0.ptit-color.c-white
                 h5 Danh sách bài thi
             .card-body
                 .align-items-center.justify-content-between
                     .d-flex.align-items-center.mb-3
-                        .search-wrapper.d-flex.align-items-center.ml-2
+                        .search-wrapper.d-flex.align-items-center
                             input(type="text" class="form-control search-box" tim-kiem placeholder="--- Tìm kiếm ---" value=keyword)
-                            button.btn.cur-p.bgc-light-blue-500.btn-color(btn-loc).ml-2 Lọc
-                        button.btn.cur-p.bgc-light-blue-500.btn-color.ml-5
+                            button.btn.cur-p.ptit-color.btn-color(btn-loc).ml-2 Lọc
+                        button.btn.cur-p.ptit-color.btn-color.ml-5
                             a.submit-btn(href="./test/new-test")  Tạo mới 
                 table.table
                     thead
@@ -29,17 +29,13 @@ mixin test-table(tests, pagination)
                                 td=test.TenBaithi
                                 td=test.ThoiGianBatDau
                                 td=test.ThoiGianThi + ' phút'
-                                td 
-                                    if test.TrangThai == "Mở"
-                                        span.badge.badge-sm.bg-gradient-success=test.TrangThai 
-                                    else 
-                                        span.badge.badge-sm.bg-gradient-secondary=test.TrangThai
+                                td=test.TrangThai
                                 td
                                     a.mb-0(href="./test/edit-test/" + test.MaBaiThi)
-                                        button.btn.cur-p.bgc-light-blue-500.btn-color Chỉnh sửa
+                                        button.btn.cur-p.ptit-color.btn-color Chỉnh sửa
                                 td
                                     a.mb-0(onclick=`confirmDelete('${test.MaBaiThi}')`)
-                                        button.btn.btn-primary.bgc-light-blue-500.btn-color Xóa              
+                                        button.btn.btn-primary.ptit-color.btn-color Xóa              
                 +pagination(pagination)
                     
             

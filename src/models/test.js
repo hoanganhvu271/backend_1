@@ -15,8 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   Test.init(
     {
       MaBaiThi: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true
       },
       TenBaithi: DataTypes.STRING,
       ThoiGianBatDau: DataTypes.STRING,

@@ -64,10 +64,10 @@ const createNewTest = async (test, questionList) => {
   let t;
   try {
     t = await sequelize.transaction();
-    var mbt = "BT16";
-    await db.Test.create(
+    // var mbt = "BT111";
+    var newTest = await db.Test.create(
       {
-        MaBaiThi: mbt,
+        // MaBaiThi: mbt,
         TenBaithi: test.examName,
         ThoiGianBatDau: test.examDateTime,
         ThoiGianThi: parseInt(test.examTime),
@@ -75,8 +75,11 @@ const createNewTest = async (test, questionList) => {
         TheLoai: "Trắc nghiệm",
         TrangThai: "Đóng",
       },
-      { transaction: t }
+      // { transaction: t }
     );
+
+    var mbt = newTest.dataValues.MaBaiThi;
+    // console.log(newTest.dataValues.MaBaiThi);
 
     for (var i = 0; i < questionList.length; i++) {
       await createNewQuestion(questionList[i], mbt, i + 1, t);
@@ -281,6 +284,55 @@ const getCountTestWithFindObject = async (find) => {
   }
 };
 
+const getTestByStudentIdWithPage = async (stuID, pagination) => {
+  try {
+    const data = { status: null, data: [] };
+    const listTest = await db.Test.findAll({
+      raw: true,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      include: {
+        model: db.Result,
+        where: {
+          MSV: stuID,
+        },
+      },
+    });
+    if (listTest.length > 0) {
+      data.status = 200;
+      data.data = listTest;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
+    throw error;
+  }
+};
+const getTestWithFindObjectAndPage = async (find, pagination) => {
+  const data = { status: null, data: null };
+  try {
+    const tests = await db.Test.findAll({
+      where: find,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      raw: true,
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+
 module.exports = {
   getAllTest,
   getTestById,
@@ -291,5 +343,7 @@ module.exports = {
   searchTestByName,
   getAllTestPerPage,
   getCountTestWithFindObject,
-  getTestWithFindObject
+  getTestWithFindObject,
+  getTestByStudentIdWithPage,
+  getTestWithFindObjectAndPage,
 };

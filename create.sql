@@ -10,7 +10,7 @@ CREATE TABLE SinhVien (
 
 -- Tạo bảng Bài thi
 CREATE TABLE BaiThi (
-    MaBaiThi  VARCHAR(50) PRIMARY KEY,
+    MaBaiThi  int auto_increment PRIMARY KEY,
     TenBaiThi VARCHAR(255),
     ThoiGianBatDau DATETIME,
     ThoiGianThi INT,
@@ -18,6 +18,9 @@ CREATE TABLE BaiThi (
     TheLoai VARCHAR(50),
     TrangThai VARCHAR(50)
 );
+
+
+
 
 -- Tạo bảng Kết quả
 CREATE TABLE KetQua (

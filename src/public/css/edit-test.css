@@ -12,13 +12,13 @@
 }
 
 .checkedColor {
-    background-color: #2196f3 !important;
+    background-color: #c32b2b !important;
     /* color: #ffff; */
 }
 
 .question-content {
     /* display: flex; */
-    border: 1px solid #2196f3;
+    border: 1px solid #c32b2b;
     border-radius: 2px;
     padding: 10px 10px;
     margin-bottom: 50px;
@@ -42,12 +42,12 @@
 }
 
 .checked {
-    background-color: #2196f3 !important;
+    background-color: #c32b2b !important;
     color: #ffff !important;
 }
 
 .add-btn {
-    background-color: #2196f3;
+    background-color: #c32b2b;
     width: 40px;
     height: 40px;
     border-radius: 50% !important;
@@ -64,9 +64,9 @@
     display: flex;
     width: 40px;
     height: 40px;
-    border: 1px solid #2196f3;
+    border: 1px solid #c32b2b;
     background-color: #ffff;
-    color: #2196f3;
+    color: #c32b2b;
     cursor: pointer;
     border-radius: 50%;
     text-align: center;
@@ -98,7 +98,7 @@
     display: flex;
     width: 30px;
     height: 30px;
-    border: 2px solid #2196f3;
+    border: 2px solid #c32b2b;
     cursor: pointer;
     text-align: center;
     display: flex;
