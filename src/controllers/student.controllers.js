@@ -251,16 +251,14 @@ const createNewStudentHandler = async (req, res) => {
     }
     return res.status(200).json({
       code: data,
-      message: "Sinh Viên được tạo thành công",
+      message: "Sinh viên được tạo thành công",
       EC: '0',
       DT: ''
     });
   } catch (error) {
     return res.status(500).json({
       code: 0,
-
       message: "Lỗi khi tạo sinh viên",
-
     })
 
   }

@@ -52,6 +52,9 @@ function submitForm(id) {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+            if (response.statusCode === 409) {
+                showAlert('Mã sinh viên đã tồn tại!')
+            }
             return response.json();
         })
         .then(data => {
