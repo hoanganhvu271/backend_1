@@ -132,6 +132,8 @@ module.exports.testWithId = async (req, res) => {
       { MSV: { [Op.regexp]: regexExpression } },
     ];
   }
+
+  // console.log(resultList)
   if (req.query.class) find.Lop = req.query.class;
   for (let i = 0; i < resultList.data.length; i++) {
     find.MSV = resultList.data[i].MSV;

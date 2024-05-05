@@ -15,11 +15,12 @@ mixin test-description(metadata)
                                         input.form-control(type='text' id="examName" value=metadata.TenBaithi required)
                                     else
                                         input.form-control(type='text' id="examName" required)
-                                    
                                 .form-group
-                                    label(for='examDescription') Mô tả:
-
-                                    textarea.form-control#examDescription(cols='40', rows='3')
+                                    label(for='specificExamTime') Thời gian (phút):
+                                    if metadata
+                                        input.form-control(type='number' id='examTime' value = metadata.ThoiGianThi required)
+                                    else
+                                        input.form-control(type='number' id='examTime'  required)
                                 .form-group 
                                     label(for="examDate") Ngày thi:
                                     if metadata
@@ -32,20 +33,17 @@ mixin test-description(metadata)
                                         input.form-control(type="time" id="timeStart" value = metadata.time)
                                     else 
                                         input.form-control(type="time" id="timeStart")
-                        .col-md-6
-                            form#option-form
-                                .form-group
-                                    label(for='specificExamTime') Thời gian (phút):
-                                    if metadata
-                                        input.form-control(type='number' id='examTime' value = metadata.ThoiGianThi required)
-                                    else
-                                        input.form-control(type='number' id='examTime'  required)
                                 .form-group
                                     label(for='numQuestions') Số lượng câu hỏi:
                                     if metadata
                                         input.form-control(type='number'  id='numQuestions' value = metadata.SoLuongCau )
                                     else
                                         input.form-control(type='number'  id='numQuestions' )
+                        .col-md-6
+                            form#option-form
+                                .form-group
+                                    label(for='examDescription') Mô tả:
+                                    textarea.form-control#examDescription(cols='40', rows='2')
                                 .form-group
                                     label(for='fileOption') Hình thức: 
                                     select.form-control#fileOption
@@ -54,7 +52,15 @@ mixin test-description(metadata)
                                 .form-group#fileUpload(style='display: none;')
                                     label(for='excelFile') Tải lên tệp (Excel):
                                     input.form-control-file(type='file', id='excel-file', name='excelFile', accept='.xls,.xlsx')
-            .form-group.ml-4
+                                .form-group 
+                                    label(for='testImage') Ảnh bài thi:   
+                                    input.form-control-file(type='file', id='image-file', name='imageFile', accept='.jpg,.png')
+                                .form-group
+                                    if metadata
+                                        img(src=metadata.img_url, height="120")
+                                    else 
+                                        img(src='https://res.cloudinary.com/dyc1c2elf/image/upload/v1714894653/hpz5yqojda1ajpnrpkvv.jpg', height="120")
+            .form-group.ml-5
                 button.btn.ptit-color.text-white.mr-5(type='submit', onclick='render()') Tạo bài thi
                 if metadata
                     button.btn.ptit-color.text-white.px-4(onclick=`Save('${metadata.MaBaiThi}')`)

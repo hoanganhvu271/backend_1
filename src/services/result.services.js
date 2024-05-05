@@ -81,6 +81,8 @@ const getAllResult = async (req, res) => {
   }
 }
 
+
+
 const getResultWithIdResult = async (idResult) => {
   const data = {
     status: null,
@@ -233,6 +235,8 @@ const createNewResult = async (test, questionList) => {
     return false;
   }
 };
+
+
 
 module.exports = {
   getResultWithIdResult,

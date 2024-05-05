@@ -46,6 +46,7 @@ const getTestById = async (id) => {
   var data = { status: null, data: null };
   try {
     const tests = await db.Test.findAll({ raw: true, where: { MaBaiThi: id } });
+    console.log(tests);
     if (tests.length > 0) {
       data.status = 200;
       data.data = tests;
@@ -74,7 +75,8 @@ const createNewTest = async (test, questionList) => {
         SoLuongCau: parseInt(questionList.length),
         TheLoai: "Trắc nghiệm",
         TrangThai: "Đóng",
-      }
+        img_url: test.imageUrl,
+      },
       // { transaction: t }
     );
 
@@ -123,6 +125,9 @@ const updateTestById = async (testId, updateData) => {
     test.ThoiGianBatDau = metadata.examDateTime;
     test.ThoiGianThi = parseInt(metadata.examTime);
     test.SoLuongCau = parseInt(data.length);
+    if (metadata.imageUrl != '') {
+      test.img_url = metadata.imageUrl;
+    }
 
     await test.save({ transaction: t });
 

@@ -89,7 +89,7 @@ router.get("/result/detail/:id/:idTest", isAdmin, getDetailTestWithIdStuAndIdTes
 //dat
 router.get("/getAllStatic", isAdmin, getAllResultHandler);
 router.get("/getAllStaticWithIdResult/:id", isAdmin, getAllStaticWithIdResult);
-router.get("/getAllStaticWithDate/:date", isAdmin, getAllStaticWithDate);
+// router.get("/getAllStaticWithDate/:date", isAdmin, getAllStaticWithDate);
 
 
 //loc ket qua theo ki thi va ngay thang

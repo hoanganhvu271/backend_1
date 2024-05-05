@@ -201,7 +201,7 @@ function showAlert(content) {
     setTimeout(hideAlert, 3000);
 }
 
-function Save(id) {
+async function Save(id) {
 
     var examDate = document.getElementById('examDate').value;
     var examTime = document.getElementById('timeStart').value;
@@ -264,6 +264,27 @@ function Save(id) {
             })
         }
 
+        var newImageUrl = "https://res.cloudinary.com/dyc1c2elf/image/upload/v1714894653/hpz5yqojda1ajpnrpkvv.jpg";
+        var fileInput = document.getElementById('image-file');
+        var file = fileInput.files[0];
+
+        if (file) {
+            var formImg = new FormData();
+            formImg.append('file', file);
+
+            try {
+                const response = await fetch('/admin/test/cloudinary-upload', {
+                    method: 'POST',
+                    body: formImg
+                });
+                const data = await response.json();
+                newImageUrl = data.img_url;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+
+            formData.imageUrl = newImageUrl;
+        }
 
         const backendURL = 'http://localhost:8080/api/update-test/' + id;
 
@@ -279,7 +300,7 @@ function Save(id) {
         };
 
         // console.log(options)
-        fetch(backendURL, options)
+        await fetch(backendURL, options)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
