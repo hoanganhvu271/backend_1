@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("javasql", "root", "hvxk2003", {
-  host: "localhost",
+const sequelize = new Sequelize("blzgbosgrt5jimzh2ude", "uhv7bqutywjwtaga", "s9uR0I1udWuGpSWmat3d", {
+  host: "blzgbosgrt5jimzh2ude-mysql.services.clever-cloud.com",
   port: "3306",
   dialect: "mysql",
 });
