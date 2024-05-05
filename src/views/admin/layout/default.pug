@@ -13,7 +13,12 @@ html
       include ../partials/nav-header.pug
       main(class='main-content bgc-grey-100')
         .main-container
+          .alert.alert-danger.alert-dismissible.fade.show#myAlert(role="alert")
+            button.close(data-dismiss="alert" aria-label="Close")
+              span(aria-hidden="true") &times;
+            span#alertContent
           block main
+          
 
     script(src="/js/upload-test.js")
     script(src="/js/delete-test.js")

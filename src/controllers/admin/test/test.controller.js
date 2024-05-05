@@ -1,9 +1,10 @@
 // const { param } = require('../../../../routes/api.route');
 const { getTestById, getCountTestWithFindObject, getTestWithFindObject } = require('../../../services/test.service');
-const { getQuestionOfTest } = require('../../../routes/api.route');
+// const { getQuestionOfTest } = require('../../../routes/api.route');
 const paginationHelper = require('../../../helpers/paginationHelper');
 const { Op } = require('sequelize');
-const testService = require('../../../services/test.service');
+const { testService } = require('../../../services/test.service');
+const { getQuestionOfTest } = require('../../../services/question.service');
 
 const testListPaginate = async (req, res) => {
     const find = {};
@@ -12,7 +13,6 @@ const testListPaginate = async (req, res) => {
         find.Ten = ten;
     }
 
-    // console.log(req.query.keyword);
 
     if (req.query.keyword) {
         const regexExpression = new RegExp(req.query.keyword, "i").source;
@@ -23,7 +23,7 @@ const testListPaginate = async (req, res) => {
     }
 
     // console.log(find);
-    const count = await testService.getCountTestWithFindObject(find);
+    const count = await getCountTestWithFindObject(find);
     const pagination = paginationHelper(
         {
             currentPage: 1,
@@ -32,7 +32,7 @@ const testListPaginate = async (req, res) => {
         req.query,
         count.data.length
     );
-    const testList = await testService.getTestWithFindObject(
+    const testList = await getTestWithFindObject(
         find,
         pagination
     );

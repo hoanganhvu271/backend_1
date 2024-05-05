@@ -286,6 +286,16 @@ function toggleCheckbox(idElement) {
     }
 }
 
+function hideAlert() {
+    document.getElementById('myAlert').style.display = 'none';
+}
+
+function showAlert(content) {
+    document.getElementById('alertContent').textContent = content;
+    document.getElementById('myAlert').style.display = 'block';
+    setTimeout(hideAlert, 3000);
+}
+
 function Save() {
 
     var examDate = document.getElementById('examDate').value;
@@ -300,60 +310,83 @@ function Save() {
         numQuestions: document.getElementById('numQuestions').value,
     };
 
+    if (!examDate || !examTime || !formData.numQuestions || !formData.examTime || !formData.examName) {
+        showAlert('Vui lòng điền đầy đủ thông tin cho bài thi');
+    }
+    else {
+        var questions = [];
 
-    var questions = [];
-
-    var questionNum = formData.numQuestions
-
-    for (var i = 1; i <= questionNum; i++) {
-
-        var answer = [];
-        var check = "";
-        var questionContent = document.getElementById('question' + i).value
-        for (var j = 1; j <= 4; j++) {
-            if (document.getElementById(i + 'checkbox' + j).classList.contains('checked')) {
-                check = j;
-            }
-            answer.push(document.getElementById('question' + i + 'answer' + j).value)
+        var questionNum = formData.numQuestions
+        if (questionNum === 0) {
+            alert('Số câu hỏi đang là 0')
+            return
         }
 
-        questions.push({
-            questionContent: questionContent,
-            answer1: answer[0],
-            answer2: answer[1],
-            answer3: answer[2],
-            answer4: answer[3],
-            check: check
-        })
+        for (var i = 1; i <= questionNum; i++) {
+
+            var answer = [];
+            var check = "";
+            var questionContent = document.getElementById('question' + i).value
+            if (questionContent === "") {
+                showAlert('Vui lòng nhập đề bài cho câu hỏi ' + i);
+                return;
+            }
+            for (var j = 1; j <= 4; j++) {
+                if (document.getElementById(i + 'checkbox' + j).classList.contains('checked')) {
+                    check = j;
+                }
+                var ans = document.getElementById('question' + i + 'answer' + j).value
+                if (ans === '') {
+                    showAlert('Bạn chưa nhập đáp án cho câu hỏi ' + i)
+                    return;
+                }
+                answer.push(ans)
+            }
+            if (check === "") {
+                showAlert('Bạn chưa chọn đáp án đúng cho câu hỏi ' + i)
+                return;
+            }
+            questions.push({
+                questionContent: questionContent,
+                answer1: answer[0],
+                answer2: answer[1],
+                answer3: answer[2],
+                answer4: answer[3],
+                check: check
+            })
+        }
+        const backendURL = 'http://localhost:8080/api/new-test';
+
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ metadata: formData, data: questions })
+        };
+
+        // console.log(options)
+        fetch(backendURL, options)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
+                }
+                return response.json(); // Trả về phản hồi dưới dạng JSON
+            })
+            .then(data => {
+                console.log('Dữ liệu đã được gửi thành công đến backend:', data);
+                window.location.href = "/admin/test";
+
+                console.log("aa");
+            })
+            .catch(error => {
+                console.error('Đã xảy ra lỗi khi gửi dữ liệu đến backend:', error);
+            });
     }
 
-    const backendURL = 'http://localhost:8080/api/new-test';
 
-    // console.log(questions)
-    // console.log(formData);
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ metadata: formData, data: questions })
-    };
-
-    // console.log(options)
-    fetch(backendURL, options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
-            }
-            return response.json(); // Trả về phản hồi dưới dạng JSON
-        })
-        .then(data => {
-            console.log('Dữ liệu đã được gửi thành công đến backend:', data);
-        })
-        .catch(error => {
-            console.error('Đã xảy ra lỗi khi gửi dữ liệu đến backend:', error);
-        });
 }
 
 function DeleteQuestion(id) {
@@ -383,3 +416,4 @@ function UpDateIdForQuestion(id) {
     }
     currentNumber--;
 }
+

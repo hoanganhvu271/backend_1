@@ -161,6 +161,18 @@
 .card .card-body {
     /* font-family: "Open Sans"; */
     padding: 1.5rem;
+    background-color: #f8f9fa;
+}
+
+#myAlert {
+    display: none;
+    position: fixed;
+    top: 10px;
+    /* Điều chỉnh khoảng cách từ trên xuống */
+    right: 10px;
+    /* Điều chỉnh khoảng cách từ phải sang trái */
+    z-index: 1000;
+    /* Đảm bảo hộp thoại hiển thị trên cùng */
 }
 
 .mb-4 {
