@@ -55,6 +55,9 @@ function submitForm(id) {
             if (response.statusCode === 409) {
                 showAlert('Mã sinh viên đã tồn tại!')
             }
+            else if (response.statusCode === 400) {
+                showAlert('Mật khẩu tối thiểu 9 ký tự')
+            }
             return response.json();
         })
         .then(data => {
