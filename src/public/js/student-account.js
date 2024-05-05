@@ -143,7 +143,7 @@ function getStudentData(id, msv) {
 
 function finishEdit(id) {
     var details = document.getElementById(id);
-    details.style.display = 'none';
+
 
     var formData = {
         name: document.getElementById('edit-name').value,
@@ -151,7 +151,12 @@ function finishEdit(id) {
         email: document.getElementById('edit-email').value,
         password: document.getElementById('edit-password').value
     };
+    console.log(formData);
 
+    if (!formData.name || !formData.class || !formData.email || !formData.password) {
+        showAlert('Vui lòng điền đầy đủ thông tin!');
+        return;
+    }
 
     var url = '/api/update-student/' + document.getElementById('edit-msv').value
     console.log(url);
@@ -183,6 +188,7 @@ function finishEdit(id) {
             console.error('There was an error with the fetch operation:', error);
         });
 
+    details.style.display = 'none';
 
 }
 
