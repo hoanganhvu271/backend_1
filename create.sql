@@ -5,7 +5,7 @@ CREATE TABLE SinhVien (
     Lop VARCHAR(50),
     Email VARCHAR(100),
     TaiKhoan VARCHAR(50),
-    MatKhau VARCHAR(50)
+    MatKhau VARCHAR(500)
 );
 
 -- Tạo bảng Bài thi

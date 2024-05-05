@@ -101,6 +101,19 @@ btnDetailTest.forEach(function (btn) {
   });
 });
 
+const btnDetailTestUser = document.querySelectorAll("[btn-detail-test-user]");
+btnDetailTestUser.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    const testId = btn.getAttribute("idTest");
+    const url = new URL(window.location.href);
+    url.searchParams.delete("keyword");
+    url.searchParams.delete("page");
+    url.searchParams.delete("class");
+    url.pathname = `/user/result/test/${testId}`;
+    window.location.href = url;
+  });
+});
+
 const btnDetailStudentAndTest = document.querySelectorAll(
   "[btn-detail-test-and-student]"
 );

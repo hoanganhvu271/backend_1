@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const controllerResult = require("../../controllers/admin/result/result.controller");
+const {isAuth} = require("../../middleware/auth.middleware")
 
 router.get("/", controllerResult.index);
 

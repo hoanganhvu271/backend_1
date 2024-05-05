@@ -109,7 +109,10 @@ module.exports.test = async (req, res) => {
     find,
     pagination
   );
+  // let token 
+  // if(req.token) token = req.token
   res.render("admin/pages/viewResult/test.pug", {
+    // token: token,
     titlePage: "Kết quả bài thi",
     tests: testListWithPage.data,
     pagination: pagination,

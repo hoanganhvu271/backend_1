@@ -1,7 +1,8 @@
 const { raw } = require("mysql2");
 const db = require("../models/index");
 const { where, Op } = require("sequelize");
-
+const bcrypt = require("bcrypt")
+const saltRounds = 10
 const getAllStudent = async () => {
   var data = { status: null, data: null };
 
@@ -22,6 +23,29 @@ const getAllStudent = async () => {
     return data;
   }
 };
+
+const getAllStudentPerPage = async (page) => {
+  var data = { status: null, data: null };
+  try {
+    const students = await db.Student.findAll({
+      limit: 10,
+      offset: (page - 1) * 10,
+      raw: true
+    });
+    if (students.length > 0) {
+      data.status = 200;
+      data.data = students;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+
+    data.status = 500;
+    return data;
+  }
+
+}
 
 const getStudentById = async (id) => {
   var data = { status: null, data: null };
@@ -45,23 +69,28 @@ const getStudentById = async (id) => {
 };
 
 const createNewStudent = async (student) => {
+
   try {
     studentData = await db.Student.findAll({
       where: { MSV: student.msv },
     });
+    console.log(studentData)
 
     if (studentData.length > 0) {
       return -1;
     }
-    await db.Student.create({
-      MSV: student.msv,
-      Ten: student.name,
-      Lop: student.class,
-      Email: student.email,
-      TaiKhoan: student.account,
-      MatKhau: student.password,
-    });
-    return 1;
+    else {
+      var hashpassword = await bcrypt.hash(student.password, saltRounds);
+      await db.Student.create({
+        MSV: student.msv,
+        Ten: student.name,
+        Lop: student.class,
+        Email: student.email,
+        TaiKhoan: student.account,
+        MatKhau: hashpassword,
+      });
+      return 1;
+    }
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
     return 0;
@@ -214,4 +243,5 @@ module.exports = {
   getStudentCondition,
   getStudentWithFindObject,
   getCountStudentWithFindObject,
+  getAllStudentPerPage
 };

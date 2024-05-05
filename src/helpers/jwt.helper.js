@@ -4,7 +4,7 @@ const generateToken = async (user, secretSignature, tokenLife) => {
     try {
         const userData = {
             id: user.id,
-            name: user.name,
+            role: user.role,
             email: user.email,
         };
 
@@ -29,6 +29,7 @@ const generateToken = async (user, secretSignature, tokenLife) => {
 const verifyToken = async (token, secretKey) => {
     try {
         const decoded = await jwt.verify(token, secretKey);
+        // console.log(decoded)
         return decoded;
     } catch (error) {
         throw error
