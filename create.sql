@@ -26,7 +26,7 @@ CREATE TABLE BaiThi (
 CREATE TABLE KetQua (
     MaKetQua  VARCHAR(50) PRIMARY KEY,
     MSV  VARCHAR(50),
-    MaBaiThi  VARCHAR(50),
+    MaBaiThi  int,
     Diem FLOAT,
     FOREIGN KEY (MSV) REFERENCES SinhVien(MSV) ON delete cascade on update cascade,
     FOREIGN KEY (MaBaiThi) REFERENCES BaiThi(MaBaiThi)  ON delete cascade on update cascade
