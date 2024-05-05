@@ -81,6 +81,8 @@ const getAllResult = async (req, res) => {
   }
 }
 
+
+
 const getResultWithIdResult = async (idResult) => {
   const data = {
     status: null,
@@ -234,6 +236,8 @@ const createNewResult = async (test, questionList) => {
   }
 };
 
+
+
 module.exports = {
   getResultWithIdResult,
   getResultWithDate,
@@ -241,4 +245,5 @@ module.exports = {
   getResultListofStudent,
   getResultbyIdStuandIdResult,
   createNewResult,
+  getResultByIdTest
 };
