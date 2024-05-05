@@ -6,8 +6,8 @@ const profileController = require("../../controllers/admin/profile/profile.contr
 router.get("/", profileController.index);
 router.patch("/save-profile", async (req, res) => {
   try {
-    const adminId = req.user.id; // Lấy ID của admin từ session hoặc jwt payload
-    const updatedData = req.body; // Dữ liệu cập nhật từ form
+    const adminId = req.user.id; 
+    const updatedData = req.body; 
 
     // Tìm admin cần cập nhật
     const admin = await db.Admin.findByPk(adminId);
