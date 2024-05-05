@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       SoLuongCau: DataTypes.INTEGER,
       TheLoai: DataTypes.STRING,
       TrangThai: DataTypes.STRING,
+      img_url: DataTypes.STRING,
     },
     {
       // options

@@ -302,8 +302,7 @@ function showAlert(content) {
     setTimeout(hideAlert, 3000);
 }
 
-function Save() {
-
+async function Save() {
     var examDate = document.getElementById('examDate').value;
     var examTime = document.getElementById('timeStart').value;
 
@@ -314,86 +313,102 @@ function Save() {
         examDateTime: examDateTime,
         examTime: document.getElementById('examTime').value,
         numQuestions: document.getElementById('numQuestions').value,
+        imageUrl: "https://res.cloudinary.com/dyc1c2elf/image/upload/v1714894653/hpz5yqojda1ajpnrpkvv.jpg"
     };
 
     if (!examDate || !examTime || !formData.numQuestions || !formData.examTime || !formData.examName) {
         showAlert('Vui lòng điền đầy đủ thông tin cho bài thi');
+        return;
     }
-    else {
-        var questions = [];
 
-        var questionNum = formData.numQuestions
-        if (questionNum === 0) {
-            alert('Số câu hỏi đang là 0')
-            return
+    var questions = [];
+
+    var questionNum = formData.numQuestions
+    if (questionNum === 0) {
+        showAlert('Số câu hỏi đang là 0');
+        return;
+    }
+
+    for (var i = 1; i <= questionNum; i++) {
+        var answer = [];
+        var check = "";
+        var questionContent = document.getElementById('question' + i).value
+        if (questionContent === "") {
+            showAlert('Vui lòng nhập đề bài cho câu hỏi ' + i);
+            return;
         }
-
-        for (var i = 1; i <= questionNum; i++) {
-
-            var answer = [];
-            var check = "";
-            var questionContent = document.getElementById('question' + i).value
-            if (questionContent === "") {
-                showAlert('Vui lòng nhập đề bài cho câu hỏi ' + i);
+        for (var j = 1; j <= 4; j++) {
+            if (document.getElementById(i + 'checkbox' + j).classList.contains('checked')) {
+                check = j;
+            }
+            var ans = document.getElementById('question' + i + 'answer' + j).value
+            if (ans === '') {
+                showAlert('Bạn chưa nhập đáp án cho câu hỏi ' + i)
                 return;
             }
-            for (var j = 1; j <= 4; j++) {
-                if (document.getElementById(i + 'checkbox' + j).classList.contains('checked')) {
-                    check = j;
-                }
-                var ans = document.getElementById('question' + i + 'answer' + j).value
-                if (ans === '') {
-                    showAlert('Bạn chưa nhập đáp án cho câu hỏi ' + i)
-                    return;
-                }
-                answer.push(ans)
-            }
-            if (check === "") {
-                showAlert('Bạn chưa chọn đáp án đúng cho câu hỏi ' + i)
-                return;
-            }
-            questions.push({
-                questionContent: questionContent,
-                answer1: answer[0],
-                answer2: answer[1],
-                answer3: answer[2],
-                answer4: answer[3],
-                check: check
-            })
+            answer.push(ans)
         }
-        const backendURL = 'http://localhost:8080/api/new-test';
+        if (check === "") {
+            showAlert('Bạn chưa chọn đáp án đúng cho câu hỏi ' + i)
+            return;
+        }
+        questions.push({
+            questionContent: questionContent,
+            answer1: answer[0],
+            answer2: answer[1],
+            answer3: answer[2],
+            answer4: answer[3],
+            check: check
+        })
+    }
 
+    var newImageUrl = "https://res.cloudinary.com/dyc1c2elf/image/upload/v1714894653/hpz5yqojda1ajpnrpkvv.jpg";
+    var fileInput = document.getElementById('image-file');
+    var file = fileInput.files[0];
 
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ metadata: formData, data: questions })
-        };
+    if (file) {
+        var formImg = new FormData();
+        formImg.append('file', file);
 
-        // console.log(options)
-        fetch(backendURL, options)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
-                }
-                return response.json(); // Trả về phản hồi dưới dạng JSON
-            })
-            .then(data => {
-                console.log('Dữ liệu đã được gửi thành công đến backend:', data);
-                window.location.href = "/admin/test";
-
-            })
-            .catch(error => {
-                showAlert('Đã xảy ra lỗi !!!')
-                console.error('Đã xảy ra lỗi khi gửi dữ liệu đến backend:', error);
+        try {
+            const response = await fetch('/admin/test/cloudinary-upload', {
+                method: 'POST',
+                body: formImg
             });
+            const data = await response.json();
+            newImageUrl = data.img_url;
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
+    formData.imageUrl = newImageUrl;
 
+    console.log(newImageUrl)
 
+    const backendURL = '/api/new-test';
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ metadata: formData, data: questions })
+    };
+
+    try {
+        const response = await fetch(backendURL, options);
+        if (!response.ok) {
+            throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
+        }
+        const data = await response.json();
+        console.log('Dữ liệu đã được gửi thành công đến backend:', data);
+        window.location.href = "/admin/test";
+    } catch (error) {
+        showAlert('Đã xảy ra lỗi !!!')
+        console.error('Đã xảy ra lỗi khi gửi dữ liệu đến backend:', error);
+    }
 }
+
 
 function DeleteQuestion(id) {
     var element = document.getElementById(id);
