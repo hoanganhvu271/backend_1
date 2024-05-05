@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   saveBtn.addEventListener("click", function () {
-    const formData = new FormData();
+    let formData = new FormData();
     inputs.forEach((input) => {
       formData.append(input.id, input.value);
     });

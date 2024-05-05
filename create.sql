@@ -81,4 +81,8 @@ CREATE TABLE Admin (
 );
 INSERT INTO Admin (UserName, Email, Facebook, Instagram, FirstName, LastName, Pass, Avatar)
 VALUES
+<<<<<<< HEAD
 ('admin', 'admin@gmail.com', 'facebook.com/admin', 'instagram.com/admin', 'Admin', 'Admin', '123456', 'admin.jpg');
+=======
+('admin', 'admin@gmail.com', 'facebook.com/admin', 'instagram.com/admin', 'Admin', 'Admin', '123456', 'admin.jpg');
+>>>>>>> 2ad8557e4de7490c48a3869245157d72c06a5389

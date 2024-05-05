@@ -1,6 +1,7 @@
 require('dotenv').config()
 const jwtHelper = require("../helpers/jwt.helper");
 const { getStudentById } = require('../services/student.service')
+const testServices = require("../services/test.service");
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -48,7 +49,7 @@ const refreshToken = async (req, res) => {
     }
 };
 
-const checkLoginUser = async (req, res) => {
+const checkLoginUser = async (req, res, next) => {
 
     if (req.params.role === 'user') {
         //check valid user and password
@@ -118,24 +119,22 @@ const checkLoginUser = async (req, res) => {
         try {
 
             var data = await createTokenResponse({
-                msv: req.body.msv,
-                role: req.params.role,
-                email: 'hav@gmail.com'
+                username: "admin",
+                role: "admin",
             })
-
+            res.token = data;
+            console.log(data)
+            // res.redirect('/admin/result')
             return res.status(200).json({
-                code: 1,
-                status: 200,
-                message: 'OK',
-                data: data
+                token: data
             });
+
+
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
-                code: 0,
-                status: 500,
-                message: 'Lỗi đăng nhập'
-            });
+    
+            // Render trang lỗi khi đăng nhập thất bại
+            return res.render('error500'); 
         }
     }
 

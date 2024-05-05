@@ -31,6 +31,10 @@ const getResultByIdStuAndIdTest = async (idStu, idTest) => {
     return data;
   }
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2ad8557e4de7490c48a3869245157d72c06a5389
 const getResultByIdTest = async (idTest) => {
   const data = {
     status: null,
@@ -57,6 +61,29 @@ const getResultByIdTest = async (idTest) => {
     return data;
   }
 };
+
+const getAllResult = async (req, res) => {
+
+  const data = {
+    status: null,
+    data: null,
+  };
+  try {
+    const res = await db.Result.findAll();
+    // console.log(res);
+    if (res.length > 0) {
+      data.status = 200;
+      data.data = res;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (e) {
+    console.log(e);
+    data.status = 500;
+    return data;
+  }
+}
 
 const getResultWithIdResult = async (idResult) => {
   const data = {

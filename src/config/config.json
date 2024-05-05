@@ -1,16 +1,16 @@
 {
   "development": {
     "username": "root",
-    "password": "hvxk2003",
+    "password": "1111",
     "database": "javasql",
     "host": "127.0.0.1",
-    "port": "3306",
+    "port": "3307",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": null,
-    "database": "testbtl",
+    "database": "javasql",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

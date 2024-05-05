@@ -8,7 +8,7 @@ const searchHelper = require("../../../helpers/search");
 const { Op } = require("sequelize");
 // [GET] /admin/my-account
 module.exports.index = async (req, res) => {
-  res.render("admin/pages/viewResult/index.pug", {
+  res.render("user/pages/viewResult/index.pug", {
     titlePage: "Thông tin cá nhân",
   });
 };
@@ -38,16 +38,16 @@ module.exports.student = async (req, res) => {
       limitedItem: 5,
     },
     req.query,
-    count.data ? count.data.length : 0
+    count.data.length
   );
   const studentList = await studentServices.getStudentWithFindObject(
     find,
     pagination
   );
-  res.render("admin/pages/viewResult/student.pug", {
+  res.render("user/pages/viewResult/student.pug", {
     titlePage: "Kết quả sinh viên",
     className: lop || "Tất cả",
-    studentList: studentList.data ? studentList.data : null,
+    studentList: studentList.data,
     pagination: pagination,
     keyword: req.query.keyword || "",
   });
@@ -69,7 +69,7 @@ module.exports.studentWithId = async (req, res) => {
     studentId,
     pagination
   );
-  res.render("admin/pages/viewResult/studentDetail.pug", {
+  res.render("user/pages/viewResult/studentDetail.pug", {
     titlePage: "Kết quả sinh viên",
     student: student.data[0],
     testList: testListWithPage.data,
@@ -81,7 +81,7 @@ module.exports.detailStudentAndTest = async (req, res) => {
     req.params.studentId,
     req.params.testId
   );
-  res.render("admin/pages/viewResult/studentAndTestDetail.pug", {
+  res.render("user/pages/viewResult/studentAndTestDetail.pug", {
     titlePage: "Kết quả sinh viên",
     result: result.result.data[0],
     student: result.student.data[0],
@@ -92,7 +92,7 @@ module.exports.detailStudentAndTest = async (req, res) => {
 // [GET] /admin/my-account
 module.exports.test = async (req, res) => {
   const find = {};
-  if (req.query.keyword && req.query.keyword !== "") {
+  if (req.query.keyword) {
     const regexExpression = new RegExp(req.query.keyword, "i").source;
     find.TenBaiThi = { [Op.regexp]: regexExpression };
   }
@@ -111,7 +111,7 @@ module.exports.test = async (req, res) => {
   );
   // let token 
   // if(req.token) token = req.token
-  res.render("admin/pages/viewResult/test.pug", {
+  res.render("user/pages/viewResult/test.pug", {
     // token: token,
     titlePage: "Kết quả bài thi",
     tests: testListWithPage.data,
@@ -125,7 +125,7 @@ module.exports.testWithId = async (req, res) => {
   const resultList = await resultServices.getResultByIdTest(testId);
   const studentList = [];
   const find = {};
-  if (req.query.keyword && req.query.keyword !== "") {
+  if (req.query.keyword) {
     const regexExpression = new RegExp(req.query.keyword, "i").source;
     find[Op.or] = [
       { Ten: { [Op.regexp]: regexExpression } },
@@ -139,7 +139,7 @@ module.exports.testWithId = async (req, res) => {
     if (student.data) studentList.push(student.data[0]);
   }
 
-  res.render("admin/pages/viewResult/testResultStudent.pug", {
+  res.render("user/pages/viewResult/testResultStudent.pug", {
     titlePage: "Kết quả bài thi",
     test: test.data[0],
     resultList: resultList.data,
