@@ -241,4 +241,5 @@ module.exports = {
   getResultListofStudent,
   getResultbyIdStuandIdResult,
   createNewResult,
+  getResultByIdTest
 };
