@@ -67,12 +67,14 @@ module.exports.verifyOTP = async (req, res) => {
 }
 
 module.exports.resendOTP = async (req, res) => {
-    const { email, otp } = global.otpData;
+    const { email } = global.otpData;
     function generateOTP() {
         return Math.floor(100000 + Math.random() * 900000); // Tạo số ngẫu nhiên từ 100000 đến 999999
     }
-    const newotp = generateOTP();
-    await sendMailTo(email, newotp);
+    const otp = generateOTP();
+    global.otpData = {}
+    global.otpData = { email, otp };
+    await sendMailTo(email, otp);
     res.render("user/verifyOTP.pug");
 }
 module.exports.changePassword = async (req, res) => {
