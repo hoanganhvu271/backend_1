@@ -5,9 +5,9 @@ const { checkLoginUser, refreshToken } = require('../controllers/auth.controller
 const resultController = require('../controllers/admin/result/result.controller')
 
 const { getHomePage, getLoginAdmin, testapi } = require('../controllers/home.controllers')
-router.get('/', getHomePage)
-router.get('/login/admin', getLoginAdmin)
-router.post('/login/:role', checkLoginUser)
+// router.get('/', getHomePage)
+// router.get('/login/admin', getLoginAdmin)
+// router.post('/login/:role', checkLoginUser)
 
 // router.post("/create-newstudent", createNewStudentHandler);
 

@@ -256,7 +256,6 @@ module.exports = {
   getStudentCondition,
   getStudentWithFindObject,
   getCountStudentWithFindObject,
-  getAllStudentPerPage,
   getStudentByEmail,
   updatePassword,
 };

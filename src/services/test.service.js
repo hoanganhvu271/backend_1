@@ -7,11 +7,7 @@ const Sequelize = require("sequelize");
 const getAllTest = async () => {
   var data = { status: null, data: null };
   try {
-<<<<<<< HEAD
     const tests = await db.Test.findAll({ raw: true });
-=======
-    const tests = await db.Test.findAll();
->>>>>>> 2ad8557e4de7490c48a3869245157d72c06a5389
     console.log(tests);
     if (tests.length > 0) {
       data.status = 200;

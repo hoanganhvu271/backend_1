@@ -11,7 +11,7 @@ const viewEngine = require("./config/viewEngine.config");
 const adminRoutes = require("./routes/admin/index.router");
 const userRoutes = require("./routes/user/index.router");
 //test connection
-connection();
+// connection();
 
 app.set("views", `views`);
 app.set("view engine", "pug");

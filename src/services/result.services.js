@@ -31,10 +31,6 @@ const getResultByIdStuAndIdTest = async (idStu, idTest) => {
     return data;
   }
 };
-<<<<<<< HEAD
-=======
-
->>>>>>> 2ad8557e4de7490c48a3869245157d72c06a5389
 const getResultByIdTest = async (idTest) => {
   const data = {
     status: null,
