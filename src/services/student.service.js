@@ -1,8 +1,8 @@
 const { raw } = require("mysql2");
 const db = require("../models/index");
 const { where, Op } = require("sequelize");
-const bcrypt = require("bcrypt")
-const saltRounds = 10
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const getAllStudent = async () => {
   var data = { status: null, data: null };
 
@@ -30,7 +30,7 @@ const getAllStudentPerPage = async (page) => {
     const students = await db.Student.findAll({
       limit: 10,
       offset: (page - 1) * 10,
-      raw: true
+      raw: true,
     });
     if (students.length > 0) {
       data.status = 200;
@@ -40,12 +40,10 @@ const getAllStudentPerPage = async (page) => {
     }
     return data;
   } catch (error) {
-
     data.status = 500;
     return data;
   }
-
-}
+};
 
 const getStudentById = async (id) => {
   var data = { status: null, data: null };
@@ -67,30 +65,66 @@ const getStudentById = async (id) => {
     return data;
   }
 };
+const getStudentByEmail = async (email) => {
+  var data = { status: null, data: null };
+  try {
+    const students = await db.Student.findAll({
+      raw: true,
+      where: { Email: email },
+    });
+    if (students.length > 0) {
+      data.status = 200;
+      data.data = students;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+const updatePassword = async (email, newPassword) => {
+  try {
+    const result = await db.Student.update(
+      { MatKhau: newPassword },
+      { where: { Email: email } }
+    );
 
+    if (result[0] > 0) {
+      // Nếu có ít nhất một hàng bị ảnh hưởng (được cập nhật)
+      return { status: 200, message: "Cập nhật mật khẩu thành công." };
+    } else {
+      // Nếu không có hàng nào bị ảnh hưởng (không tìm thấy sinh viên)
+      return { status: 404, message: "Không tìm thấy sinh viên." };
+    }
+  } catch (error) {
+    console.error("Lỗi khi cập nhật mật khẩu:", error);
+    return { status: 500, message: "Đã xảy ra lỗi khi cập nhật mật khẩu." };
+  }
+};
 const createNewStudent = async (student) => {
-
   try {
     studentData = await db.Student.findAll({
       where: { MSV: student.msv },
     });
-    console.log(studentData)
+    console.log(studentData);
 
     if (studentData.length > 0) {
       return -1;
     }
-    else {
-      var hashpassword = await bcrypt.hash(student.password, saltRounds);
-      await db.Student.create({
-        MSV: student.msv,
-        Ten: student.name,
-        Lop: student.class,
-        Email: student.email,
-        TaiKhoan: student.account,
-        MatKhau: hashpassword,
-      });
-      return 1;
-    }
+    let hashPassword = await bcrypt.hash(student.password, 10);
+    await db.Student.create({
+      MSV: student.msv,
+      Ten: student.name,
+      Lop: student.class,
+      Email: student.email,
+      TaiKhoan: student.msv,
+      MatKhau: hashPassword,
+    });
+
+    return 1;
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
     return 0;
@@ -189,6 +223,50 @@ const getStudentCondition = async (condition, keyword) => {
     }
   }
 };
+const getStudentWithFindObject = async (find, pagination) => {
+  const data = { status: null, data: null };
+  console.log(pagination.limit, pagination.offset);
+  console.log(find);
+  try {
+    const students = await db.Student.findAll({
+      where: find,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      raw: true,
+    });
+    if (students.length > 0) {
+      data.status = 200;
+      data.data = students;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+const getCountStudentWithFindObject = async (find) => {
+  const data = { status: null, data: null };
+  try {
+    const students = await db.Student.findAll({
+      raw: true,
+      where: find,
+    });
+    if (students.length > 0) {
+      data.status = 200;
+      data.data = students;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
 
 module.exports = {
   getAllStudent,
@@ -197,5 +275,8 @@ module.exports = {
   deleteStudentById,
   updateStudentById,
   getStudentCondition,
-  getAllStudentPerPage
+  getStudentWithFindObject,
+  getCountStudentWithFindObject,
+  getStudentByEmail,
+  updatePassword,
 };

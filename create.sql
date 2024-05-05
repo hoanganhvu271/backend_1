@@ -66,13 +66,16 @@ CREATE TABLE KetQuaTungCau (
 );
 
 
-CREATE TABLE Admin(
-    AdminName Varchar(20) primary key,
-    Name Varchar(50),
-    Password Varchar(20),
-    Email Varchar(30)
-)
-
-Insert into Admin values(
-	'admin', 'Hoang Anh Vu', '1', 'hoanganhvu271103@gmail.com'
-) 
+CREATE TABLE Admin (
+    UserName VARCHAR(50) PRIMARY KEY,
+    Email VARCHAR(50),
+    Facebook VARCHAR(50),
+    Instagram VARCHAR(50),
+    FirstName VARCHAR(20),
+    LastName VARCHAR(20),
+    Pass VARCHAR(50),
+    Avatar VARCHAR(50)
+);
+INSERT INTO Admin (UserName, Email, Facebook, Instagram, FirstName, LastName, Pass, Avatar)
+VALUES
+('admin', 'admin@gmail.com', 'facebook.com/admin', 'instagram.com/admin', 'Admin', 'Admin', '123456', 'admin.jpg');

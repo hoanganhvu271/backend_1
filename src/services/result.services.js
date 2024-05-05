@@ -1,8 +1,8 @@
 const { default: Transaction } = require("sequelize/lib/transaction");
 const db = require("../models/index");
-const { sequelize } = require('../config/connectDB')
+const { sequelize } = require("../config/connectDB");
 
-const { createNewDetail } = require('./detail.services')
+const { createNewDetail } = require("./detail.services");
 
 const getResultByIdStuAndIdTest = async (idStu, idTest) => {
   const data = {
@@ -31,16 +31,20 @@ const getResultByIdStuAndIdTest = async (idStu, idTest) => {
     return data;
   }
 };
-const getAllResult = async (req, res) => {
-
+const getResultByIdTest = async (idTest) => {
   const data = {
     status: null,
     data: null,
   };
   try {
-    const res = await db.Result.findAll();
-    // console.log(res);
-    if (res.length > 0) {
+    const res = await db.Result.findAll({
+      raw: true,
+      where: {
+        MaBaiThi: idTest,
+      },
+    });
+    //console.log(res);
+    if (res) {
       data.status = 200;
       data.data = res;
     } else {
@@ -52,7 +56,7 @@ const getAllResult = async (req, res) => {
     data.status = 500;
     return data;
   }
-}
+};
 
 const getResultWithIdResult = async (idResult) => {
   const data = {
@@ -60,12 +64,11 @@ const getResultWithIdResult = async (idResult) => {
     data: null,
   };
 
-
   try {
     const res = await db.Result.findAll({
       raw: true,
       where: {
-        MaBaiThi: idResult
+        MaBaiThi: idResult,
       },
     });
     //console.log(res);
@@ -75,61 +78,48 @@ const getResultWithIdResult = async (idResult) => {
     if (res.length > 0) {
       data.status = 200;
       data.data = res;
-    }
-    else {
+    } else {
       data.status = 404;
       data.data = null;
     }
-
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e);
     data.status = 500;
-
   }
   return data;
-}
-const getResultWithDate = async (Date) => {
-
-}
-
+};
+const getResultWithDate = async (Date) => {};
 
 const getResultbyIdStuandIdResult = async (mkq) => {
   try {
-    const result = await db.Result.findAll(
-      {
-        where: {
-          MaKetQua: mkq
-        },
-        raw: true
-      }
-    );
-    return result[0].Diem
-
+    const result = await db.Result.findAll({
+      where: {
+        MaKetQua: mkq,
+      },
+      raw: true,
+    });
+    return result[0].Diem;
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
     return null;
   }
-}
+};
 
 const getResultListofStudent = async (msv) => {
   try {
-    const resultList = await db.Result.findAll(
-      {
-        where: {
-          MSV: msv
-        },
-        order: [['ThoiGianLamBai', 'DESC']],
-        raw: true
-      }
-    );
-    return resultList
-
+    const resultList = await db.Result.findAll({
+      where: {
+        MSV: msv,
+      },
+      order: [["ThoiGianLamBai", "DESC"]],
+      raw: true,
+    });
+    return resultList;
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
     return null;
   }
-}
+};
 
 const tinhdiem = async (questionList, testID, t) => {
   questionList.sort((a, b) => {
@@ -141,16 +131,16 @@ const tinhdiem = async (questionList, testID, t) => {
     }
     return 0;
   });
-  let cauhoi = []
+  let cauhoi = [];
   try {
     cauhoi = await db.Option.findAll({
       where: {
         MaBaiThi: testID,
-        Dung: '1'
+        Dung: "1",
       },
-      attributes: ['MaCauHoi', 'MaLuaChon'],
+      attributes: ["MaCauHoi", "MaLuaChon"],
       raw: true,
-      transaction: t
+      transaction: t,
     });
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
@@ -165,33 +155,31 @@ const tinhdiem = async (questionList, testID, t) => {
     }
     return 0;
   });
-  console.log('questionlist: ', questionList)
-  console.log('cauhoi: ', cauhoi)
-  let diem = []
+  console.log("questionlist: ", questionList);
+  console.log("cauhoi: ", cauhoi);
+  let diem = [];
   for (var i = 0; i < questionList.length; i++) {
     if (questionList[i].maluachon == cauhoi[i].MaLuaChon) {
-      diem[i] = 1
-    }
-    else diem[i] = 0
+      diem[i] = 1;
+    } else diem[i] = 0;
   }
-  return diem
-}
+  return diem;
+};
 
 const createNewResult = async (test, questionList) => {
   let t;
   try {
     t = await sequelize.transaction();
-    var mkq = 'KQ03'
-    var diem = await tinhdiem(questionList, test.mabaithi, t)
+    var mkq = "KQ03";
+    var diem = await tinhdiem(questionList, test.mabaithi, t);
 
-    let tongdiem = 0
-    diem.forEach(element => {
+    let tongdiem = 0;
+    diem.forEach((element) => {
       // Thực hiện công việc với mỗi phần tử
-      tongdiem += element
-
+      tongdiem += element;
     });
-    tongdiem = (tongdiem / diem.length * 10).toFixed(2)
-    console.log(tongdiem)
+    tongdiem = ((tongdiem / diem.length) * 10).toFixed(2);
+    console.log(tongdiem);
     await db.Result.create(
       {
         MaKetQua: mkq,
@@ -202,24 +190,33 @@ const createNewResult = async (test, questionList) => {
         ThoiGianNopBai: test.finish,
       },
       { transaction: t }
-    )
+    );
 
     for (var i = 0; i < questionList.length; i++) {
-      await createNewDetail(questionList[i], mkq, test.mabaithi, i + 1, diem[i], t);
+      await createNewDetail(
+        questionList[i],
+        mkq,
+        test.mabaithi,
+        i + 1,
+        diem[i],
+        t
+      );
     }
     await t.commit();
-    return true
+    return true;
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
     await t.rollback();
-    return false
+    return false;
   }
-}
-
+};
 
 module.exports = {
   getAllResult,
   getResultWithIdResult,
   getResultWithDate,
-  getResultByIdStuAndIdTest, getResultListofStudent, getResultbyIdStuandIdResult, createNewResult
+  getResultByIdStuAndIdTest,
+  getResultListofStudent,
+  getResultbyIdStuandIdResult,
+  createNewResult,
 };
