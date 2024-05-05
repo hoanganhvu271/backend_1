@@ -25,8 +25,8 @@ app.set("view engine", "pug");
 //config req body
 app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
-
-app.use("/api", apiRoutes);
+// app.use(trimInputs)
+app.use(trimInputs)
 //express-session
 viewEngine(app);
 app.listen(port, () => {
