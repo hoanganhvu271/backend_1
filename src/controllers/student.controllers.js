@@ -245,26 +245,15 @@ const createNewStudentHandler = async (req, res) => {
     }
     return res.status(200).json({
       code: data,
-<<<<<<< HEAD
-      message: "Sinh viên được tạo thành công",
-      EC: '0',
-      DT: ''
-=======
       message: "Sinh Viên được tạo thành công",
       EC: "0",
       DT: "",
->>>>>>> 5f87e885ad4ec18f32da99e622f8787571dab0b0
     });
   } catch (error) {
     return res.status(500).json({
       code: 0,
       message: "Lỗi khi tạo sinh viên",
-<<<<<<< HEAD
-    })
-
-=======
     });
->>>>>>> 5f87e885ad4ec18f32da99e622f8787571dab0b0
   }
 };
 
@@ -276,9 +265,5 @@ module.exports = {
   updateStudentHandler,
   getStudentInresultHandler,
   createNewStudentHandler,
-<<<<<<< HEAD
-  getStudentByPage
-=======
   getStudentByPage,
->>>>>>> 5f87e885ad4ec18f32da99e622f8787571dab0b0
 };

@@ -212,7 +212,6 @@ const createNewResult = async (test, questionList) => {
 };
 
 module.exports = {
-  getAllResult,
   getResultWithIdResult,
   getResultWithDate,
   getResultByIdStuAndIdTest,

@@ -153,6 +153,5 @@ module.exports = {
   getDetailTestWithIdStuAndIdTest,
   getAllResultHandler,
   getAllStaticWithIdResult,
-  getAllStaticWithDate
 
 };
