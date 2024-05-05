@@ -203,7 +203,7 @@ function Save(id) {
     };
 
     if (!examDate || !examTime || !formData.numQuestions || !formData.examTime || !formData.examName) {
-        alert('Vui lòng điền đầy đủ thông tin bài thi');
+        showAlert('Vui lòng điền đầy đủ thông tin cho bài thi');
     }
     else {
         var questions = [];
@@ -221,7 +221,7 @@ function Save(id) {
             var check = "";
             var questionContent = document.getElementById('question' + i).value
             if (questionContent === "") {
-                alert('Bạn chưa nhập đề bài cho câu hỏi ' + i)
+                showAlert('Vui lòng nhập đề bài cho câu hỏi ' + i);
                 return;
             }
             for (var j = 1; j <= 4; j++) {
@@ -230,14 +230,14 @@ function Save(id) {
                 }
                 var ans = document.getElementById('question' + i + 'answer' + j).value
                 if (ans === '') {
-                    alert('Bạn chưa nhập đáp án cho câu hỏi ' + i)
+                    showAlert('Bạn chưa nhập đáp án cho câu hỏi ' + i)
                     return;
                 }
                 answer.push(ans);
             }
 
             if (check === "") {
-                alert('Bạn chưa chọn đáp án đúng cho câu hỏi ' + i)
+                showAlert('Bạn chưa chọn đáp án đúng cho câu hỏi ' + i)
                 return;
             }
 
@@ -250,7 +250,6 @@ function Save(id) {
                 check: check
             })
         }
-
 
 
         const backendURL = 'http://localhost:8080/api/update-test/' + id;
