@@ -38,7 +38,7 @@ module.exports.student = async (req, res) => {
       limitedItem: 5,
     },
     req.query,
-    count.data.length
+    count.data ? count.data.length : 0
   );
   const studentList = await studentServices.getStudentWithFindObject(
     find,
@@ -47,7 +47,7 @@ module.exports.student = async (req, res) => {
   res.render("admin/pages/viewResult/student.pug", {
     titlePage: "Kết quả sinh viên",
     className: lop || "Tất cả",
-    studentList: studentList.data,
+    studentList: studentList.data ? studentList.data : null,
     pagination: pagination,
     keyword: req.query.keyword || "",
   });
@@ -92,7 +92,7 @@ module.exports.detailStudentAndTest = async (req, res) => {
 // [GET] /admin/my-account
 module.exports.test = async (req, res) => {
   const find = {};
-  if (req.query.keyword) {
+  if (req.query.keyword && req.query.keyword !== "") {
     const regexExpression = new RegExp(req.query.keyword, "i").source;
     find.TenBaiThi = { [Op.regexp]: regexExpression };
   }
@@ -125,7 +125,7 @@ module.exports.testWithId = async (req, res) => {
   const resultList = await resultServices.getResultByIdTest(testId);
   const studentList = [];
   const find = {};
-  if (req.query.keyword) {
+  if (req.query.keyword && req.query.keyword !== "") {
     const regexExpression = new RegExp(req.query.keyword, "i").source;
     find[Op.or] = [
       { Ten: { [Op.regexp]: regexExpression } },

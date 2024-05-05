@@ -16,14 +16,11 @@ connection();
 
 app.set("views", `views`);
 app.set("view engine", "pug");
-
 //config req body
 app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
 app.use(trimInputs)
 
-app.use("/", mainRoutes);
-app.use("/api", apiRoutes);
 //express-session
 viewEngine(app);
 app.listen(port, () => {
