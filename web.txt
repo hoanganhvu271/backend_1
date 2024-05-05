@@ -1,0 +1,10 @@
+hoàn thành đăng nhập -> 
+hoàn thành quên mật khẩu
+hoàn thành đăng ký 
+hoàn thành gửi mail
+chưa xong hiện chữ cái lên form : ví dụ như hiện sinh viên đã tồn tại  -> đã thử nhưng bị lỗi khi chạy lượt đầu không khai báo data
+chưa xong cái kiểm tra dữ liệu đầu vào
+
+
+hoan thanh login user
+có thời gian sẽ làm rõ các lỗi trong đăng ký mới

@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    // Required meta tags
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    link(href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/css/owl.carousel.min.css" )
+    // Bootstrap CSS
+    link(rel="stylesheet", href="/css/bootstrap.min.css")
+    // Style
+    link(rel="stylesheet", href="/css/loginUser.css")
+    title Xác nhận mã OTP
+
+  body
+    .content
+      .container
+        .row
+          .col-md-6
+            img(src="/static/images/undraw_remotely_2j6y.svg", alt="Image", class="img-fluid")
+          .col-md-6.contents
+            .row.justify-content-center
+              .col-md-8
+                .mb-4
+                  h3(style="text-align: center;") Xác nhận Mã OTP
+
+                  // Form nhận mã OTP
+                  form(action="/forgotPassword/resetPassword/verifyOTP", method="post")
+                    .form-group.first
+                      input(type="number", class="form-control", id="otp",pattern="[0-9]{6}", name="otp", placeholder="Mã OTP" Required)
+
+                    input(type="submit", value="Xác nhận", class="btn btn-block btn-primary")
+                  br
+                  if data && data.message
+                   p.aler= data.message

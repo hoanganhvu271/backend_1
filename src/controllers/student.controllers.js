@@ -5,7 +5,7 @@ const {
   deleteStudentById,
   updateStudentById,
   getStudentCondition,
-  getAllStudentPerPage
+  getAllStudentPerPage,
 } = require("../services/student.service");
 
 const getStudentHandler = async (req, res) => {
@@ -71,7 +71,7 @@ const getStudentByPage = async (req, res) => {
     };
     res.status(500).json(response);
   }
-}
+};
 
 const getStudentByIdHandler = async (req, res) => {
   const id = req.params.id;
@@ -103,55 +103,47 @@ const getStudentByIdHandler = async (req, res) => {
 };
 
 const postStudentHandler = async (req, res) => {
-  student = req.body
-  var status = await createNewStudent(student)
+  student = req.body;
+  var status = await createNewStudent(student);
   if (status == 1) {
     res.status(200).json({
       code: 1,
       status: 200,
       message: "Tạo sinh viên thành công!",
-
     });
-  }
-  else if (status == 0) {
+  } else if (status == 0) {
     res.status(500).json({
       code: 0,
       status: 500,
-      message: "Tạo sinh viên thất bại!"
-
+      message: "Tạo sinh viên thất bại!",
     });
-  }
-  else {
-    //409 : conflict 
+  } else {
+    //409 : conflict
     res.status(409).json({
       code: -1,
       status: 409,
-      message: "Mã sinh viên đã tồn tại"
+      message: "Mã sinh viên đã tồn tại",
     });
   }
-}
-
+};
 
 const deleteStudentHandler = async (req, res) => {
-  studentId = req.params.id
-  // console.log(studentId);
-  var status = deleteStudentById(studentId)
+  studentId = req.params;
+  var status = deleteStudentById(studentId);
   if (status) {
     res.status(200).json({
       code: 1,
       status: 200,
-      message: "Xóa sinh viên thành công!"
+      message: "Xóa sinh viên thành công!",
     });
-  }
-  else {
+  } else {
     res.status(500).json({
       code: 0,
       status: 500,
-      message: "Xóa sinh viên thất bại!"
-
+      message: "Xóa sinh viên thất bại!",
     });
   }
-}
+};
 
 const updateStudentHandler = async (req, res) => {
   const studentId = req.params.id;
@@ -162,27 +154,22 @@ const updateStudentHandler = async (req, res) => {
     res.status(200).json({
       code: 1,
       status: 200,
-      message: "Cập nhật sinh viên thành công"
-
+      message: "Cập nhật sinh viên thành công",
     });
-  }
-  else if (status == 0) {
+  } else if (status == 0) {
     res.status(500).json({
       code: 0,
       status: 500,
-      message: "Cập nhật sinh viên thất bại"
+      message: "Cập nhật sinh viên thất bại",
     });
-  }
-  else {
+  } else {
     res.status(409).json({
       code: -1,
       status: 409,
-      message: "Mã sinh viên đã tồn tại"
-    })
+      message: "Mã sinh viên đã tồn tại",
+    });
   }
-}
-
-
+};
 
 const getStudentInresultHandler = async (req, res) => {
   var value = req.query.value;
@@ -225,7 +212,14 @@ const createNewStudentHandler = async (req, res) => {
   try {
     //resq.body
     //validate user
-    if (!req.body.msv || !req.body.name || !req.body.class || !req.body.email || !req.body.account || !req.body.password) {
+    if (
+      !req.body.msv ||
+      !req.body.name ||
+      !req.body.class ||
+      !req.body.email ||
+      !req.body.account ||
+      !req.body.password
+    ) {
       return res.status(400).json({
         code: 0,
         message: "Vui lòng nhập đầy đủ thông tin",
@@ -236,8 +230,8 @@ const createNewStudentHandler = async (req, res) => {
       return res.status(400).json({
         code: 0,
         message: "Mật khẩu tối thiểu 9 ký tự",
-        EC: '0',
-        DT: ''
+        EC: "0",
+        DT: "",
       });
     }
     let data = await createNewStudent(req.body);
@@ -245,24 +239,34 @@ const createNewStudentHandler = async (req, res) => {
       return res.status(409).json({
         code: 0,
         message: "Sinh Viên đã tồn tại trong cơ sở dữ liệu",
-        EC: '0',
-        DT: ''
+        EC: "0",
+        DT: "",
       });
     }
     return res.status(200).json({
       code: data,
+<<<<<<< HEAD
       message: "Sinh viên được tạo thành công",
       EC: '0',
       DT: ''
+=======
+      message: "Sinh Viên được tạo thành công",
+      EC: "0",
+      DT: "",
+>>>>>>> 5f87e885ad4ec18f32da99e622f8787571dab0b0
     });
   } catch (error) {
     return res.status(500).json({
       code: 0,
       message: "Lỗi khi tạo sinh viên",
+<<<<<<< HEAD
     })
 
+=======
+    });
+>>>>>>> 5f87e885ad4ec18f32da99e622f8787571dab0b0
   }
-}
+};
 
 module.exports = {
   getStudentHandler,
@@ -272,5 +276,9 @@ module.exports = {
   updateStudentHandler,
   getStudentInresultHandler,
   createNewStudentHandler,
+<<<<<<< HEAD
   getStudentByPage
+=======
+  getStudentByPage,
+>>>>>>> 5f87e885ad4ec18f32da99e622f8787571dab0b0
 };

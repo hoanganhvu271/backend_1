@@ -1,5 +1,6 @@
 
-const { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById, searchTestByName, getTestByStudentId, getAllTestPerPage } = require('../services/test.service')
+const { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById, searchTestByName, getTestByStudentId, getAllTestPerPage
+  , getTestByText } = require('../services/test.service')
 const { getQuestionOfTest, getQuestionOfTestUser } = require('../services/question.service')
 const { getStudentById } = require('../services/student.service')
 const { getDetailListWithIdResultandIdStu } = require('../services/detail.services')
@@ -40,6 +41,31 @@ const getTestList = async (req, res) => {
     }
   }
 };
+
+const getSearchTest = async (req, res) => {
+  const inputText = req.query.text;
+  let tests = await getTestByText(inputText);
+  // console.log(questions)
+  if (tests) {
+    const response = {
+      code: 1,
+      status: 200,
+      message: "da tim thay cac bai thi successfully",
+      data: tests
+    };
+
+    res.status(200).json(response);
+  }
+  else {
+    const response = {
+      code: 0,
+      status: 500,
+      message: "internal server error",
+    };
+
+    res.status(500).json(response);
+  }
+}
 
 const getTestByPage = async (req, res) => {
   var tests = await getAllTestPerPage(req.query.page)
@@ -329,7 +355,10 @@ const postSubmit = async (req, res) => {
   }
 }
 
-module.exports = { getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler, searchTestHandler, getTestWithStudent, getResultList, getDetailList, postTestHandler, getQuestionHandlernoAns, postSubmit, getTestByPage }
+module.exports = {
+  getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler, searchTestHandler,
+  getTestWithStudent, getResultList, getDetailList, postTestHandler, getQuestionHandlernoAns, postSubmit, getTestByPage, getSearchTest
+}
 
 
 

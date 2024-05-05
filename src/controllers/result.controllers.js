@@ -94,7 +94,8 @@ const getAllStaticWithIdResult = async (req, res) => {
   }
 
 }
-const getAllStaticWithDate = async (req, res) => {
+const getAllStaticWithIdDate = async (req, res) => {
+  const ngay = req.params.date;
   if (!req.params.date) {
     res.status(404).json({
       code: 0,
@@ -106,15 +107,23 @@ const getAllStaticWithDate = async (req, res) => {
     // truy vấn đến bài thi  với date được lấy từ req, sau đó trả về 1 danh sách các id bài thi 
     // từ id bài thi truy vấn trong ketqua và hiển thị tất cả bài thi có trong bảng kết quả 
     try {
-      const data = await getResultWithDate(req.params.date);
+      const listId = await getIdTestWithDate(ngay);
+      data = []
+      for (var i = 0; i < listId.length; i++) {
+        var id = listId[i].MaBaiThi;
+        const dataId = await getResultWithIdResult(id);
+        if (dataId.status === 200) {
+          data.push(dataId.data);
+        }
 
+      }
 
-      if (data.status === 200) {
+      if (data.length > 0) {
         res.status(200).json({
           code: 1,
           status: 200,
-          message: "Tất cả kết quả bài thi vào ngày " + req.params.date,
-          data: data.data
+          message: "Tất cả kết quả bài thi vào ngày " + ngay,
+          data: data
         });
       }
       else {
@@ -127,7 +136,6 @@ const getAllStaticWithDate = async (req, res) => {
       }
 
     } catch (error) {
-      console.log(error);
       res.status(500).json({
         code: 0,
         status: 500,
@@ -140,45 +148,6 @@ const getAllStaticWithDate = async (req, res) => {
 
 }
 
-// const getDetailTestWithIdStuAndIdTest = async (req, res) => {
-//   const idStu = req.params.id;
-//   const idTest = req.params.idTest;
-//   const dataRes = {
-//     status: null,
-//     student: null,
-//     test: null,
-//     numberCorrect: null,
-//     numberTotal: null,
-//     result: null,
-//     detail: [],
-//   };
-//   const questionList = await getQuestionOfTest(idTest); //thong tin cac cau hoi
-//   const student = await getStudentById(idStu); //thong tin sinh vien
-//   const result = await getResultByIdStuAndIdTest(idStu, idTest); //thong tin ket qua
-
-//   const test = await getTestById(idTest); //thong tin bai thi
-
-//   if (result.data) {
-//     const detailList = await getDetailListWithIdResult(result.data[0].MaKetQua); //chi tiet tung cau
-//     dataRes.student = student;
-//     dataRes.status = 200;
-//     dataRes.test = test;
-//     dataRes.result = result;
-//     dataRes.numberTotal = detailList.length;
-//     var cntCorrect = 0;
-//     for (var i = 0; i < detailList.length; i++) {
-//       const questionInfor = { question: null, _detail: null };
-//       questionInfor.question = questionList.data[i];
-//       questionInfor._detail = detailList[i];
-//       if (detailList[i].Dung === 1) cntCorrect++;
-//       dataRes.detail.push(questionInfor);
-//     }
-//     dataRes.numberCorrect = cntCorrect;
-//   } else {
-//     dataRes.status = 404;
-//   }
-//   res.json(dataRes);
-// };
 module.exports = {
   getResultWithIdStuAndIdTest,
   getDetailTestWithIdStuAndIdTest,
