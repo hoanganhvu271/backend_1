@@ -25,7 +25,7 @@ function closePopUp(id) {
 function submitForm(id) {
     // console.log("hello")
     var details = document.getElementById(id);
-    details.style.display = 'none';
+
 
     var formData = {
         msv: document.getElementById('msv').value,
@@ -34,6 +34,12 @@ function submitForm(id) {
         email: document.getElementById('email').value,
         password: document.getElementById('password').value
     };
+    if (!formData.msv || !formData.name || !formData.class || !formData.email || !formData.password) {
+        showAlert('Vui lòng điền đầy đủ thông tin!');
+        return;
+    }
+
+    details.style.display = 'none';
 
     fetch('/api/new-student', {
         method: 'POST',
@@ -54,6 +60,7 @@ function submitForm(id) {
         })
         .catch(error => {
             console.error('There was an error with the fetch operation:', error);
+            showAlert("Đã xảy ra lỗi khi thêm tài khoản!")
         });
 
     // Ngăn chặn form submit mặc định
@@ -77,11 +84,11 @@ async function deleteAccount(id) {
             var testTr = document.getElementById(id)
             testTr.remove();
         } else {
-            alert('Xóa không thành công!');
+            showAlert('Xóa không thành công!')
         }
     } catch (error) {
         console.error('Lỗi khi gửi yêu cầu xóa:', error);
-        alert('Đã xảy ra lỗi khi xóa bài thi!');
+        showAlert('Đã xảy ra lỗi khi xóa bài thi!')
     }
 }
 

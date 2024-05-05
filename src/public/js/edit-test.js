@@ -18,6 +18,9 @@ function render(questions) {
     var numQuestions = questions.length;
     var questionsContainer = document.getElementById('questionsContainer');
 
+
+
+
     // Xóa các câu hỏi cũ trước khi tạo mới
     questionsContainer.innerHTML = '';
     currentNumber = numQuestions + 1;
@@ -188,6 +191,16 @@ function toggleCheckbox(idElement) {
     }
 }
 
+function hideAlert() {
+    document.getElementById('myAlert').style.display = 'none';
+}
+
+function showAlert(content) {
+    document.getElementById('alertContent').textContent = content;
+    document.getElementById('myAlert').style.display = 'block';
+    setTimeout(hideAlert, 3000);
+}
+
 function Save(id) {
 
     var examDate = document.getElementById('examDate').value;
@@ -278,6 +291,7 @@ function Save(id) {
                 window.location.href = "/admin/test";
             })
             .catch(error => {
+                showAlert('Đã xảy ra lỗi');
                 console.error('Đã xảy ra lỗi khi gửi dữ liệu đến backend:', error);
             });
     }
@@ -313,12 +327,3 @@ function UpDateIdForQuestion(id) {
     currentNumber--;
 }
 
-function hideAlert() {
-    document.getElementById('myAlert').style.display = 'none';
-}
-
-function showAlert(content) {
-    document.getElementById('alertContent').textContent = content;
-    document.getElementById('myAlert').style.display = 'block';
-    setTimeout(hideAlert, 3000);
-}

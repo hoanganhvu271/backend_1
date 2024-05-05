@@ -15,7 +15,13 @@ document.getElementById('fileOption').addEventListener('change', function () {
 
 function render() {
 
-    var numQuestions = parseInt(document.getElementById('numQuestions').value);
+    var num = document.getElementById('numQuestions').value
+    if (num === '') {
+        showAlert('Bạn chưa nhập số câu hỏi');
+        return;
+    }
+    var numQuestions = parseInt(num);
+
     var questionsContainer = document.getElementById('questionsContainer');
 
     // Xóa các câu hỏi cũ trước khi tạo mới
@@ -378,9 +384,9 @@ function Save() {
                 console.log('Dữ liệu đã được gửi thành công đến backend:', data);
                 window.location.href = "/admin/test";
 
-                console.log("aa");
             })
             .catch(error => {
+                showAlert('Đã xảy ra lỗi !!!')
                 console.error('Đã xảy ra lỗi khi gửi dữ liệu đến backend:', error);
             });
     }
