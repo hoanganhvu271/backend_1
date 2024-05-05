@@ -40,9 +40,38 @@ a:hover {
   font-style: italic;
 }
 
+.digit-group {
+  display: flex;
+  justify-content: center;
+}
+
+.digit-group input {
+  width: 40px;
+  height: 60px;
+  background-color: rgba(163, 143, 143, 0.536);
+  border: none;
+  line-height: 50px;
+  text-align: center;
+  font-size: 40px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 200;
+  color: black;
+  margin: 0 2px;
+  border-radius: 10px;
+
+
+}
+
+
+.prompt {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: white;
+}
+
 .text {
   text-align: center;
-  color: blue;
+  color: #c32b2b;
   padding-bottom: 20px;
   font-weight: bold;
 }
@@ -273,12 +302,12 @@ h2 {
 }
 
 .control input:checked~.control__indicator {
-  background: #6c63ff;
+  background: #c32b2b;
 }
 
 .control:hover input:not([disabled]):checked~.control__indicator,
 .control input:checked:focus~.control__indicator {
-  background: #847dff;
+  background: #c32b2b;
 }
 
 .control input:disabled~.control__indicator {
