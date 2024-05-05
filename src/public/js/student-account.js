@@ -166,6 +166,12 @@ function finishEdit(id) {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+            if (response.statusCode === 409) {
+                showAlert('Mã sinh viên đã tồn tại!')
+            }
+            else if (response.statusCode === 400) {
+                showAlert('Mật khẩu tối thiểu 9 ký tự')
+            }
             return response.json();
         })
         .then(data => {
@@ -173,6 +179,7 @@ function finishEdit(id) {
             console.log(data);
         })
         .catch(error => {
+            showAlert("Đã xảy ra lỗi khi cập nhật tài khoản!")
             console.error('There was an error with the fetch operation:', error);
         });
 
