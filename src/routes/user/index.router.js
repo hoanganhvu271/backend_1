@@ -1,8 +1,8 @@
-const viewResultRoutes = require("./viewResult.router");
-const profileRoutes = require("./profile.router");
-const indexUser = require("./user")
+const indexUser = require("./user");
+const userListTest = require("./usertestlist.router");
+const userResult = require("./viewResult.router");
 module.exports = (app) => {
-  app.use("/", indexUser)
-  app.use("/user/result", viewResultRoutes);
-  app.use("/user/profile", profileRoutes);
+  app.use("/", indexUser);
+  app.use("/practice", userListTest);
+  app.use("/result", userResult);
 };

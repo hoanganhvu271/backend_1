@@ -74,7 +74,7 @@ const createNewTest = async (test, questionList) => {
         SoLuongCau: parseInt(questionList.length),
         TheLoai: "Trắc nghiệm",
         TrangThai: "Đóng",
-      },
+      }
       // { transaction: t }
     );
 
@@ -298,8 +298,8 @@ const getCountTestWithFindObject = async (find) => {
     data.status = 500;
     return data;
     return listId;
-  };
-}
+  }
+};
 
 const getTestByText = async (inputText) => {
   try {
@@ -365,6 +365,75 @@ const getTestWithFindObjectAndPage = async (find, pagination) => {
     return data;
   }
 };
+
+const getTestListForStudent = async () => {
+  const data = { status: null, data: null };
+  try {
+    const tests = await db.Test.findAll({
+      where: {
+        TrangThai: "Mở",
+      },
+      raw: true,
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+const getCountTestListForStudentWithFindObject = async (find) => {
+  const data = { status: null, data: null };
+  try {
+    const tests = await db.Test.findAll({
+      raw: true,
+      where: find,
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+
+const getTestListForStudentWithFindObject = async (find, pagination) => {
+  const data = { status: null, data: null };
+  try {
+    const tests = await db.Test.findAll({
+      where: find,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      raw: true,
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+
+
+
 module.exports = {
   getAllTest,
   getTestById,
@@ -378,4 +447,7 @@ module.exports = {
   getTestWithFindObject,
   getTestByStudentIdWithPage,
   getTestWithFindObjectAndPage,
-}
+  getTestListForStudent,
+  getCountTestListForStudentWithFindObject,
+  getTestListForStudentWithFindObject,
+};
