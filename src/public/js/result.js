@@ -41,7 +41,11 @@ btnloc.forEach(function (btn) {
     const inputElement = document.querySelector("[tim-kiem]");
     const inputValue = inputElement.value;
     const url = new URL(window.location.href);
-    url.searchParams.set("keyword", inputValue);
+    if (inputValue && inputValue !== "")
+      url.searchParams.set("keyword", inputValue);
+    else {
+      url.searchParams.delete("keyword");
+    }
     url.searchParams.set("page", 1);
     window.location.href = url;
   });
@@ -82,7 +86,11 @@ btnLocTest.forEach(function (btn) {
     const inputElement = document.querySelector("[tim-kiem-test]");
     const inputValue = inputElement.value;
     const url = new URL(window.location.href);
-    url.searchParams.set("keyword", inputValue);
+    if (inputValue && inputValue !== "")
+      url.searchParams.set("keyword", inputValue);
+    else {
+      url.searchParams.delete("keyword");
+    }
     url.searchParams.set("page", 1);
     window.location.href = url;
   });

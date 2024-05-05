@@ -30,12 +30,13 @@ block main
         th Lớp
         th Chi tiết
     tbody
-      each student, index in studentList
-        tr
-          td #{index + 1}
-          td #{student.MSV}
-          td #{student.Ten}
-          td #{student.Lop}
-          td
-            a.btn.btn-primary( idStu = student.MSV btn-detail) Xem chi tiết
+      - if (studentList)
+          each student, index in studentList
+            tr
+              td #{index + 1}
+              td #{student.MSV}
+              td #{student.Ten}
+              td #{student.Lop}
+              td
+                a.btn.btn-primary( idStu = student.MSV btn-detail) Xem chi tiết
   +pagination(pagination)
