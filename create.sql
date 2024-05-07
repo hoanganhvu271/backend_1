@@ -79,12 +79,19 @@ CREATE TABLE Admin (
     Pass VARCHAR(50),
     Avatar VARCHAR(50)
 );
+
+ALTER TABLE baithi ADD COLUMN img_url VARCHAR(255) AFTER TrangThai;
+
+UPDATE baithi SET img_url = "https://res.cloudinary.com/dyc1c2elf/image/upload/v1714894653/hpz5yqojda1ajpnrpkvv.jpg" where MaBaiThi > -1;
+
 INSERT INTO Admin (UserName, Email, Facebook, Instagram, FirstName, LastName, Pass, Avatar)
 VALUES
 
 ('admin', 'admin@gmail.com', 'facebook.com/admin', 'instagram.com/admin', 'Admin', 'Admin', '123456', 'admin.jpg');
 
+alter table Admin add column Role_id Varchar(20) after Avatar
 
+update Admin set Role_id = 1 where username = 'admin';
 
 ALTER TABLE ketqua
 add ThoiGianLamBai datetime,
@@ -94,3 +101,22 @@ add ThoiGianNopBai datetime;
 ALTER TABLE ketquatungcau
 DROP PRIMARY KEY, 
 ADD PRIMARY KEY (MaChiTiet, MaKetQua);
+
+CREATE TABLE Role(
+	Id int auto_increment primary key,
+    Name varchar(50)
+);
+
+CREATE TABLE Permission(
+	Id int auto_increment primary key,
+    Name varchar(50)
+);
+
+
+CREATE TABLE HasPermission(
+	Id INT AUTO_INCREMENT PRIMARY KEY,
+    Role_id INT,
+    Permission_id INT,
+    FOREIGN KEY (Role_id) REFERENCES Role(Id),
+    FOREIGN KEY (Permission_id) REFERENCES Permission(Id)
+)

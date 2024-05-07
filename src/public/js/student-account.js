@@ -19,6 +19,7 @@ function closePopUp(id) {
     document.getElementById('edit-email').value = ""
     document.getElementById('edit-password').value = ""
 
+
     details.style.display = 'none';
 }
 

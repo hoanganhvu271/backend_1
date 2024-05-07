@@ -14,7 +14,7 @@ const userRoutes = require("./routes/user/index.router");
 const errorRoutes = require("./routes/pageError/index.router");
 const e = require("express");
 //test connection
-connection();
+// connection();
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
@@ -26,8 +26,9 @@ app.set("view engine", "pug");
 app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
 // app.use(trimInputs)
-app.use(trimInputs)
+// app.use(trimInputs)
 //express-session
+app.use('/api', apiRoutes)
 viewEngine(app);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

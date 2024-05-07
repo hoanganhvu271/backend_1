@@ -75,6 +75,7 @@ const getStudentByPage = async (req, res) => {
 
 const getStudentByIdHandler = async (req, res) => {
   const id = req.params.id;
+  console.log(id)
   var student = await getStudentById(id);
   if (student.status === 200) {
     const response = {
