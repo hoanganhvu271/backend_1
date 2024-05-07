@@ -94,3 +94,7 @@ add ThoiGianNopBai datetime;
 ALTER TABLE ketquatungcau
 DROP PRIMARY KEY, 
 ADD PRIMARY KEY (MaChiTiet, MaKetQua);
+
+ALTER TABLE baithi ADD COLUMN img_url VARCHAR(255) AFTER TrangThai;
+
+UPDATE baithi SET img_url = "https://res.cloudinary.com/dyc1c2elf/image/upload/v1714894653/hpz5yqojda1ajpnrpkvv.jpg" where MaBaiThi > -1;
