@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../models/index");
-const profileController = require("../../controllers/admin/profile/profile.controller");
+const profileController = require("../../controllers/user/profile/profile.controller");
 
-router.get("/:admin", profileController.index);
+router.get("/", profileController.index);
 router.put("/save-profile/:admin", async (req, res) => {
   try {
     const adminTk = req.params.admin; // Lấy ID của admin từ đường dẫn URL

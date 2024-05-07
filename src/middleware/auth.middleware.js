@@ -6,8 +6,8 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 
 const isAuth = async (req, res, next) => {
 
-    const tokenFromClient = req.headers["x-access-token"];
-
+    const tokenFromClient = req.cookies.jwt;
+    // console.log('token: ',tokenFromClient)
     if (tokenFromClient) {
 
         try {
@@ -24,12 +24,7 @@ const isAuth = async (req, res, next) => {
             });
         }
     } else {
-
-        return res.status(403).send({
-            code: 0,
-            status: 403,
-            message: 'No token provided.',
-        });
+        return res.redirect('/')
     }
 }
 

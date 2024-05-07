@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const { getStudentById, createNewStudent, getStudentByEmail, updatePassword } = require("../../services/student.service")
 global.otpData = {};
 module.exports.index = async (req, res) => {
-
+    
     res.render("user/login.pug", {
         titlePage: "Thông tin cá nhân"
     });

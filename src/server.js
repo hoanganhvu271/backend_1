@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+var cookieParser = require('cookie-parser')
 const app = express()
 const port = process.env.PORT || 9999
 
@@ -20,6 +21,7 @@ app.set("view engine", "pug");
 app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
 app.use(trimInputs)
+app.use(cookieParser())
 
 //express-session
 viewEngine(app);
