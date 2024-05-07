@@ -1,5 +1,4 @@
 const { Sequelize } = require("sequelize");
-require('dotenv').config();
 
 const sequelize = new Sequelize("javasql", "root", "hvxk2003", {
   host: "localhost",
@@ -16,4 +15,3 @@ const connection = async () => {
 };
 
 module.exports = { connection, sequelize };
-

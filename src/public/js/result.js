@@ -138,9 +138,11 @@ btnDetailTest.forEach(function (btn) {
 });
 
 const btnDetailTestUser = document.querySelectorAll("[btn-detail-test-user]");
+
 btnDetailTestUser.forEach(function (btn) {
   btn.addEventListener("click", function () {
     const testId = btn.getAttribute("idTest");
+    console.log(testId)
     const url = new URL(window.location.href);
     url.searchParams.delete("keyword");
     url.searchParams.delete("page");

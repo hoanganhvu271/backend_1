@@ -6,6 +6,7 @@ const resultController = require("../../result.controllers");
 const paginationHelper = require("../../../helpers/paginationHelper");
 const searchHelper = require("../../../helpers/search");
 const { Op } = require("sequelize");
+const jwtHelper = require("../../../helpers/jwt.helper");
 // [GET] /admin/my-account
 module.exports.index = async (req, res) => {
   res.render("user/pages/viewResult/index.pug", {
@@ -91,6 +92,7 @@ module.exports.detailStudentAndTest = async (req, res) => {
 };
 // [GET] /admin/my-account
 module.exports.test = async (req, res) => {
+
   const find = {};
   if (req.query.keyword) {
     const regexExpression = new RegExp(req.query.keyword, "i").source;

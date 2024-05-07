@@ -1,8 +1,9 @@
-require("dotenv").config();
-const express = require("express");
-const bodyParser = require("body-parser");
-const app = express();
-const port = process.env.PORT || 9999;
+require('dotenv').config()
+const express = require('express')
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
+const app = express()
+const port = process.env.PORT || 9999
 
 const viewEngine = require("./config/viewEngine.config");
 // const mainRoutes = require("./routes/main.route");
@@ -12,7 +13,7 @@ const { connection } = require("./config/connectDB");
 const adminRoutes = require("./routes/admin/index.router");
 const userRoutes = require("./routes/user/index.router");
 const errorRoutes = require("./routes/pageError/index.router");
-const e = require("express");
+
 //test connection
 // connection();
 
@@ -27,6 +28,8 @@ app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
 // app.use(trimInputs)
 // app.use(trimInputs)
+app.use(cookieParser())
+
 //express-session
 app.use('/api', apiRoutes)
 viewEngine(app);
