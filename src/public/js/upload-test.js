@@ -1,17 +1,7 @@
 
 var currentNumber = 1;
-document.getElementById('examType').addEventListener('change', function () {
-    var examType = this.value;
-    var specificTime = document.getElementById('specificTime');
-
-    if (examType === 'time-count') {
-        specificTime.style.display = 'block';
-    } else {
-        specificTime.style.display = 'none';
-    }
-});
-
 document.getElementById('fileOption').addEventListener('change', function () {
+
     var fileOption = this.value;
     var fileUpload = document.getElementById('fileUpload');
 
@@ -22,13 +12,16 @@ document.getElementById('fileOption').addEventListener('change', function () {
     }
 });
 
-document.getElementById('option-form').addEventListener('submit', function (event) {
-    event.preventDefault();
 
-    // Lấy thông tin từ form
+function render() {
 
+    var num = document.getElementById('numQuestions').value
+    if (num === '') {
+        showAlert('Bạn chưa nhập số câu hỏi');
+        return;
+    }
+    var numQuestions = parseInt(num);
 
-    var numQuestions = parseInt(document.getElementById('numQuestions').value);
     var questionsContainer = document.getElementById('questionsContainer');
 
     // Xóa các câu hỏi cũ trước khi tạo mới
@@ -45,6 +38,9 @@ document.getElementById('option-form').addEventListener('submit', function (even
 
         var questionDiv = document.createElement('div');
         questionDiv.className = 'question-container';
+
+        var questionTitle = document.createElement('div');
+        questionTitle.className = 'question-title';
 
         // new
         var deleteQuestionButton = document.createElement('div');
@@ -64,13 +60,14 @@ document.getElementById('option-form').addEventListener('submit', function (even
         questionLabel.textContent = 'Câu hỏi ' + i + ':';
 
         var questionInput = document.createElement('textarea');
-        questionInput.cols = 70;
-        questionInput.rows = 4;
+        questionInput.cols = 140;
+        questionInput.rows = 3;
         questionInput.id = 'question' + i;
 
 
-        questionDiv.appendChild(questionLabel);
-        questionDiv.appendChild(questionInput);
+        questionTitle.appendChild(questionLabel);
+        questionTitle.appendChild(questionInput);
+        questionDiv.appendChild(questionTitle);
         questionContent.appendChild(questionDiv);
         // Tạo 4 ô input cho 4 đáp án và checkbox cho đáp án đúng
 
@@ -88,8 +85,9 @@ document.getElementById('option-form').addEventListener('submit', function (even
             answerCheckbox.textContent = String.fromCharCode('A'.charCodeAt(0) + j - 1);
 
             var answerInput = document.createElement('textarea');
-            answerInput.cols = "70";
+            answerInput.cols = "140";
             answerInput.rows = "1";
+            answerInput.name = 'question' + i + 'answer' + j;
             answerInput.id = 'question' + i + 'answer' + j;
 
             answerDiv.appendChild(answerCheckbox);
@@ -98,13 +96,9 @@ document.getElementById('option-form').addEventListener('submit', function (even
             questionContent.appendChild(answerDiv);
             questionsContainer.appendChild(questionContent);
         }
-
-
-
     }
+};
 
-
-});
 
 
 document.getElementById('excel-file').addEventListener('change', function (event) {
@@ -130,9 +124,13 @@ document.getElementById('excel-file').addEventListener('change', function (event
         excelData.forEach(function (row, index) {
             var questionContent = document.createElement('div');
             questionContent.className = 'question-content';
-            questionContent.id = parseInt(index + 1);
+            questionContent.id = index;
+
             var questionDiv = document.createElement('div');
             questionDiv.className = 'question-container';
+
+            var questionTitle = document.createElement('div');
+            questionTitle.className = 'question-title';
 
             // new
             var deleteQuestionButton = document.createElement('div');
@@ -147,21 +145,24 @@ document.getElementById('excel-file').addEventListener('change', function (event
 
             questionDiv.appendChild(deleteQuestionButton);
 
+            //old
             var questionLabel = document.createElement('label');
             questionLabel.textContent = 'Câu hỏi ' + (parseInt(index) + parseInt(1)) + ':';
 
             var questionInput = document.createElement('textarea');
-            questionInput.cols = 70;
-            questionInput.rows = 4;
+            questionInput.cols = 140;
+            questionInput.rows = 3;
             questionInput.value = row.question;
             questionInput.id = 'question' + index;
 
 
-            questionDiv.appendChild(questionLabel);
-            questionDiv.appendChild(questionInput);
+            questionTitle.appendChild(questionLabel);
+            questionTitle.appendChild(questionInput);
+            questionDiv.appendChild(questionTitle);
             questionContent.appendChild(questionDiv);
-
             // Tạo 4 ô input cho 4 đáp án và checkbox cho đáp án đúng
+
+
             for (var j = 1; j <= 4; j++) {
                 var answerDiv = document.createElement('div');
                 answerDiv.className = 'answer-container';
@@ -175,28 +176,24 @@ document.getElementById('excel-file').addEventListener('change', function (event
                 answerCheckbox.textContent = String.fromCharCode('A'.charCodeAt(0) + j - 1);
 
                 var answerInput = document.createElement('textarea');
-                answerInput.cols = "70";
+                answerInput.cols = "140";
                 answerInput.rows = "1";
                 answerInput.value = row['answer' + j];
                 answerInput.id = 'question' + index + 'answer' + j;
+                answerInput.name = 'question' + index + 'answer' + j;
 
                 answerDiv.appendChild(answerCheckbox);
                 answerDiv.appendChild(answerInput);
 
                 questionContent.appendChild(answerDiv);
-                // questionsContainer.appendChild(questionContent);
-
-
+                questionsContainer.appendChild(questionContent);
             }
-
-
-            questionsContainer.appendChild(questionContent);
         });
 
         excelData.forEach(function (row, index) {
             for (var i = 1; i <= 4; i++) {
                 if (row['correct'] == i) {
-                    console.log(i);
+                    // console.log(i);
                     toggleCheckbox(index + 'checkbox' + i);
                 }
             }
@@ -219,6 +216,9 @@ function Add() {
     var questionDiv = document.createElement('div');
     questionDiv.className = 'question-container';
 
+    var questionTitle = document.createElement('div');
+    questionTitle.className = 'question-title';
+
     // new
     var deleteQuestionButton = document.createElement('div');
     deleteQuestionButton.className = 'delete-question';
@@ -240,8 +240,10 @@ function Add() {
     questionInput.rows = 4;
 
 
-    questionDiv.appendChild(questionLabel);
-    questionDiv.appendChild(questionInput);
+    questionTitle.appendChild(questionLabel);
+    questionTitle.appendChild(questionInput);
+
+    questionDiv.appendChild(questionTitle);
     questionContent.appendChild(questionDiv);
     // Tạo 4 ô input cho 4 đáp án và checkbox cho đáp án đúng
 
@@ -290,8 +292,17 @@ function toggleCheckbox(idElement) {
     }
 }
 
-function Save() {
+function hideAlert() {
+    document.getElementById('myAlert').style.display = 'none';
+}
 
+function showAlert(content) {
+    document.getElementById('alertContent').textContent = content;
+    document.getElementById('myAlert').style.display = 'block';
+    setTimeout(hideAlert, 3000);
+}
+
+async function Save() {
     var examDate = document.getElementById('examDate').value;
     var examTime = document.getElementById('timeStart').value;
 
@@ -302,25 +313,45 @@ function Save() {
         examDateTime: examDateTime,
         examTime: document.getElementById('examTime').value,
         numQuestions: document.getElementById('numQuestions').value,
+        imageUrl: "https://res.cloudinary.com/dyc1c2elf/image/upload/v1714894653/hpz5yqojda1ajpnrpkvv.jpg"
     };
 
+    if (!examDate || !examTime || !formData.numQuestions || !formData.examTime || !formData.examName) {
+        showAlert('Vui lòng điền đầy đủ thông tin cho bài thi');
+        return;
+    }
 
     var questions = [];
 
     var questionNum = formData.numQuestions
+    if (questionNum === 0) {
+        showAlert('Số câu hỏi đang là 0');
+        return;
+    }
 
     for (var i = 1; i <= questionNum; i++) {
-
         var answer = [];
         var check = "";
         var questionContent = document.getElementById('question' + i).value
+        if (questionContent === "") {
+            showAlert('Vui lòng nhập đề bài cho câu hỏi ' + i);
+            return;
+        }
         for (var j = 1; j <= 4; j++) {
             if (document.getElementById(i + 'checkbox' + j).classList.contains('checked')) {
                 check = j;
             }
-            answer.push(document.getElementById('question' + i + 'answer' + j).value)
+            var ans = document.getElementById('question' + i + 'answer' + j).value
+            if (ans === '') {
+                showAlert('Bạn chưa nhập đáp án cho câu hỏi ' + i)
+                return;
+            }
+            answer.push(ans)
         }
-
+        if (check === "") {
+            showAlert('Bạn chưa chọn đáp án đúng cho câu hỏi ' + i)
+            return;
+        }
         questions.push({
             questionContent: questionContent,
             answer1: answer[0],
@@ -331,11 +362,31 @@ function Save() {
         })
     }
 
-    const backendURL = 'http://localhost:8080/api/new-test';
+    var newImageUrl = "https://res.cloudinary.com/dyc1c2elf/image/upload/v1714894653/hpz5yqojda1ajpnrpkvv.jpg";
+    var fileInput = document.getElementById('image-file');
+    var file = fileInput.files[0];
 
-    // console.log(questions)
-    // console.log(formData);
+    if (file) {
+        var formImg = new FormData();
+        formImg.append('file', file);
 
+        try {
+            const response = await fetch('/admin/test/cloudinary-upload', {
+                method: 'POST',
+                body: formImg
+            });
+            const data = await response.json();
+            newImageUrl = data.img_url;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    formData.imageUrl = newImageUrl;
+
+    console.log(newImageUrl)
+
+    const backendURL = '/api/new-test';
     const options = {
         method: 'POST',
         headers: {
@@ -344,22 +395,20 @@ function Save() {
         body: JSON.stringify({ metadata: formData, data: questions })
     };
 
-    fetch(backendURL, options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
-            }
-            return response.json(); // Trả về phản hồi dưới dạng JSON
-        })
-        .then(data => {
-            console.log('Dữ liệu đã được gửi thành công đến backend:', data);
-            // Xử lý dữ liệu phản hồi từ backend nếu cần
-        })
-        .catch(error => {
-            console.error('Đã xảy ra lỗi khi gửi dữ liệu đến backend:', error);
-            // Xử lý lỗi nếu có
-        });
+    try {
+        const response = await fetch(backendURL, options);
+        if (!response.ok) {
+            throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
+        }
+        const data = await response.json();
+        console.log('Dữ liệu đã được gửi thành công đến backend:', data);
+        window.location.href = "/admin/test";
+    } catch (error) {
+        showAlert('Đã xảy ra lỗi !!!')
+        console.error('Đã xảy ra lỗi khi gửi dữ liệu đến backend:', error);
+    }
 }
+
 
 function DeleteQuestion(id) {
     var element = document.getElementById(id);
@@ -388,3 +437,4 @@ function UpDateIdForQuestion(id) {
     }
     currentNumber--;
 }
+

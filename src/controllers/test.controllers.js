@@ -6,6 +6,7 @@ const { getStudentById } = require('../services/student.service')
 const { getDetailListWithIdResultandIdStu } = require('../services/detail.services')
 const { createNewResult, getResultListofStudent, getResultbyIdStuandIdResult } = require('../services/result.services')
 
+
 const getTestList = async (req, res) => {
   var tests = await getAllTest();
   if (tests.status === 200) {
@@ -253,7 +254,7 @@ const deleteTestHandler = async (req, res) => {
   if (status) {
     res.status(200).json({
       code: 1,
-      error: 200,
+      status: 200,
       message: "Xóa thành công!"
     })
   }
@@ -287,7 +288,7 @@ const updateTestHandler = async (req, res) => {
 }
 
 const searchTestHandler = async (req, res) => {
-  var name = req.query.name
+  var name = req.query.text
   var tests = await searchTestByName(name)
   if (tests.status === 200) {
     const response = {
@@ -335,16 +336,22 @@ const postSubmit = async (req, res) => {
   var reqBody = req.body
   var test = reqBody.metadata
   var questionList = reqBody.data
-  console.log(test)
-  console.log(questionList)
-  // console.log(test)
-  // console.log(questionList)
+
   var status = await createNewResult(test[0], questionList)
   if (status) {
-    res.status(200).json("ok nhe hehe")
+    res.status(200).json({
+      code: 1,
+      error: 200,
+      message: "Tạo thành công!"
+    })
   }
   else {
-    res.status(500).json("nguuu")
+    res.status(500).json({
+      code: 0,
+      status: 500,
+      message: "Tạo thất bại!"
+
+    })
   }
 }
 

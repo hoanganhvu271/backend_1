@@ -8,7 +8,7 @@ const saltRounds = 10;
 let tokenList = {};
 
 // Thời gian sống của token
-const accessTokenLife = process.env.ACCESS_TOKEN_LIFE || "1h";
+const accessTokenLife = process.env.ACCESS_TOKEN_LIFE || "24h";
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 // Thời gian sống của refreshToken
 const refreshTokenLife = process.env.REFRESH_TOKEN_LIFE || "3650d";

@@ -1,8 +1,8 @@
 const { raw } = require("mysql2");
 const db = require("../models/index");
 const { where, Op } = require("sequelize");
-const bcrypt = require("bcrypt")
-const saltRounds = 10
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const getAllStudent = async () => {
   var data = { status: null, data: null };
 
@@ -23,29 +23,6 @@ const getAllStudent = async () => {
     return data;
   }
 };
-
-const getAllStudentPerPage = async (page) => {
-  var data = { status: null, data: null };
-  try {
-    const students = await db.Student.findAll({
-      limit: 10,
-      offset: (page - 1) * 10,
-      raw: true
-    });
-    if (students.length > 0) {
-      data.status = 200;
-      data.data = students;
-    } else {
-      data.status = 404;
-    }
-    return data;
-  } catch (error) {
-
-    data.status = 500;
-    return data;
-  }
-
-}
 
 const getStudentById = async (id) => {
   var data = { status: null, data: null };
@@ -105,15 +82,12 @@ const updatePassword = async (email, newPassword) => {
     console.error("Lỗi khi cập nhật mật khẩu:", error);
     return { status: 500, message: "Đã xảy ra lỗi khi cập nhật mật khẩu." };
   }
-
-}
+};
 const createNewStudent = async (student) => {
-
   try {
     studentData = await db.Student.findAll({
       where: { MSV: student.msv },
     });
-    console.log(studentData)
 
     if (studentData.length > 0) {
       return -1;
@@ -151,7 +125,8 @@ const deleteStudentById = async (id) => {
 const updateStudentById = async (id, data) => {
   var student = await db.Student.findByPk(id);
   var existStudent = await db.Student.findByPk(data.msv);
-  // console.log(existStudent)
+
+  // console.log(id)
   if (existStudent) {
     return -1;
   }
@@ -281,7 +256,6 @@ module.exports = {
   getStudentCondition,
   getStudentWithFindObject,
   getCountStudentWithFindObject,
-  getAllStudentPerPage,
   getStudentByEmail,
-  updatePassword
+  updatePassword,
 };

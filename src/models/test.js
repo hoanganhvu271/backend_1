@@ -15,8 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   Test.init(
     {
       MaBaiThi: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true
       },
       TenBaithi: DataTypes.STRING,
       ThoiGianBatDau: DataTypes.STRING,
@@ -24,12 +25,13 @@ module.exports = (sequelize, DataTypes) => {
       SoLuongCau: DataTypes.INTEGER,
       TheLoai: DataTypes.STRING,
       TrangThai: DataTypes.STRING,
+      img_url: DataTypes.STRING,
     },
     {
       // options
       sequelize,
       modelName: "Test",
-      tableName: "baithi",
+      tableName: "BaiThi",
       timestamps: false,
     }
   );

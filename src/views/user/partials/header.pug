@@ -16,15 +16,14 @@ include ../mixins/itemSlider.pug
                 a(href="" class="td-n")
                   i(class="ti-arrow-circle-left")
     ul.sidebar-menu.scrollable.pos-r
-        +normal-item('Danh sách bài thi', 'ti-home c-blue-500', 'index.html')
-        +item-arrow('Kết quả', 'ti-harddrives c-blue-500',
+        +item-arrow('Danh sách bài thi', 'ti-home c-red-500',
             [
-                {title: 'Kết quả bài thi', href: '/user/result/test'},
-                {title: 'Kết quả sinh viên', href: '/user/result/student'}
+                {title: 'Bài thi trắc nghiệm', href: '/user/practice/tn'},
+                {title: 'Bài tập lập trình', href: '/user/practice/code'}
             ])
-        +item-arrow('Thống kê', 'ti-bar-chart c-blue-500',
+        +item-arrow('Kết quả', 'ti-harddrives c-red-500',
             [
-                {title: 'Thống kê bài thi', href: 'javascript:void(0);'},
-                {title: 'Thống kê sinh viên', href: 'javascript:void(0);'}
+                {title: 'Bài thi trắc nghiệm', href: '/user/result/tn'},
+                {title: 'Bài tập lập trình', href: '/user/result/code'}
             ])
         +normal-item('Danh sách bài thi', 'ti-home c-blue-500', '/user/code')

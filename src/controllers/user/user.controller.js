@@ -1,7 +1,9 @@
 const db = require("../../models/index");
-const nodemailer = require('nodemailer');
+
 const bcrypt = require('bcrypt')
-const { getStudentById, createNewStudent, getStudentByEmail, updatePassword } = require("../../services/student.service")
+const { getStudentById, createNewStudent, getStudentByEmail, updatePassword } = require("../../services/student.service");
+const { student } = require("./result/result.controller");
+const sendMailTo = require("../../middleware/sendEmail");
 global.otpData = {};
 module.exports.index = async (req, res) => {
     
@@ -14,6 +16,7 @@ module.exports.forgotPassword_index = async (req, res) => {
 }
 module.exports.forgotPassword = async (req, res) => {
     const email = req.body.email;
+    console.log(email);
     let data = await getStudentByEmail(email);
     if (data.status != 200) {
         const response = {
@@ -25,55 +28,25 @@ module.exports.forgotPassword = async (req, res) => {
             data: response,
         });
     }
-
-
-
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'trinhvinhtuandat05102003@gmail.com',
-            pass: 'kjgolknrohytwqou'
-        }
-    });
     function generateOTP() {
         return Math.floor(100000 + Math.random() * 900000); // Tạo số ngẫu nhiên từ 100000 đến 999999
     }
-
     const otp = generateOTP();
-    global.otpData = { email, otp }; // tao data thanh global de co the xac thuc khi tao controller moi   
-    // Tạo nội dung email
-    const mailOptions = {
-        from: 'trinhvinhtuandat05102003@gmail.com',
-        to: email,
-        subject: 'Mã OTP Xác Thực', // Tiêu đề email
-        text: `Bạn đã yêu cầu quên mật khẩu ? Nếu không phải là bạn hãy bỏ qua email này. Không cung cấp cho bất kỳ ai mã xác thực OTP.
-                    Mã OTP của bạn là: ${otp}`
-    };
-
-    // Gửi email
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-            res.status(500).json({ error: 'Có lỗi xảy ra khi gửi email.' });
-        } else {
-
-
-            res.render("user/verifyOTP.pug");
-
-
-        }
-    });
-
+    global.otpData = { email, otp };
+    await sendMailTo(email, otp);
+    res.render("user/verifyOTP.pug");
 }
 
 module.exports.verifyOTP = async (req, res) => {
-    const newotp = req.body.otp;
 
+
+    let newotp = await (req.body.digit1 + req.body.digit2 + req.body.digit3 + req.body.digit4 + req.body.digit5 + req.body.digit6);
+    console.log(newotp);
     // Lấy email và mã OTP đã lưu trữ
-    const { email, otp } = global.otpData;
-
+    const { email, otp } = await global.otpData;
+    console.log(otp);
     // Kiểm tra xem mã OTP được nhập có trùng khớp với mã OTP đã lưu trữ hay không
-    if (otp == newotp) {
+    if (otp.toString() === newotp) {
         // Mã OTP hợp lệ, tiếp tục xử lý
         // res.status(200).json({ message: 'Xác thực thành công.' });
         res.render("user/changePassword.pug");
@@ -90,7 +63,17 @@ module.exports.verifyOTP = async (req, res) => {
     }
 }
 
-
+module.exports.resendOTP = async (req, res) => {
+    const { email } = global.otpData;
+    function generateOTP() {
+        return Math.floor(100000 + Math.random() * 900000); // Tạo số ngẫu nhiên từ 100000 đến 999999
+    }
+    const otp = generateOTP();
+    global.otpData = {}
+    global.otpData = { email, otp };
+    await sendMailTo(email, otp);
+    res.render("user/verifyOTP.pug");
+}
 module.exports.changePassword = async (req, res) => {
     // nhớ chỉnh email thành khóa chính
     const { newPassword, confirmPassword } = req.body;
@@ -172,23 +155,41 @@ module.exports.checkLoginUser = async (req, res) => {
 
 }
 module.exports.createUser = async (req, res) => {
-    student = req.body;
+    let student = req.body;
+    if (!req.body.msv || !req.body.class || !req.body.name || !req.body.email || !req.body.password) {
+        res.render("user/register.pug", {
+            data: {
+                title: "Đăng ký thất bại",
+                message: 'Vui lòng điền đầy đủ thông tin'
+            },
+        });
+        return;
+    }
+    const data = await getStudentByEmail(student.email);
+    if (data.status === 200) {
+        res.render("user/register.pug", {
+            data: {
+                title: "Đăng ký thất bại",
+                message: 'Email đã tồn tại'
+            },
+        });
+        return;
+    }
     var status = await createNewStudent(student);
-    console.log(status);
     if (status === 1) {
         res.render("user/successRegister.pug")
     }
-
     else {
 
         const response = {
             title: "Đăng ký thất bại",
-            message: 'Tài khoản này đã tồn tại'
+            message: 'Sinh viên này đã tồn tại'
         }
         res.render("user/register.pug", {
             data: response,
         });
     }
+
 
 }
 

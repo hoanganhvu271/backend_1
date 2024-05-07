@@ -111,7 +111,7 @@ module.exports.test = async (req, res) => {
     find,
     pagination
   );
-  // let token 
+  // let token
   // if(req.token) token = req.token
   res.render("user/pages/viewResult/test.pug", {
     // token: token,
@@ -134,6 +134,8 @@ module.exports.testWithId = async (req, res) => {
       { MSV: { [Op.regexp]: regexExpression } },
     ];
   }
+
+  // console.log(resultList)
   if (req.query.class) find.Lop = req.query.class;
   for (let i = 0; i < resultList.data.length; i++) {
     find.MSV = resultList.data[i].MSV;
@@ -151,4 +153,62 @@ module.exports.testWithId = async (req, res) => {
   });
 };
 
+module.exports.testListForStudent = async (req, res) => {
+  const find = {};
+  if (req.query.keyword) {
+    const regexExpression = new RegExp(req.query.keyword, "i").source;
+    find.TenBaiThi = { [Op.regexp]: regexExpression };
+  }
+  const count = await testServices.getCountTestListForStudentWithFindObject(
+    find
+  );
+  const pagination = paginationHelper(
+    {
+      currentPage: 1,
+      limitedItem: 5,
+    },
+    req.query,
+    count.data ? count.data.length : 0
+  );
+  const testListForStudent =
+    await testServices.getTestListForStudentWithFindObject(find, pagination);
+  res.render("user/pages/test_list/testList.pug", {
+    titlePage: "Danh sách bài thi",
+    tests: testListForStudent.data,
+    keyword: req.query.keyword || "",
+    pagination: pagination,
+  });
+};
+
+module.exports.codeListForStudent = async (req, res) => {
+  const testListForStudent = await testServices.getTestListForStudent();
+  res.render("user/pages/test_list/testList.pug", {
+    titlePage: "Danh sách bài thi",
+    tests: testListForStudent.data,
+  });
+};
 // [GET] /admin/my-account
+
+module.exports.resultTestOfStudent = async (req, res) => {
+  const testList = await testServices.getTestByStudentId("B21DCCN01");
+  const pagination = paginationHelper(
+    {
+      currentPage: 1,
+      limitedItem: 5,
+    },
+    req.query,
+    testList.data.length
+  );
+  const student = await studentServices.getStudentById("B21DCCN01");
+  const testListWithPage = await testServices.getTestByStudentIdWithPage(
+    "B21DCCN01",
+    pagination
+  );
+  console.log(testListWithPage);
+  res.render("user/pages/viewResult/testResult.pug", {
+    titlePage: "Kết quả sinh viên",
+    student: student.data[0],
+    testList: testListWithPage.data,
+    pagination: pagination,
+  });
+};

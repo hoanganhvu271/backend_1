@@ -2,13 +2,12 @@ const db = require("../models/index");
 const { sequelize } = require("../config/connectDB");
 const { createNewQuestion } = require("./question.service");
 const { where } = require("sequelize");
-const Sequelize = require('sequelize');
-
+const Sequelize = require("sequelize");
 
 const getAllTest = async () => {
   var data = { status: null, data: null };
   try {
-    const tests = await db.Test.findAll();
+    const tests = await db.Test.findAll({ raw: true });
     console.log(tests);
     if (tests.length > 0) {
       data.status = 200;
@@ -28,7 +27,7 @@ const getAllTestPerPage = async (page) => {
   try {
     const tests = await db.Test.findAll({
       limit: 10,
-      offset: (page - 1) * 10
+      offset: (page - 1) * 10,
     });
     if (tests.length > 0) {
       data.status = 200;
@@ -41,12 +40,13 @@ const getAllTestPerPage = async (page) => {
     data.status = 500;
     return data;
   }
-}
+};
 
 const getTestById = async (id) => {
   var data = { status: null, data: null };
   try {
     const tests = await db.Test.findAll({ raw: true, where: { MaBaiThi: id } });
+    console.log(tests);
     if (tests.length > 0) {
       data.status = 200;
       data.data = tests;
@@ -65,19 +65,23 @@ const createNewTest = async (test, questionList) => {
   let t;
   try {
     t = await sequelize.transaction();
-    var mbt = "BT15";
-    await db.Test.create(
+    // var mbt = "BT111";
+    var newTest = await db.Test.create(
       {
-        MaBaiThi: mbt,
+        // MaBaiThi: mbt,
         TenBaithi: test.examName,
         ThoiGianBatDau: test.examDateTime,
         ThoiGianThi: parseInt(test.examTime),
         SoLuongCau: parseInt(questionList.length),
         TheLoai: "Trắc nghiệm",
         TrangThai: "Đóng",
+        img_url: test.imageUrl,
       },
-      { transaction: t }
+      // { transaction: t }
     );
+
+    var mbt = newTest.dataValues.MaBaiThi;
+    // console.log(newTest.dataValues.MaBaiThi);
 
     for (var i = 0; i < questionList.length; i++) {
       await createNewQuestion(questionList[i], mbt, i + 1, t);
@@ -121,6 +125,9 @@ const updateTestById = async (testId, updateData) => {
     test.ThoiGianBatDau = metadata.examDateTime;
     test.ThoiGianThi = parseInt(metadata.examTime);
     test.SoLuongCau = parseInt(data.length);
+    if (metadata.imageUrl != '') {
+      test.img_url = metadata.imageUrl;
+    }
 
     await test.save({ transaction: t });
 
@@ -155,62 +162,54 @@ const updateTestById = async (testId, updateData) => {
 
           // console.log(data[i][answerProperty])
 
-          answer.NoiDung = data[i][answerProperty]
-          await answer.save({ transaction: t })
+          answer.NoiDung = data[i][answerProperty];
+          await answer.save({ transaction: t });
         }
-      }
-      else {
+      } else {
         //create
         await createNewQuestion(data[i], testId, i + 1, t);
       }
     }
     for (var i = len; i < test.SoLuongCau; i++) {
-      var questionId = 'C' + String(i + 1).padStart(2, '0')
+      var questionId = "C" + String(i + 1).padStart(2, "0");
       var question = await db.Question.destroy({
         where: {
           MaBaiThi: testId,
-          MaCauHoi: questionId
+          MaCauHoi: questionId,
         },
-        transaction: t
-
-      },)
-
-
+        transaction: t,
+      });
     }
     await t.commit();
     return true;
-
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e);
     await t.rollback();
     return false;
   }
-}
+};
 const searchTestByName = async (name) => {
   var data = { status: null, data: null };
   const { Op } = require("sequelize");
   try {
     const tests = await db.Test.findAll({
       where: {
-        TenBaithi: { [Op.like]: '%' + name.replace(/"/g, '') + '%' }
-      }
+        TenBaithi: { [Op.like]: "%" + name.replace(/"/g, "") + "%" },
+      },
     });
 
     if (tests.length > 0) {
-      data.status = 200
-      data.data = tests
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
     }
-    else {
-      data.status = 404
-    }
-    return data
+    return data;
   } catch (error) {
-    data.status = 500
-    return data
+    data.status = 500;
+    return data;
   }
-
-}
+};
 const getTestByStudentId = async (stuID) => {
   try {
     const data = { status: null, data: [] };
@@ -235,6 +234,94 @@ const getTestByStudentId = async (stuID) => {
     throw error;
   }
 };
+
+const getTestWithFindObject = async (find, pagination) => {
+  const data = { status: null, data: null };
+  // console.log(pagination.limit, pagination.offset);
+  // console.log(find);
+  try {
+    const tests = await db.Test.findAll({
+      where: find,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      raw: true,
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+const getIdTestWithDate = async (ngay) => {
+  try {
+    const listId = await db.Test.findAll({
+      attributes: ["MaBaiThi"], // Chỉ lấy trường id
+      raw: true,
+      where: {
+        ThoiGianBatDau: {
+          [Sequelize.Op.like]: `%${ngay}%`,
+        },
+      },
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+
+const getCountTestWithFindObject = async (find) => {
+  const data = { status: null, data: null };
+  try {
+    const tests = await db.Test.findAll({
+      raw: true,
+      where: find,
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+    return listId;
+  }
+};
+
+const getTestByText = async (inputText) => {
+  try {
+    const tests = await db.Test.findAll({
+      where: {
+        TenBaiThi: {
+          [db.Sequelize.Op.like]: `%${inputText}%`,
+        },
+      },
+    });
+    return tests;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    return null;
+  }
+};
+
 const getTestByStudentIdWithPage = async (stuID, pagination) => {
   try {
     const data = { status: null, data: [] };
@@ -283,42 +370,74 @@ const getTestWithFindObjectAndPage = async (find, pagination) => {
     return data;
   }
 };
-const getIdTestWithDate = async (ngay) => {
-  try {
-    const listId = await db.Test.findAll({
-      attributes: ['MaBaiThi'], // Chỉ lấy trường id
-      raw: true,
-      where: {
-        ThoiGianBatDau: {
-          [Sequelize.Op.like]: `%${ngay}%`
-        }
-      }
-    });
-    return listId;
-  } catch (error) {
-    console.log("lỗi xảy ra khi truy vấn dữ liệu", error);
-  }
 
-
-  return listId;
-
-}
-
-const getTestByText = async (inputText) => {
+const getTestListForStudent = async () => {
+  const data = { status: null, data: null };
   try {
     const tests = await db.Test.findAll({
       where: {
-        TenBaiThi: {
-          [db.Sequelize.Op.like]: `%${inputText}%`
-        }
-      }
+        TrangThai: "Mở",
+      },
+      raw: true,
     });
-    return tests;
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
-    return null;
+    data.status = 500;
+    return data;
   }
-}
+};
+const getCountTestListForStudentWithFindObject = async (find) => {
+  const data = { status: null, data: null };
+  try {
+    const tests = await db.Test.findAll({
+      raw: true,
+      where: find,
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+
+const getTestListForStudentWithFindObject = async (find, pagination) => {
+  const data = { status: null, data: null };
+  try {
+    const tests = await db.Test.findAll({
+      where: find,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      raw: true,
+    });
+    if (tests.length > 0) {
+      data.status = 200;
+      data.data = tests;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi truy vấn dữ liệu:", error);
+    data.status = 500;
+    return data;
+  }
+};
+
+
 
 module.exports = {
   getAllTest,
@@ -326,10 +445,14 @@ module.exports = {
   createNewTest,
   deleteTestById,
   updateTestById,
-  getTestByStudentId, getIdTestWithDate,
+  getTestByStudentId,
   searchTestByName,
   getAllTestPerPage,
-  getTestByText,
+  getCountTestWithFindObject,
+  getTestWithFindObject,
   getTestByStudentIdWithPage,
   getTestWithFindObjectAndPage,
+  getTestListForStudent,
+  getCountTestListForStudentWithFindObject,
+  getTestListForStudentWithFindObject,
 };

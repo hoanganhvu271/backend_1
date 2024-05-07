@@ -10,7 +10,7 @@ CREATE TABLE SinhVien (
 
 -- Tạo bảng Bài thi
 CREATE TABLE BaiThi (
-    MaBaiThi  VARCHAR(50) PRIMARY KEY,
+    MaBaiThi  int auto_increment PRIMARY KEY,
     TenBaiThi VARCHAR(255),
     ThoiGianBatDau DATETIME,
     ThoiGianThi INT,
@@ -19,11 +19,14 @@ CREATE TABLE BaiThi (
     TrangThai VARCHAR(50)
 );
 
+
+
+
 -- Tạo bảng Kết quả
 CREATE TABLE KetQua (
     MaKetQua  VARCHAR(50) PRIMARY KEY,
     MSV  VARCHAR(50),
-    MaBaiThi  VARCHAR(50),
+    MaBaiThi  int,
     Diem FLOAT,
     FOREIGN KEY (MSV) REFERENCES SinhVien(MSV) ON delete cascade on update cascade,
     FOREIGN KEY (MaBaiThi) REFERENCES BaiThi(MaBaiThi)  ON delete cascade on update cascade
@@ -78,4 +81,16 @@ CREATE TABLE Admin (
 );
 INSERT INTO Admin (UserName, Email, Facebook, Instagram, FirstName, LastName, Pass, Avatar)
 VALUES
+
 ('admin', 'admin@gmail.com', 'facebook.com/admin', 'instagram.com/admin', 'Admin', 'Admin', '123456', 'admin.jpg');
+
+
+
+ALTER TABLE ketqua
+add ThoiGianLamBai datetime,
+add ThoiGianNopBai datetime;
+
+
+ALTER TABLE ketquatungcau
+DROP PRIMARY KEY, 
+ADD PRIMARY KEY (MaChiTiet, MaKetQua);
