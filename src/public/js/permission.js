@@ -101,8 +101,8 @@ function getAdminData(id, username) {
             var admin = data.data;
             // console.log("a", admin);
             document.getElementById('edit-username').value = admin.UserName
-            document.getElementById('edit-password-admin').value = "xxxxxxxxx"
-            document.getElementById('edit-role').value = admin.Role_name
+            document.getElementById('edit-password-admin').value = ""
+            document.getElementById('edit-role').value = admin.Role_id
 
             // console.log(data.data[0]);
         })

@@ -30,7 +30,7 @@ mixin account-table(students, pagination)
                                 td=student.Email
                                 td
                                     a.mb-0
-                                        button.btn.cur-p.ptit-color.btn-color(onclick=`getStudentData('edit-student','${student.MSV}')`) Chỉnh sửa
+                                        button.btn.cur-p.ptit-color.btn-color(onclick=`getStudentData('edit-student','${student.MSV}', '${role}')`) Chỉnh sửa
                                 td
                                     a.mb-0
                                         button.btn.btn-primary.ptit-color.btn-color(onclick=`confirmDeleteAccount('${student.MSV}')`) Xóa              

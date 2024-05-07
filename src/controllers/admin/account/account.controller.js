@@ -2,8 +2,14 @@
 const studentServices = require("../../../services/student.service");
 const paginationHelper = require("../../../helpers/paginationHelper");
 const { Op } = require("sequelize");
+const jwtHelper = require("../../../helpers/jwt.helper");
+require('dotenv').config()
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 
 module.exports.student = async (req, res) => {
+
+    // var decoded = await jwtHelper.verifyToken(token, accessTokenSecret);
+    // var role = decoded.data.role;
     const find = {};
     const lop = req.query.class;
     if (lop) {
@@ -34,7 +40,7 @@ module.exports.student = async (req, res) => {
         className: lop || "Tất cả",
         students: studentList.data,
         pagination: pagination,
-        keyword: req.query.keyword || "",
+        keyword: req.query.keyword || ""
     });
 };
 

@@ -1,4 +1,8 @@
+const { getHasPermission } = require("../../services/permission.service");
+
+
 function openPopUp(id) {
+
 
     var details = document.getElementById(id);
     details.style.display = 'block';
@@ -106,9 +110,8 @@ function confirmDeleteAccount(itemId) {
     }
 }
 
+async function getStudentData(id, msv, role) {
 
-function getStudentData(id, msv) {
-    // console.log("hello")
     var details = document.getElementById(id);
     details.style.display = 'block';
     var url = '/api/get-student/' + msv;
@@ -128,11 +131,13 @@ function getStudentData(id, msv) {
 
             var student = data.data[0];
 
+            // var password = student.MatKhau;
+
             document.getElementById('edit-msv').value = student.MSV
             document.getElementById('edit-name').value = student.Ten
             document.getElementById('edit-class').value = student.Lop
             document.getElementById('edit-email').value = student.Email
-            document.getElementById('edit-password').value = "123456789"
+            document.getElementById('edit-password').value = ""
 
             // console.log(data.data[0]);
         })

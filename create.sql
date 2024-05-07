@@ -119,4 +119,18 @@ CREATE TABLE HasPermission(
     Permission_id INT,
     FOREIGN KEY (Role_id) REFERENCES Role(Id),
     FOREIGN KEY (Permission_id) REFERENCES Permission(Id)
-)
+);
+
+ALTER TABLE Permission ADD column Url VARCHAR(100) AFTER NAME; 
+-- /admin/permission
+-- /admin/result
+
+-- all admin auto-- 
+-- /admin/statistic
+-- /admin/profile
+
+-- /admin/test
+-- /admin/new-test
+-- /admin/edit-test/:id
+
+-- /admin/account

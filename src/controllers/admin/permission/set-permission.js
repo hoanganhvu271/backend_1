@@ -12,8 +12,18 @@ const {
     updateAdminById
 } = require("../../../services/permission.service")
 
+const jwtHelper = require("../../../helpers/jwt.helper")
+
+// Thời gian sống của token
+const accessTokenLife = process.env.ACCESS_TOKEN_LIFE || "24h";
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
+// Thời gian sống của refreshToken
+const refreshTokenLife = process.env.REFRESH_TOKEN_LIFE || "3650d";
+// Mã secretKey này phải được bảo mật tuyệt đối, các bạn có thể lưu vào biến môi trường hoặc file
+const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET
 
 const getPermissions = async (req, res) => {
+    console.log(req.originalUrl)
     try {
 
         const find = {};
@@ -159,11 +169,31 @@ const getAdminData = async (req, res) => {
 
 }
 
+const genPass = async (req, res) => {
+    var data = await createTokenResponse({
+        id: "B21DCCN343",
+        role: "1",
+        email: "admin@example.com"
+    })
+    res.token = data;
+    res.cookie("jwt", data.accessToken);
+    return res.status(200).json({
+        token: data
+    });
+}
+
+const createTokenResponse = async (userData) => {
+    const accessToken = await jwtHelper.generateToken(userData, accessTokenSecret, accessTokenLife);
+    const refreshToken = await jwtHelper.generateToken(userData, refreshTokenSecret, refreshTokenLife);
+    return { accessToken, refreshToken }
+}
+
 module.exports = {
     getPermissions,
     addPermissions,
     removePermissions,
     savePermissions,
     updateAdmin,
-    getAdminData
+    getAdminData,
+    genPass
 }

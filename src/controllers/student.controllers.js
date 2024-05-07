@@ -8,6 +8,10 @@ const {
   getAllStudentPerPage,
 } = require("../services/student.service");
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+
 const getStudentHandler = async (req, res) => {
   var students = await getAllStudent();
   // console.log(questions)
@@ -77,6 +81,10 @@ const getStudentByIdHandler = async (req, res) => {
   const id = req.params.id;
   console.log(id)
   var student = await getStudentById(id);
+
+  // var studentData = student.data;
+  // studentData.MatKhau = bcrypt
+
   if (student.status === 200) {
     const response = {
       code: 1,

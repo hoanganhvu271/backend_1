@@ -212,6 +212,31 @@ const getAdminById = async (id) => {
 
 }
 
+const checkPermission = async (permissionUrl, role) => {
+    try {
+        // console.log(role)
+        const permission = await db.Permission.findOne({
+            where: {
+                Url: permissionUrl
+            }
+        }, { raw: true })
+        // console.log(permission)
+        const status = await db.HasPermission.findAll({
+            where: {
+                Role_id: role,
+                Permission_id: permission.Id
+            }
+        });
+        if (status.length > 0) {
+            return { status: 200, message: "Ok" };
+        } else {
+            return { status: 404, message: "Not Found" };
+        }
+    } catch (error) {
+        return { status: 500, message: "Error" };
+    }
+}
+
 module.exports = {
     getAllRole,
     getAllPermissions,
@@ -221,5 +246,6 @@ module.exports = {
     getAllAdminList,
     getAdminWithFindObject,
     updateAdminById,
-    getAdminById
+    getAdminById,
+    checkPermission
 }

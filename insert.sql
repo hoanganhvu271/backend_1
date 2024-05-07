@@ -148,17 +148,15 @@ VALUES
 ("Admin3"),
 ("Admin4");
 
-INSERT INTO Permission(Name)
+INSERT INTO Permission(Name, Url)
 VALUES
-("Tạo tài khoản"),
-("Xóa tài khoản"),
-("Xem tài khoản"),
-("Tạo bài thi"),
-("Xóa bài thi"),
-("Xem danh sách bài thi"),
-("Xem thống kê kết quả"),
-("Làm bài thi"),
-("Cấp quyền");
+("Cấp quyền", "/admin/permission"),
+("Quản lý tài khoản", '/admin/account'),
+("Quản lý bài thi", "/admin/test"),
+("Xem kết quả", "admin/result"),
+("Xem Dashboard", "/admin/statistic"),
+("Sửa thông tin cá nhân", "/admin/profile");
+
 
 
 
@@ -169,11 +167,7 @@ VALUES
 (1, 3),
 (1, 4),
 (1, 5),
-(1, 6),
-(1, 7),
-(1, 8),
-(1, 9)
-
+(1, 6);
 
 
 
