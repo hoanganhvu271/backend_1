@@ -195,3 +195,98 @@ btnAdmin.forEach(function (btn) {
     }
   });
 });
+const btn_dark_bg_slide = document.querySelector("[btn-bg-slide-dark]");
+const btn_white_bg_slide = document.querySelector("[btn-bg-slide-white]");
+const slideBg = document.querySelector("[slide-bar-item]");
+console.log(slideBg);
+slideBg.classList.add("white-bg");
+btn_dark_bg_slide.addEventListener("click", function () {
+  console.log("test black");
+  if (!slideBg.classList.contains("black-bg")) {
+    slideBg.classList.add("black-bg");
+  }
+  if (slideBg.classList.contains("white-bg")) {
+    slideBg.classList.remove("white-bg");
+  }
+});
+btn_white_bg_slide.addEventListener("click", function () {
+  console.log("test white");
+  if (!slideBg.classList.contains("white-bg")) {
+    slideBg.classList.add("white-bg");
+  }
+  if (slideBg.classList.contains("black-bg")) {
+    slideBg.classList.remove("black-bg");
+  }
+});
+
+const listBtnNav = document.querySelectorAll("[btn-nav-tag]");
+
+console.log(listBtnNav);
+
+listBtnNav.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    btn.classList.add("active-item-nav");
+    var parent = btn.querySelector(".btn-nav");
+    parent.classList.add(localStorage.getItem("sidebarColor"));
+    if (btn.classList.contains("active-item-nav")) {
+      listBtnNav.forEach(function (btn1) {
+        if (btn1 !== btn) {
+          if (btn1.classList.contains("active-item-nav")) {
+            btn1.classList.remove("active-item-nav");
+          }
+          //btn -> .btn-nav
+          var parent = btn1.querySelector(".btn-nav");
+          if (parent.classList.contains("bg-gradient-primary")) {
+            parent.classList.remove("bg-gradient-primary");
+          }
+          if (parent.classList.contains("bg-gradient-dark")) {
+            parent.classList.remove("bg-gradient-dark");
+          }
+          if (parent.classList.contains("bg-gradient-info")) {
+            parent.classList.remove("bg-gradient-info");
+          }
+          if (parent.classList.contains("bg-gradient-success")) {
+            parent.classList.remove("bg-gradient-success");
+          }
+          if (parent.classList.contains("bg-gradient-warning")) {
+            parent.classList.remove("bg-gradient-warning");
+          }
+          if (parent.classList.contains("bg-gradient-danger")) {
+            parent.classList.remove("bg-gradient-danger");
+          }
+        }
+      });
+    }
+  });
+});
+listBtnNav[0].classList.add("active-item-nav");
+var parent = listBtnNav[0].querySelector(".btn-nav");
+parent.classList.add(localStorage.getItem("sidebarColor"));
+function sidebarColor(a) {
+  var parent = document.querySelector(".active-item-nav .btn-nav");
+
+  //lay the a trong parent1
+  console.log(parent);
+  var color = a.getAttribute("data-color");
+  //luu vao local storage
+  localStorage.setItem("sidebarColor", "bg-gradient-" + color);
+  if (parent.classList.contains("bg-gradient-primary")) {
+    parent.classList.remove("bg-gradient-primary");
+  }
+  if (parent.classList.contains("bg-gradient-dark")) {
+    parent.classList.remove("bg-gradient-dark");
+  }
+  if (parent.classList.contains("bg-gradient-info")) {
+    parent.classList.remove("bg-gradient-info");
+  }
+  if (parent.classList.contains("bg-gradient-success")) {
+    parent.classList.remove("bg-gradient-success");
+  }
+  if (parent.classList.contains("bg-gradient-warning")) {
+    parent.classList.remove("bg-gradient-warning");
+  }
+  if (parent.classList.contains("bg-gradient-danger")) {
+    parent.classList.remove("bg-gradient-danger");
+  }
+  parent.classList.add(localStorage.getItem("sidebarColor"));
+}
