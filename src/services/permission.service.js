@@ -247,5 +247,5 @@ module.exports = {
     getAdminWithFindObject,
     updateAdminById,
     getAdminById,
-    checkPermission
+    checkPermission,
 }

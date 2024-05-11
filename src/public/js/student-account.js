@@ -1,4 +1,4 @@
-const { getHasPermission } = require("../../services/permission.service");
+// const { getHasPermission } = require("../../services/permission.service");
 
 
 function openPopUp(id) {

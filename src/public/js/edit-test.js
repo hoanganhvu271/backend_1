@@ -286,7 +286,7 @@ async function Save(id) {
             formData.imageUrl = newImageUrl;
         }
 
-        const backendURL = 'http://localhost:8080/api/update-test/' + id;
+        const backendURL = '/api/update-test/' + id;
 
         // console.log(questions)
         // console.log(formData);
