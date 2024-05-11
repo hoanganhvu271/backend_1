@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
       // Chuyển hướng trang đến URL đã lấy được
       var classValue = item.getAttribute("data-class");
 
-
       if (classValue === "all") {
         url.searchParams.delete("class");
       } else url.searchParams.set("class", item.getAttribute("data-class") || "");
@@ -36,29 +35,27 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  dropdownMenu.querySelectorAll(".dropdown-item-admin").forEach(function (item) {
-    item.addEventListener("click", function (event) {
-      dropdownMenu.classList.remove("show");
-      // Ngăn chặn hành vi mặc định của thẻ a (chuyển hướng trang)
-      event.preventDefault();
-      // Lấy URL từ thuộc tính href của thẻ a
-      let url = new URL(window.location.href);
-      // Chuyển hướng trang đến URL đã lấy được
-      var roleValue = item.getAttribute("data-role");
+  dropdownMenu
+    .querySelectorAll(".dropdown-item-admin")
+    .forEach(function (item) {
+      item.addEventListener("click", function (event) {
+        dropdownMenu.classList.remove("show");
+        // Ngăn chặn hành vi mặc định của thẻ a (chuyển hướng trang)
+        event.preventDefault();
+        // Lấy URL từ thuộc tính href của thẻ a
+        let url = new URL(window.location.href);
+        // Chuyển hướng trang đến URL đã lấy được
+        var roleValue = item.getAttribute("data-role");
 
-
-      if (roleValue === "all") {
-        url.searchParams.delete("Role");
-
-      } else url.searchParams.set("Role", item.getAttribute("data-role") || "");
-      url.searchParams.set("page", 1);
-      url.searchParams.delete("class");
-      window.location.href = url;
+        if (roleValue === "all") {
+          url.searchParams.delete("Role");
+        } else url.searchParams.set("Role", item.getAttribute("data-role") || "");
+        url.searchParams.set("page", 1);
+        url.searchParams.delete("class");
+        window.location.href = url;
+      });
     });
-  });
 });
-
-
 
 console.log("result.js");
 
@@ -142,7 +139,7 @@ const btnDetailTestUser = document.querySelectorAll("[btn-detail-test-user]");
 btnDetailTestUser.forEach(function (btn) {
   btn.addEventListener("click", function () {
     const testId = btn.getAttribute("idTest");
-    console.log(testId)
+    console.log(testId);
     const url = new URL(window.location.href);
     url.searchParams.delete("keyword");
     url.searchParams.delete("page");
@@ -188,7 +185,24 @@ sidebar_toggle.addEventListener("click", function () {
     localStorage.setItem("sidebarState", "expanded"); // Lưu trạng thái là expanded
   } else {
     body.classList.add("is-collapsed");
+    //dong tat ca dropdown
+    const dropdowns = document.querySelectorAll(".show");
+    dropdowns.forEach(function (dropdown) {
+      dropdown.classList.remove("show");
+    });
+
     localStorage.setItem("sidebarState", "collapsed"); // Lưu trạng thái là collapsed
+  }
+});
+//.slidebar-menu
+const slideBarMenu = document.querySelector(".sidebar-menu");
+console.log(slideBarMenu);
+slideBarMenu.addEventListener("mouseleave", function () {
+  if (body.classList.contains("is-collapsed")) {
+    const dropdowns = document.querySelectorAll(".show");
+    dropdowns.forEach(function (dropdown) {
+      dropdown.classList.remove("show");
+    });
   }
 });
 document.addEventListener("DOMContentLoaded", function () {
@@ -225,3 +239,115 @@ btnAdmin.forEach(function (btn) {
     }
   });
 });
+const btn_dark_bg_slide = document.querySelector("[btn-bg-slide-dark]");
+const btn_white_bg_slide = document.querySelector("[btn-bg-slide-white]");
+const nameAdmin = document.querySelector("[name-admin]");
+const slideBg = document.querySelector("[slide-bar-item]");
+console.log(slideBg);
+btn_dark_bg_slide.addEventListener("click", function () {
+  localStorage.setItem("backSlideBar", "black-bg");
+  console.log("test black");
+  if (!slideBg.classList.contains("black-bg")) {
+    slideBg.classList.add("black-bg");
+    nameAdmin.style.color = "white";
+  }
+  if (slideBg.classList.contains("white-bg")) {
+    slideBg.classList.remove("white-bg");
+  }
+});
+btn_white_bg_slide.addEventListener("click", function () {
+  localStorage.setItem("backSlideBar", "white-bg");
+  console.log("test white");
+  if (!slideBg.classList.contains("white-bg")) {
+    slideBg.classList.add("white-bg");
+    nameAdmin.style.color = "black";
+  }
+  if (slideBg.classList.contains("black-bg")) {
+    slideBg.classList.remove("black-bg");
+  }
+});
+
+console.log(localStorage.getItem("backSlideBar"));
+if (localStorage.getItem("backSlideBar") !== null) {
+  slideBg.classList.add(localStorage.getItem("backSlideBar"));
+  if (localStorage.getItem("backSlideBar") === "black-bg") {
+    nameAdmin.style.color = "white";
+  } else {
+    nameAdmin.style.color = "black";
+  }
+} else {
+  slideBg.classList.add("white-bg");
+  nameAdmin.style.color = "black";
+}
+
+const listBtnNav = document.querySelectorAll("[btn-nav-tag]");
+
+console.log(listBtnNav);
+
+listBtnNav.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    btn.classList.add("active-item-nav");
+    var parent = btn.querySelector(".btn-nav");
+    parent.classList.add(localStorage.getItem("sidebarColor"));
+    if (btn.classList.contains("active-item-nav")) {
+      listBtnNav.forEach(function (btn1) {
+        if (btn1 !== btn) {
+          if (btn1.classList.contains("active-item-nav")) {
+            btn1.classList.remove("active-item-nav");
+          }
+          //btn -> .btn-nav
+          var parent = btn1.querySelector(".btn-nav");
+          if (parent.classList.contains("bg-gradient-primary")) {
+            parent.classList.remove("bg-gradient-primary");
+          }
+          if (parent.classList.contains("bg-gradient-dark")) {
+            parent.classList.remove("bg-gradient-dark");
+          }
+          if (parent.classList.contains("bg-gradient-info")) {
+            parent.classList.remove("bg-gradient-info");
+          }
+          if (parent.classList.contains("bg-gradient-success")) {
+            parent.classList.remove("bg-gradient-success");
+          }
+          if (parent.classList.contains("bg-gradient-warning")) {
+            parent.classList.remove("bg-gradient-warning");
+          }
+          if (parent.classList.contains("bg-gradient-danger")) {
+            parent.classList.remove("bg-gradient-danger");
+          }
+        }
+      });
+    }
+  });
+});
+listBtnNav[0].classList.add("active-item-nav");
+var parent = listBtnNav[0].querySelector(".btn-nav");
+parent.classList.add(localStorage.getItem("sidebarColor"));
+function sidebarColor(a) {
+  var parent = document.querySelector(".active-item-nav .btn-nav");
+
+  //lay the a trong parent1
+  console.log(parent);
+  var color = a.getAttribute("data-color");
+  //luu vao local storage
+  localStorage.setItem("sidebarColor", "bg-gradient-" + color);
+  if (parent.classList.contains("bg-gradient-primary")) {
+    parent.classList.remove("bg-gradient-primary");
+  }
+  if (parent.classList.contains("bg-gradient-dark")) {
+    parent.classList.remove("bg-gradient-dark");
+  }
+  if (parent.classList.contains("bg-gradient-info")) {
+    parent.classList.remove("bg-gradient-info");
+  }
+  if (parent.classList.contains("bg-gradient-success")) {
+    parent.classList.remove("bg-gradient-success");
+  }
+  if (parent.classList.contains("bg-gradient-warning")) {
+    parent.classList.remove("bg-gradient-warning");
+  }
+  if (parent.classList.contains("bg-gradient-danger")) {
+    parent.classList.remove("bg-gradient-danger");
+  }
+  parent.classList.add(localStorage.getItem("sidebarColor"));
+}
