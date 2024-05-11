@@ -9,6 +9,6 @@ router.get("/", isAuth, controllerResult.index);
 router.get("/tn", isAuth, controllerResult.resultTestOfStudent);
 router.get("/code", controllerResult.index);
 router.get("/test", controllerResult.test);
-router.get("/test/:testId", controllerResult.testWithId);
+router.get("/test/:testId", isAuth, controllerResult.testWithId);
 router.get("/test/:testId/:studentId", controllerResult.detailStudentAndTest);
 module.exports = router;
