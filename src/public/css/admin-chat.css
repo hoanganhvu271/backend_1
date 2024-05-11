@@ -22,6 +22,11 @@
     overflow-y: auto;
 }
 
+.bgc-primary {
+    color: white !important;
+    background-color: #ad171c !important;
+}
+
 .message {
     display: flex;
     /* max-width: 50%; */

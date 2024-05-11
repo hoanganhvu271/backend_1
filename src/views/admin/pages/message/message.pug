@@ -1,7 +1,9 @@
 extends ../../layout/default.pug
 block main 
   // ### $App Screen Content ###
-  main.main-content.bgc-grey-100#mainContent
+  
+  script(src = '/js/admin-chat.js')
+  main.main-content.bgc-grey-100#mainContent.mt-200
     .full-container
       .peers.fxw-nw.pos-r
         // Sidebar
@@ -9,10 +11,17 @@ block main
           .layers.h-100
             // List
             .layer.w-100.fxg-1.scrollable.pos-r
-              - for(var i = 0; i< 15; i++)
-                .peers.fxw-nw.ai-c.p-20.bdB.bgc-white.bgcH-grey-50.cur-p
-                  .peer.peer-greed.pL-20
-                    h6.mB-0.lh-1.fw-400=i
+              each student of students
+                if student.MSV == room
+                  .peers.fxw-nw.ai-c.p-20.bgc-primary.bgcH-grey-50.cur-p
+                    .peer.peer-greed.pL-20
+                      a(href=`/admin/message/${student.MSV}`).text-white
+                        h6.mB-0.lh-1.fw-400=student.MSV
+                else
+                  .peers.fxw-nw.ai-c.p-20.bgc-white.bgcH-grey-50.cur-p
+                    .peer.peer-greed.pL-20
+                      a(href=`/admin/message/${student.MSV}`).text-dark
+                        h6.mB-0.lh-1.fw-400=student.MSV
         // Chat Box
         .peer.peer-greed#chat-box
           .layers.h-100
