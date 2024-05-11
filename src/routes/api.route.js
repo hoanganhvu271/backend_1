@@ -35,7 +35,7 @@ const {
 const { getStatisticsHandler } = require("../controllers/statistic.controllers");
 const { isAuth, isAdmin } = require("../middleware/auth.middleware");
 
-const { saveMessageHandler, getMessageByRoomIdHandler } = require('../controllers/message.controller')
+const { saveMessageHandler, getMessageByRoomIdHandler, getMessageRoom } = require('../controllers/message.controller')
 
 //Guest
 
@@ -50,6 +50,7 @@ router.get('/get-student/:id', getStudentByIdHandler)
 router.put('/update-student/:id', updateStudentHandler)
 router.post('/save-message', saveMessageHandler)
 router.get('/get-message/:id', getMessageByRoomIdHandler)
+router.get('/get-room/', getMessageRoom)
 //User
 
 //hiep

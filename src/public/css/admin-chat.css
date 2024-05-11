@@ -1,23 +1,5 @@
-/* Floating Chat Button */
-.floating-chat-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background-color: #ad171c;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    cursor: pointer;
-    z-index: 9999;
-}
-
 /* Floating Chat Window */
 #chat-window {
-    display: none;
     overflow-y: auto;
     height: 400px;
     width: 300px;
@@ -36,7 +18,7 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    max-height: calc(400px - 100px);
+    max-height: 420px;
     overflow-y: auto;
 }
 
@@ -103,6 +85,7 @@
 
 /* Chat Footer */
 #chat-footer {
+    position: absolute;
     margin-top: 5px;
     position: absolute;
     bottom: 0;
@@ -120,33 +103,23 @@
     border-radius: 5px;
     padding: 5px;
     margin-right: 10px;
-
 }
 
 /* Send Button */
 #send-msg-button {
+    width: 2rem;
+    height: 2rem;
     background-color: #ad171c;
     color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
     cursor: pointer;
+    min-width: 0px !important;
 }
 
-#send-button:hover {
-    background-color: #ad171c;
-}
 
-#close-button {
+#chatt-footer {
+    /* margin-top: 5px; */
     position: absolute;
-    top: 10px;
-    /* điều chỉnh khoảng cách từ đỉnh cửa sổ */
-    right: 10px;
-    /* điều chỉnh khoảng cách từ phải cửa sổ */
-    padding: 5px;
-    margin: 0;
-    color: #fff;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+    bottom: 0;
+    width: 100%;
+    /* padding: 10px; */
 }

@@ -13,7 +13,8 @@ html
 
   body
     //- - console.log(room)
-    +floating-chat(room)
+    //- +floating-chat(room)
+    +floating-chat
     #chat-app
       #chat.has-text-centered
         section.hero.is-success
@@ -23,9 +24,13 @@ html
   
     script.
         const socket = io();
-        const room = '#{room}';
-        socket.emit('join', room);
-
+        var room
+        async function joinRoom() {
+          room = await getMessageRoom();
+          socket.emit('join', room);
+ 
+        }
+        joinRoom();
         // Xử lý sự kiện khi gửi tin nhắn
         $('#send-msg-button').click(function() {
             const message = $('#chat-footer .text-box').text();

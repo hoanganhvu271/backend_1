@@ -11,10 +11,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-async function loadMessage(room) {
+async function getMessageRoom() {
+
+    var url = '/api/get-room';
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    // console.log(response)
+    var data = await response.json();
+    var room = data.room;
+    // console.log(room)
+    return room
+}
+
+async function loadMessage() {
+    // console.log('hello')
     const chatWindow = document.getElementById('chat-window');
     if (chatWindow.style.display == 'none') {
         // console.log('Loading message: ', room);
+        // var url1 = '/api/get-room/';
+        var room = await getMessageRoom();
 
         var url = '/api/get-message/' + room
         const response = await fetch(url, {
@@ -30,12 +49,13 @@ async function loadMessage(room) {
             for (let i = 0; i < data.data.length; i++) {
                 const message = data.data[i];
                 const chatMessages = document.getElementById('chat-messages');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message'
                 const messageElement = document.createElement('li');
-
                 messageElement.className = message.fromAdmin ? 'other-message' : 'self-message';
-                messageElement.classList.add('message');
+                messageDiv.appendChild(messageElement);
                 messageElement.innerHTML = message.Content;
-                chatMessages.appendChild(messageElement);
+                chatMessages.appendChild(messageDiv);
             }
         }
         var chatMessages = document.getElementById('chat-messages');

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../models/index");
 const User = require("../../controllers/user/user.controller");
-const {checkLoginUser} = require("../../controllers/auth.controllers");
+const { checkLoginUser } = require("../../controllers/auth.controllers");
 
 
 router.get('/', User.index);

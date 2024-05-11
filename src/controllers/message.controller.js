@@ -1,5 +1,10 @@
 const { saveMessage, getMessageByRoomId } = require('../services/message.service')
 
+const jwtHelper = require("../helpers/jwt.helper");
+
+require('dotenv').config()
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
+
 const saveMessageHandler = async (req, res) => {
     const data = req.body;
     // console.log(data);
@@ -36,4 +41,21 @@ const getMessageByRoomIdHandler = async (req, res) => {
     }
 }
 
-module.exports = { saveMessageHandler, getMessageByRoomIdHandler }
+const getMessageRoom = async (req, res) => {
+    const tokenFromClient = req.cookies.jwt;
+    var room
+    if (tokenFromClient) {
+        try {
+            const decoded = await jwtHelper.verifyToken(tokenFromClient, accessTokenSecret);
+            room = decoded.data.id;
+            return res.status(200).json({ room: room })
+        } catch (error) {
+            return null;
+        }
+    }
+    else {
+        return null;
+    }
+}
+
+module.exports = { saveMessageHandler, getMessageByRoomIdHandler, getMessageRoom }

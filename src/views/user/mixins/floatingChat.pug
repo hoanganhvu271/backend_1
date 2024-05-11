@@ -1,6 +1,7 @@
-mixin floating-chat(room)
+mixin floating-chat
     //- - console.log(room)
-    .floating-chat-button#chat-button(onclick=`loadMessage('${room}')`)
+    //- .floating-chat-button#chat-button(onclick=`loadMessage('${room}')`)
+    .floating-chat-button#chat-button(onclick=`loadMessage()`)
         i.fa.fa-comments(aria-hidden="true")
     #chat-window
         #chat-header
@@ -8,6 +9,8 @@ mixin floating-chat(room)
             button#close-button
                 i.fa.fa-times(aria-hidden="true")
         ul#chat-messages
+            .message
+                li.self-message Hello
         #chat-footer
             .text-box(contenteditable="true", disabled="true")
             button#send-msg-button Send
