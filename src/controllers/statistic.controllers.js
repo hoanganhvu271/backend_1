@@ -1,5 +1,7 @@
 const { getStatisticById } = require('../services/statistic.service')
 
+
+//maybetuandat
 const getStatisticsHandler = async (req, res) => {
     const id = req.params.id;
     var statistic = await getStatisticById(id)
