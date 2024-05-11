@@ -122,15 +122,13 @@ CREATE TABLE HasPermission(
 );
 
 ALTER TABLE Permission ADD column Url VARCHAR(100) AFTER NAME; 
--- /admin/permission
--- /admin/result
 
--- all admin auto-- 
--- /admin/statistic
--- /admin/profile
 
--- /admin/test
--- /admin/new-test
--- /admin/edit-test/:id
-
--- /admin/account
+CREATE TABLE Message (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Content VARCHAR(255),
+    MSV VARCHAR(100),
+    fromAdmin BOOLEAN,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (MSV) REFERENCES sinhvien(MSV)
+);

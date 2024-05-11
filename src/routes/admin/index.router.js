@@ -5,6 +5,7 @@ const profileRoutes = require("./profile.router");
 const indexUser = require("../user/user");
 const statisticRouter = require("./statistic.router");
 const permissionRouter = require("./permission.router");
+const messageRouter = require("./message.router");
 
 const { isAdminPermission } = require("../../middleware/auth.middleware");
 module.exports = (app) => {
@@ -13,5 +14,6 @@ module.exports = (app) => {
   app.use("/admin/account", isAdminPermission, accountManageRoutes);
   app.use("/admin/profile", isAdminPermission, profileRoutes);
   app.use("/admin/statistic", isAdminPermission, statisticRouter);
-  app.use("/admin/permission", isAdminPermission, permissionRouter);
+  app.use("/admin/permission", permissionRouter);
+  app.use("/admin/message", messageRouter);
 };
