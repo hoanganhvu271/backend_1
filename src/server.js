@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: true })); // for form data
 // app.use(trimInputs)
 app.use(cookieParser())
 
+// app.use(trimInputs)
 //express-session
 app.use('/api', apiRoutes)
 viewEngine(app);
