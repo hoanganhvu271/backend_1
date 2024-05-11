@@ -41,9 +41,11 @@ html
                     input(type="text", id="digit-5", name="digit5", data-next="digit-6", data-previous="digit-4")
                     input(type="text", id="digit-6", name="digit6", data-previous="digit-5")
                     script(src="/js/user/checkOTP.js")
+                    input(type="hidden", name="email", value=email)
                   br
                   if data && data.message
                    p.aler= data.message
-                  form(action="/forgotPassword/resetPassword/resendOTP", method="post")
+                  form(action="/forgotPassword/resetPassword", method="post")
+                    input(type="hidden", name="email", value=email)
                     input(type="submit", value="Gửi lại mã OTP", class="btn btn-block btn-primary", style="background-color: #c32b2b; color:white")
 

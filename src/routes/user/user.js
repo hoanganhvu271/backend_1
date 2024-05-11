@@ -12,6 +12,6 @@ router.post('/register/createNewUser', User.createUser);
 router.get('/forgotPassword', User.forgotPassword_index);
 router.post('/forgotPassword/resetPassword', User.forgotPassword);
 router.post('/forgotPassword/resetPassword/verifyOTP', User.verifyOTP);
-router.post('/forgotPassword/resetPassword/resendOTP', User.resendOTP);
+
 router.post('/forgotPassword/resetPassword/verifyOTP/newPassword', User.changePassword);
 module.exports = router;

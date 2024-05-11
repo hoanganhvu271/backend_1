@@ -1,6 +1,6 @@
 mixin item-arrow(title, icon, items, id)
-  li.nav-item.dropdown
-    a.dropdown-toggle(button-dropdown-item #{id})
+  li.nav-item.dropdown(btn-nav-tag)
+    a.dropdown-toggle.btn-nav(button-dropdown-item #{id})
       span.icon-holder
         i(class= icon)
       span.title= title
@@ -11,7 +11,7 @@ mixin item-arrow(title, icon, items, id)
         li
           a.sidebar-link(href= item.href) #{item.title}
 mixin normal-item(title, icon, href, id)
-  li.nav-item.mT-30.actived
+  li.nav-item.mT-30(btn-nav-tag)
       a.sidebar-link(#{id})
         span.icon-holder
           i(class= icon)

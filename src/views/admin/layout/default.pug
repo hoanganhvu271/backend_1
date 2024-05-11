@@ -10,6 +10,23 @@ html
     link(rel="stylesheet", href="/css/admin-chat.css")
     <script src="https://cdn.socket.io/socket.io-4.2.0.min.js"></script>
     script(src="/js/authen.js")
+    style.
+      #clickEffect {
+        margin: -30px;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        background-color: pink;
+        border-radius: 100%;
+        pointer-events: none;
+        transform: scale(0);
+        opacity: 1;
+        z-index: 9999;
+      }
+      .hiep {
+        transition: transform 0.3s, opacity 0.3s;
+
+      }
   body.app
     include ../partials/header.pug
     .page-container
@@ -21,7 +38,8 @@ html
               span(aria-hidden="true") &times;
             span#alertContent
           block main
-
+          #clickEffect.hiep
+    include ../partials/setting.pug
 
     script(src="/js/upload-test.js")
     script(src="/js/permission.js")
@@ -36,5 +54,33 @@ html
     script(src="/js/side-bar/index.js")
     script(src="/js/profile.js")
     script(src="/js/profile.js")
+    script.
+      document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("mousedown", function (e) {
+          console.log('click')
+          createClickEffect(e.pageX, e.pageY);
+        });
+      });
+
+      function createClickEffect(x, y) {
+        console.log(x + ' ' + y)
+        var clickEffect = document.getElementById("clickEffect");
+        clickEffect.style.left = x + "px";
+        clickEffect.style.top = y + "px";
+        clickEffect.style.transform = "scale(0)";
+        clickEffect.style.opacity = 1;
+        clickEffect.classList.add("hiep");
+        clickEffect.style.opacity = 0;
+        clickEffect.style.transform = "scale(1)";
+
+        setTimeout(() => {
+          clickEffect.style.opacity = 1;
+          clickEffect.style.transform = "scale(0)";
+          clickEffect.classList.remove("hiep");
+        }, 300);
+        //clickEffect.classList.remove("hiep");
+
+
+      }
 
 

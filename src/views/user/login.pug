@@ -27,7 +27,7 @@ html(lang="en")
                 .mb-4
                   
                 h1.text Quizz App
-                form(action="/checkLoginUser/user", method="post")
+                form(action="checkLoginUser", method="post")
                   .form-group.first
                     
                     input(type="text", class="form-control", id="username", name = "msv", placeholder="Mã sinh viên" Required)
@@ -43,11 +43,11 @@ html(lang="en")
                       .control__indicator
 
                     span.ml-auto
-                      a.forgot-pass(href="/forgotPassword") Quên mật khẩu
+                      a.forgot-pass(href="forgotPassword") Quên mật khẩu
                   
                   input(type="submit", value="Đăng Nhập", class="btn btn-block", style="background-color: #c32b2b; color:white;")
                   p.register Chưa có tài khoản, 
-                   a.register(href="/register") Đăng ký
+                   a.register(href="user/register") Đăng ký
                   br
                   if data && data.message
                    p.aler= data.message
