@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 9999;
 
 const viewEngine = require("./config/viewEngine.config");
-// const mainRoutes = require("./routes/main.route");
+const mainRoutes = require("./routes/main.route");
 const apiRoutes = require("./routes/api.route");
 const { connection } = require("./config/connectDB");
 
@@ -60,3 +60,4 @@ io.on("connection", (socket) => {
 adminRoutes(app);
 userRoutes(app);
 errorRoutes(app);
+mainRoutes(app)

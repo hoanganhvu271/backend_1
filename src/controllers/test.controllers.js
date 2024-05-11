@@ -333,11 +333,13 @@ const getTestWithStudent = async (req, res) => {
 };
 
 const postSubmit = async (req, res) => {
+  let msv = req.jwtDecoded.data.id;
   var reqBody = req.body
+  console.log(reqBody)
   var test = reqBody.metadata
-  var questionList = reqBody.data
+  var questionList = reqBody.dataoption
 
-  var status = await createNewResult(test[0], questionList)
+  var status = await createNewResult(msv, test[0], questionList)
   if (status) {
     res.status(200).json({
       code: 1,

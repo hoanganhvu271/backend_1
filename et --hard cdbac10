@@ -1,0 +1,26 @@
+[33md4fff5b[m[33m ([m[1;36mHEAD[m[33m, [m[1;32mhiep2[m[33m)[m HEAD@{0}: checkout: moving from newdat to d4fff5b
+[33m576decb[m[33m ([m[1;32mnewdat[m[33m)[m HEAD@{1}: checkout: moving from d4fff5b9b796ea663a193c6de4ec82903e14478d to newdat
+[33md4fff5b[m[33m ([m[1;36mHEAD[m[33m, [m[1;32mhiep2[m[33m)[m HEAD@{2}: checkout: moving from cdbac10e34f8c99fcdea6413594ac7770ba9fa1d to d4fff5b
+[33mcdbac10[m[33m ([m[1;31morigin/hiep2[m[33m)[m HEAD@{3}: checkout: moving from newdat to cdbac10
+[33m576decb[m[33m ([m[1;32mnewdat[m[33m)[m HEAD@{4}: commit: dmm
+[33m183d919[m[33m ([m[1;31morigin/newdat[m[33m)[m HEAD@{5}: reset: moving to HEAD
+[33m183d919[m[33m ([m[1;31morigin/newdat[m[33m)[m HEAD@{6}: pull origin newdat: Fast-forward
+[33m0d8d0b1[m HEAD@{7}: checkout: moving from hiep2 to newdat
+[33md4fff5b[m[33m ([m[1;36mHEAD[m[33m, [m[1;32mhiep2[m[33m)[m HEAD@{8}: commit (merge): phần user của Hiệp mới nhất 2024
+[33m68f2245[m HEAD@{9}: commit: hehe
+[33mcdbac10[m[33m ([m[1;31morigin/hiep2[m[33m)[m HEAD@{10}: commit (merge): mới nhất 2024
+[33m14cb02b[m HEAD@{11}: commit: hiep
+[33m2ad8557[m HEAD@{12}: Branch: renamed refs/heads/Quan to refs/heads/hiep2
+[33m2ad8557[m HEAD@{14}: commit (merge): hiep
+[33m8018ae5[m HEAD@{15}: commit (merge): hiep
+[33m5b94b0b[m HEAD@{16}: commit: hiep
+[33mcc0e4a8[m HEAD@{17}: pull origin Quan: Fast-forward
+[33mf51780a[m HEAD@{18}: pull origin Quan: Fast-forward
+[33m1ccaab3[m HEAD@{19}: checkout: moving from Hiep to Quan
+[33m54f522a[m[33m ([m[1;31morigin/Hiep[m[33m, [m[1;32mHiep[m[33m)[m HEAD@{20}: commit: hiep
+[33md29934f[m HEAD@{21}: commit (merge): hiep
+[33me492ed9[m HEAD@{22}: commit: thêm api tìm bài thi theo tên
+[33mbf70bcf[m HEAD@{23}: reset: moving to bf70bcffc4a8e42c38f762b3a50eeeed2648ea64
+[33mbf70bcf[m HEAD@{24}: Branch: renamed refs/heads/main to refs/heads/Hiep
+[33mbf70bcf[m HEAD@{26}: commit: hiep
+[33m059e64c[m HEAD@{27}: clone: from https://github.com/hoanganhvu271/backend_1.git

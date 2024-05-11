@@ -191,11 +191,10 @@ const tinhdiem = async (questionList, testID, t) => {
   return diem;
 };
 
-const createNewResult = async (test, questionList) => {
+const createNewResult = async (msv, test, questionList) => {
   let t;
   try {
     t = await sequelize.transaction();
-    var mkq = "KQ03";
     var diem = await tinhdiem(questionList, test.mabaithi, t);
 
     let tongdiem = 0;
@@ -205,10 +204,9 @@ const createNewResult = async (test, questionList) => {
     });
     tongdiem = ((tongdiem / diem.length) * 10).toFixed(2);
     console.log(tongdiem);
-    await db.Result.create(
+    let result = await db.Result.create(
       {
-        MaKetQua: mkq,
-        MSV: test.masinhvien,
+        MSV: msv,
         MaBaiThi: test.mabaithi,
         Diem: tongdiem,
         ThoiGianLamBai: test.start,
@@ -216,16 +214,19 @@ const createNewResult = async (test, questionList) => {
       },
       { transaction: t }
     );
+    console.log('result:', result.dataValues.MaKetQua)
 
     for (var i = 0; i < questionList.length; i++) {
-      await createNewDetail(
-        questionList[i],
-        mkq,
-        test.mabaithi,
-        i + 1,
-        diem[i],
-        t
-      );
+      if(questionList[i].maluachon != 'E') {
+        await createNewDetail(
+          questionList[i],
+          result.dataValues.MaKetQua,
+          test.mabaithi,
+          i + 1,
+          diem[i],
+          t
+        );
+      }
     }
     await t.commit();
     return true;

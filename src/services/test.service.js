@@ -46,7 +46,7 @@ const getTestById = async (id) => {
   var data = { status: null, data: null };
   try {
     const tests = await db.Test.findAll({ raw: true, where: { MaBaiThi: id } });
-    console.log(tests);
+    // console.log(tests);
     if (tests.length > 0) {
       data.status = 200;
       data.data = tests;

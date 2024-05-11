@@ -18,8 +18,9 @@ module.exports = (sequelize, DataTypes) => {
   Result.init(
     {
       MaKetQua: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER, // hoặc BIGINT tùy thuộc vào kiểu dữ liệu bạn muốn sử dụng
         primaryKey: true,
+        autoIncrement: true,
       },
       MSV: DataTypes.STRING,
       MaBaiThi: DataTypes.STRING,

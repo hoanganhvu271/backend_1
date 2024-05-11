@@ -7,6 +7,8 @@ const paginationHelper = require("../../../helpers/paginationHelper");
 const searchHelper = require("../../../helpers/search");
 const { Op } = require("sequelize");
 const jwtHelper = require("../../../helpers/jwt.helper");
+const { getQuestionOfTest, getQuestionOfTestUser } = require('../../../services/question.service')
+
 // [GET] /admin/my-account
 module.exports.index = async (req, res) => {
   res.render("user/pages/viewResult/index.pug", {
@@ -124,32 +126,12 @@ module.exports.test = async (req, res) => {
 module.exports.testWithId = async (req, res) => {
   const testId = req.params.testId;
   const test = await testServices.getTestById(testId);
-  const resultList = await resultServices.getResultByIdTest(testId);
-  const studentList = [];
-  const find = {};
-  if (req.query.keyword) {
-    const regexExpression = new RegExp(req.query.keyword, "i").source;
-    find[Op.or] = [
-      { Ten: { [Op.regexp]: regexExpression } },
-      { MSV: { [Op.regexp]: regexExpression } },
-    ];
-  }
-
-  // console.log(resultList)
-  if (req.query.class) find.Lop = req.query.class;
-  for (let i = 0; i < resultList.data.length; i++) {
-    find.MSV = resultList.data[i].MSV;
-    const student = await studentServices.getCountStudentWithFindObject(find);
-    if (student.data) studentList.push(student.data[0]);
-  }
-
+  var questions = await getQuestionOfTest(testId);
+  const data = {test: test.data[0], questions: questions.data}
+  // console.log(data)
+  var tmp = "hiep"
   res.render("user/pages/viewResult/testResultStudent.pug", {
-    titlePage: "Kết quả bài thi",
-    test: test.data[0],
-    resultList: resultList.data,
-    studentList: studentList,
-    className: req.query.class || "Tất cả",
-    keyword: req.query.keyword || "",
+    data: data
   });
 };
 

@@ -180,7 +180,7 @@ module.exports.checkLoginUser = async (req, res) => {
     // res.status(200).json(response);
 
 
-    if (data.status === 200) {
+    if (data.status == 200) {
         var ok = await bcrypt.compareSync(req.body.password, data.data[0].MatKhau);
         if (ok) {
 

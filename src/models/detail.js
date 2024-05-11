@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       MaKetQua: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         primaryKey: true
       },
       MaBaiThi: {
