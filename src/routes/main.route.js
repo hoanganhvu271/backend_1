@@ -1,6 +1,6 @@
 const viewResultRoutes = require("./viewResult.router");
 const profileRoutes = require("./profile.router");
-const indexUser = require("../user/user.index")
+const indexUser = require("./user/user")
 module.exports = (app) => {
   // admin
   app.use("/admin/result", viewResultRoutes);

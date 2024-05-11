@@ -19,7 +19,15 @@ CREATE TABLE BaiThi (
     TrangThai VARCHAR(50)
 );
 
-
+-- tạo bảng otp
+use testbtl;
+CREATE TABLE otp (
+	email VARCHAR(255) PRIMARY KEY,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
+    otp_code VARCHAR(10) NOT NULL
+    
+);
 
 
 -- Tạo bảng Kết quả

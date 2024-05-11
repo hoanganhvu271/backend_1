@@ -130,6 +130,11 @@ VALUES
 ('KQ01', 'B21DCCN01', 1, 6.7),
 ('KQ02', 'B21DCCN02', 1, 3.3);
 
+-- insert otp
+INSERT INTO otp (start_time, end_time, otp_code, email) VALUES
+('2024-05-11 08:00:00', '2024-05-11 08:30:00', '123456', 'example1@example.com'),
+('2024-05-11 09:00:00', '2024-05-11 09:30:00', '654321', 'example2@example.com'),
+('2024-05-11 10:00:00', '2024-05-11 10:30:00', '987654', 'example3@example.com');
 
 -- Dữ liệu cho bảng KetQuaTungCau
 INSERT INTO KetQuaTungCau (MaChiTiet, MaKetQua, MaBaiThi, MaCauHoi, MaLuaChon, Dung)
