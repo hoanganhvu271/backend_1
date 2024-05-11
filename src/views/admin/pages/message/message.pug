@@ -1,0 +1,74 @@
+doctype html
+html
+  head
+    title Siu
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css')
+    //- link(rel='stylesheet', href='css/message.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js')
+
+  body
+    #chat-app
+      #chat.has-text-centered
+        section.hero.is-success
+          .hero-body
+            .container
+              h1.title AdminChat
+        section.section.chat-container
+          .container
+            .columns
+              .box.column.is-8.is-offset-2
+                h2.title Chatbox
+                .chat-messages.has-text-left
+                  ul#chat-messages
+                form
+                  .field.has-addons
+                    p.control.is-expanded
+                      input(type='text', class='input', placeholder='Try to say something', id='message')
+                    p.control
+                      input(type='submit', class='button is-success', value='Post')
+    
+    script.
+        const socket = io();
+        const room = '#{room}';
+        socket.emit('join', room);
+
+        // Xử lý sự kiện khi gửi tin nhắn
+        $('form').submit(function() {
+            const message = $('#message').val();
+            socket.emit('message', {name : 'Admin', message: message, room: room });
+
+            try{
+              var backendUrl = '/api/save-message'
+              var data = {
+                room: room,
+                message: message,
+                isAdmin: true
+              }
+              fetch(backendUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+              })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+              }
+            catch (err) {
+
+            }
+          
+            $('#message').val('');
+            return false;
+        });
+
+        // Xử lý sự kiện nhận tin nhắn từ server
+        socket.on('message', function(data) {
+            $('#chat-messages').append($('<li>').text(`${data.name}: ${data.message}`));
+        });

@@ -8,7 +8,7 @@ const saltRounds = 10;
 let tokenList = {};
 
 // Thời gian sống của token
-const accessTokenLife = process.env.ACCESS_TOKEN_LIFE || "1h";
+const accessTokenLife = process.env.ACCESS_TOKEN_LIFE || "24h";
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 // Thời gian sống của refreshToken
 const refreshTokenLife = process.env.REFRESH_TOKEN_LIFE || "3650d";
@@ -50,7 +50,7 @@ const refreshToken = async (req, res) => {
 };
 
 const checkLoginUser = async (req, res, next) => {
-
+    console.log(req.params.role)
     if (req.params.role === 'user') {
         //check valid user and password
         if (!req.body.msv || !req.body.password) {
@@ -86,7 +86,9 @@ const checkLoginUser = async (req, res, next) => {
             }
             if (data.status === 200) {
                 var ok = await bcrypt.compareSync(req.body.password, data.data[0].MatKhau);
+                let response =  {}
                 if (ok) {
+                    console.log(data.data[0])
                     const userData = {
                         id: req.body.msv,
                         role: req.params.role,
@@ -95,22 +97,27 @@ const checkLoginUser = async (req, res, next) => {
 
                     data = await createTokenResponse(userData)
 
-                    const response = {
+                    response = {
                         code: 1,
                         status: 200,
                         message: "Đăng nhập thành công",
-                        data: data
+                        // data: data
                     };
-                    res.status(200).json(response);
+                    res.cookie("jwt", data.accessToken, { maxAge: 86400000, httpOnly: true });
+                    return res.redirect("/user/result")
                 }
                 else {
-                    const response = {
+                    response = {
                         code: 0,
                         status: 404,
-                        message: "Đăng nhập thất bại",
+                        title: "Đăng nhập thất bại",
+                        message: "Thông tin tài khoản hoặc mật khẩu không chính xác",
                     };
-                    res.status(404).json(response);
+                    // res.status(404).json(response);
                 }
+                res.render("user/login.pug", {
+                    data: response,
+                });
             }
         }
 
@@ -123,8 +130,9 @@ const checkLoginUser = async (req, res, next) => {
                 role: "admin",
             })
             res.token = data;
-            console.log(data)
+            // console.log(data)
             // res.redirect('/admin/result')
+            res.cookie("jwt", data.accessToken);
             return res.status(200).json({
                 token: data
             });

@@ -31,6 +31,8 @@ const getStudentById = async (id) => {
       raw: true,
       where: { MSV: id },
     });
+
+    console.log(students)
     if (students.length > 0) {
       data.status = 200;
       data.data = students;
@@ -44,6 +46,7 @@ const getStudentById = async (id) => {
     return data;
   }
 };
+
 const getStudentByEmail = async (email) => {
   var data = { status: null, data: null };
   try {

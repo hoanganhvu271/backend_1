@@ -18,11 +18,12 @@ include ../mixins/itemSlider.pug
     ul.sidebar-menu.scrollable.pos-r
         +item-arrow('Danh sách bài thi', 'ti-home c-red-500',
             [
-                {title: 'Bài thi trắc nghiệm', href: '/practice/tn'},
-                {title: 'Bài tập lập trình', href: '/practice/code'}
+                {title: 'Bài thi trắc nghiệm', href: '/user/practice/tn'},
+                {title: 'Bài tập lập trình', href: '/user/practice/code'}
             ])
         +item-arrow('Kết quả', 'ti-harddrives c-red-500',
             [
-                {title: 'Bài thi trắc nghiệm', href: '/result/tn'},
-                {title: 'Bài tập lập trình', href: '/result/code'}
+                {title: 'Bài thi trắc nghiệm', href: '/user/result/tn'},
+                {title: 'Bài tập lập trình', href: '/user/result/code'}
             ])
+        +normal-item('Danh sách bài thi', 'ti-home c-blue-500', '/user/code')

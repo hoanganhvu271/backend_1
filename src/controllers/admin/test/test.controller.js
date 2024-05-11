@@ -64,6 +64,7 @@ const createNewTest = async (req, res) => {
 
 const EditTest = async (req, res) => {
     const testId = req.params.id;
+    // console.log("id: ", testId);
     var metadata = await getTestById(testId);
     var questions = await getQuestionOfTest(testId);
 

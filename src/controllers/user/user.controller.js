@@ -6,10 +6,7 @@ const { student } = require("./result/result.controller");
 const sendMailTo = require("../../middleware/sendEmail");
 global.otpData = {};
 module.exports.index = async (req, res) => {
-
-    // res.render("user/login.pug", {
-    //     titlePage: "Thông tin cá nhân"
-    // });
+    
     res.render("user/login.pug", {
         titlePage: "Thông tin cá nhân"
     });

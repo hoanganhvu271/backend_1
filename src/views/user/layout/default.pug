@@ -2,10 +2,27 @@ doctype html
 html
   head
     title #{titlePage}
-    link(rel="stylesheet",  href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
-    link(rel="stylesheet",  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css")
-    link(rel="stylesheet",  href="/css/index.css")
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css")
+    link(rel="stylesheet", href="/css/index.css")
     script(src="/js/authen.js")
+    style.
+      #clickEffect {
+        margin: -30px;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        background-color: pink;
+        border-radius: 100%;
+        pointer-events: none;
+        transform: scale(0);
+        opacity: 1;
+        z-index: 9999;
+      }
+      .hiep {
+        transition: transform 0.3s, opacity 0.3s;
+
+      }
   body.app
     include ../partials/header.pug
     .page-container
@@ -13,11 +30,38 @@ html
       main(class='main-content bgc-grey-100')
         .main-container
           block main
-
+          #clickEffect.hiep
     script(src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js")
-    script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js")
+    //- script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js")
     script(src="/js/side-bar/index.js")
     script(src="/js/pagination.js")
     script(src="/js/user/practice.js")
-   
-    
+    script(src="/js/result.js")
+    script.
+      document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("mousedown", function (e) {
+          console.log('click')
+          createClickEffect(e.pageX, e.pageY);
+        });
+      });
+
+      function createClickEffect(x, y) {
+        console.log(x + ' ' + y)
+        var clickEffect = document.getElementById("clickEffect");
+        clickEffect.style.left = x + "px";
+        clickEffect.style.top = y + "px";
+        clickEffect.style.transform = "scale(0)";
+        clickEffect.style.opacity = 1;
+        clickEffect.classList.add("hiep");
+        clickEffect.style.opacity = 0;
+        clickEffect.style.transform = "scale(1)";
+
+        setTimeout(() => {
+          clickEffect.style.opacity = 1;
+          clickEffect.style.transform = "scale(0)";
+          clickEffect.classList.remove("hiep");
+        }, 300);
+        //clickEffect.classList.remove("hiep");
+
+
+      }

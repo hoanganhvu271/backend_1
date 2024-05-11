@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
       dropdownMenu.classList.remove("show");
     }
   });
+
   dropdownMenu.querySelectorAll(".dropdown-item").forEach(function (item) {
     item.addEventListener("click", function (event) {
       dropdownMenu.classList.remove("show");
@@ -24,14 +25,41 @@ document.addEventListener("DOMContentLoaded", function () {
       let url = new URL(window.location.href);
       // Chuyển hướng trang đến URL đã lấy được
       var classValue = item.getAttribute("data-class");
+
+
       if (classValue === "all") {
         url.searchParams.delete("class");
       } else url.searchParams.set("class", item.getAttribute("data-class") || "");
+      url.searchParams.delete("Role");
       url.searchParams.set("page", 1);
       window.location.href = url;
     });
   });
+
+  dropdownMenu.querySelectorAll(".dropdown-item-admin").forEach(function (item) {
+    item.addEventListener("click", function (event) {
+      dropdownMenu.classList.remove("show");
+      // Ngăn chặn hành vi mặc định của thẻ a (chuyển hướng trang)
+      event.preventDefault();
+      // Lấy URL từ thuộc tính href của thẻ a
+      let url = new URL(window.location.href);
+      // Chuyển hướng trang đến URL đã lấy được
+      var roleValue = item.getAttribute("data-role");
+
+
+      if (roleValue === "all") {
+        url.searchParams.delete("Role");
+
+      } else url.searchParams.set("Role", item.getAttribute("data-role") || "");
+      url.searchParams.set("page", 1);
+      url.searchParams.delete("class");
+      window.location.href = url;
+    });
+  });
 });
+
+
+
 console.log("result.js");
 
 const btnloc = document.querySelectorAll("[btn-loc]");
@@ -110,9 +138,11 @@ btnDetailTest.forEach(function (btn) {
 });
 
 const btnDetailTestUser = document.querySelectorAll("[btn-detail-test-user]");
+
 btnDetailTestUser.forEach(function (btn) {
   btn.addEventListener("click", function () {
     const testId = btn.getAttribute("idTest");
+    console.log(testId)
     const url = new URL(window.location.href);
     url.searchParams.delete("keyword");
     url.searchParams.delete("page");
