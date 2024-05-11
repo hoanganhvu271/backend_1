@@ -1,5 +1,6 @@
 const db = require("../../models/index");
-
+const jwtHelper = require("../../helpers/jwt.helper");
+const secretKey = process.env.ACCESS_TOKEN_SECRET
 const bcrypt = require('bcrypt')
 const { getStudentById, createNewStudent, getStudentByEmail, updatePassword } = require("../../services/student.service");
 const { student } = require("./result/result.controller");
@@ -7,9 +8,8 @@ const sendMailTo = require("../../middleware/sendEmail");
 global.otpData = {};
 module.exports.index = async (req, res) => {
 
-    // res.render("user/login.pug", {
-    //     titlePage: "Thông tin cá nhân"
-    // });
+
+
     res.render("user/login.pug", {
         titlePage: "Thông tin cá nhân"
     });
@@ -19,7 +19,7 @@ module.exports.forgotPassword_index = async (req, res) => {
 }
 module.exports.forgotPassword = async (req, res) => {
     const email = req.body.email;
-    console.log(email);
+
     let data = await getStudentByEmail(email);
     if (data.status != 200) {
         const response = {
@@ -67,12 +67,19 @@ module.exports.verifyOTP = async (req, res) => {
 }
 
 module.exports.resendOTP = async (req, res) => {
-    const { email, otp } = global.otpData;
+    const token = req.cookies.jwt;
+    const decoded = await jwtHelper.verifyToken(token, secretKey);
+    console.log(decoded)
+    let msv = decoded.data.email
+    console.log(msv)
+    const { email } = global.otpData;
     function generateOTP() {
         return Math.floor(100000 + Math.random() * 900000); // Tạo số ngẫu nhiên từ 100000 đến 999999
     }
-    const newotp = generateOTP();
-    await sendMailTo(email, newotp);
+    const otp = generateOTP();
+    global.otpData = {}
+    global.otpData = { email, otp };
+    await sendMailTo(email, otp);
     res.render("user/verifyOTP.pug");
 }
 module.exports.changePassword = async (req, res) => {
