@@ -28,7 +28,22 @@ module.exports.checkLoginAdmin = async (req, res) => {
             data: response
         });
     }
-
+    else {
+        const admin = data.data[0];
+        console.log(admin.Pass, password);
+        if (admin.Pass == password) {
+            res.status(200).json({ message: "Đăng nhập thành công" });
+        }
+        else {
+            const response = {
+                message: "Thông tin tài khoản hoặc mật khẩu không chính xác",
+                title: "Thất bại",
+            };
+            res.render("admin/pages/login/login.pug", {
+                data: response
+            });
+        }
+    }
     // ddungs thi lam lam gi do
 
 }

@@ -70,7 +70,7 @@ module.exports.verifyOTP = async (req, res) => {
 
 
     let newotp = await (req.body.digit1 + req.body.digit2 + req.body.digit3 + req.body.digit4 + req.body.digit5 + req.body.digit6);
-    console.log(newotp);
+    // console.log(newotp);
     // Lấy email và mã OTP đã lưu trữ
     const email = await req.body.email;
     const data = await getOtpWithEmail(email);
@@ -93,7 +93,7 @@ module.exports.verifyOTP = async (req, res) => {
     }
     // Kiểm tra xem mã OTP được nhập có trùng khớp với mã OTP đã lưu trữ hay không
 
-    if (data.data.end_time < new Date()) {
+    if (data.data[0].end_time < new Date()) {
         await deleteOtp(email);
         const response = {
             message: "Mã OTP đã hết hạn, hãy gửi lại yêu cầu mã OTP",
@@ -106,9 +106,8 @@ module.exports.verifyOTP = async (req, res) => {
         });
         return;
     }
-    const otp = data.data.otp_code;
-    console.log(otp);
-    if (otp === newotp && data.data.end_time > new Date()) {
+    const otp = data.data[0].otp_code;
+    if (otp.toString() == newotp && data.data[0].end_time > new Date()) {
         await deleteOtp(email);
         res.render("user/changePassword.pug");
     } else {
@@ -126,24 +125,6 @@ module.exports.verifyOTP = async (req, res) => {
     }
 
 
-}
-
-module.exports.resendOTP = async (req, res) => {
-
-    function generateOTP() {
-        return Math.floor(100000 + Math.random() * 900000); // Tạo số ngẫu nhiên từ 100000 đến 999999
-    }
-    const otp = generateOTP();
-    const email = req.body.email;
-
-    await sendMailTo(email, otp);
-    res.render("user/verifyOTP.pug", {
-        data: {
-            title: "Thành công",
-            message: "Mã OTP đã được gửi đến email của bạn, hãy nhớ mã  OTP này chỉ có hiệu lực trong vòng 5 phút"
-        },
-        email: email,
-    });
 }
 module.exports.changePassword = async (req, res) => {
     // nhớ chỉnh email thành khóa chính
