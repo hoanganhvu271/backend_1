@@ -1,5 +1,5 @@
 const { Sequelize } = require("sequelize");
-
+require('dotenv').config()
 const sequelize = new Sequelize("javasql", "root", "1111", {
   host: "localhost",
   port: "3307",

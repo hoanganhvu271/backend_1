@@ -28,6 +28,7 @@ const generateToken = async (user, secretSignature, tokenLife) => {
 
 const verifyToken = async (token, secretKey) => {
     try {
+        // console.log(token, secretKey);
         const decoded = await jwt.verify(token, secretKey);
         // console.log(decoded)
         return decoded;

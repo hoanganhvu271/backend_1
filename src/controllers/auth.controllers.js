@@ -49,9 +49,9 @@ const refreshToken = async (req, res) => {
     }
 };
 
-const checkLoginUser = async (req, res, next) => {
-    console.log(req.params.role)
-    if (req.params.role === 'user') {
+const checkLoginUser = async (req, res) => {
+    // console.log(req.params.role)
+    // if (req.params.role === 'user') {
         //check valid user and password
         if (!req.body.msv || !req.body.password) {
             const response = {
@@ -121,31 +121,8 @@ const checkLoginUser = async (req, res, next) => {
             }
         }
 
-    }
-    else {
-        try {
-
-            var data = await createTokenResponse({
-                username: "admin",
-                role: "admin",
-            })
-            res.token = data;
-            // console.log(data)
-            // res.redirect('/admin/result')
-            res.cookie("jwt", data.accessToken);
-            return res.status(200).json({
-                token: data
-            });
-
-
-        } catch (error) {
-            console.log(error);
     
-            // Render trang lỗi khi đăng nhập thất bại
-            return res.render('error500'); 
-        }
-    }
-
+   
 }
 
 const createTokenResponse = async (userData) => {

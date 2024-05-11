@@ -130,6 +130,11 @@ VALUES
 ('KQ01', 'B21DCCN01', 1, 6.7),
 ('KQ02', 'B21DCCN02', 1, 3.3);
 
+-- insert otp
+INSERT INTO otp (start_time, end_time, otp_code, email) VALUES
+('2024-05-11 08:00:00', '2024-05-11 08:30:00', '123456', 'example1@example.com'),
+('2024-05-11 09:00:00', '2024-05-11 09:30:00', '654321', 'example2@example.com'),
+('2024-05-11 10:00:00', '2024-05-11 10:30:00', '987654', 'example3@example.com');
 
 -- Dữ liệu cho bảng KetQuaTungCau
 INSERT INTO KetQuaTungCau (MaChiTiet, MaKetQua, MaBaiThi, MaCauHoi, MaLuaChon, Dung)
@@ -140,6 +145,37 @@ VALUES
 ('CT04', 'KQ02',1, 'C01', 'A', 1),
 ('CT05', 'KQ02' ,1, 'C02', 'B', 0),
 ('CT06', 'KQ02',1, 'C03', 'C', 0);
+
+INSERT INTO Role(Name)
+VALUES
+("Admin1"),
+("Admin2"),
+("Admin3"),
+("Admin4");
+
+INSERT INTO Permission(Name, Url)
+VALUES
+("Cấp quyền", "/admin/permission"),
+("Quản lý tài khoản", '/admin/account'),
+("Quản lý bài thi", "/admin/test"),
+("Xem kết quả", "admin/result"),
+("Xem Dashboard", "/admin/statistic"),
+("Sửa thông tin cá nhân", "/admin/profile");
+
+
+
+
+INSERT INTO HasPermission(Role_id, Permission_id)
+VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6);
+
+
+
 
 
 
