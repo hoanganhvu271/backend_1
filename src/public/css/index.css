@@ -383,7 +383,7 @@ a.btn:hover {
   overflow: hidden;
   position: fixed;
   top: 0;
-  transition: all 0.2s ease;
+  /* transition: all 0.2s ease; */
   width: 280px;
   z-index: 1000;
 }
@@ -552,9 +552,7 @@ a.btn:hover {
 .sidebar-menu li.dropdown.open > .dropdown-menu .arrow {
   line-height: 25px;
 }
-.sidebar-menu li a {
-  transition: all 0.3s ease;
-}
+
 .sidebar-menu li a:hover, .sidebar-menu li a:focus {
   color: #313435;
   text-decoration: none;
@@ -602,7 +600,7 @@ a.btn:hover {
   margin-right: 14px;
   position: relative;
   text-align: center;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   width: 35px;
 }
 
