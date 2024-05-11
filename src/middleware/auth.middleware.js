@@ -66,7 +66,7 @@ const isAdminPermission = async (req, res, next) => {
     var orginUrl = req.originalUrl;
     console.log(req.params.id)
     var len = Object.keys(req.params).length;
-    var count = orginUrl.split("/");
+    var count = orginUrl.split(/[\/?]/);
     // console.log("len:", len)
     // console.log("count:", count)
     var url
