@@ -15,7 +15,7 @@ const userRoutes = require("./routes/user/index.router");
 const errorRoutes = require("./routes/pageError/index.router");
 
 //test connection
-connection();
+// connection();
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
@@ -27,14 +27,41 @@ app.set("view engine", "pug");
 app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
 // app.use(trimInputs)
-// app.use(trimInputs)
 app.use(cookieParser())
 
+// app.use(trimInputs)
 //express-session
+app.use('/api', apiRoutes)
 viewEngine(app);
-app.listen(port, () => {
+
+
+
+const server = app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+
+const socketIo = require('socket.io')
+const io = socketIo(server)
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('message', (data) => {
+    console.log('message: ', data);
+    io.to(data.room).emit('message', data);
+
+  });
+
+  socket.on('join', (room) => {
+    socket.join(room);
+    console.log(`User joined room: ${room}`);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('a user disconnected');
+  });
+});
+
+
 adminRoutes(app);
 userRoutes(app);
 errorRoutes(app);

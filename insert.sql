@@ -141,5 +141,36 @@ VALUES
 ('CT05', 'KQ02' ,1, 'C02', 'B', 0),
 ('CT06', 'KQ02',1, 'C03', 'C', 0);
 
+INSERT INTO Role(Name)
+VALUES
+("Admin1"),
+("Admin2"),
+("Admin3"),
+("Admin4");
+
+INSERT INTO Permission(Name, Url)
+VALUES
+("Cấp quyền", "/admin/permission"),
+("Quản lý tài khoản", '/admin/account'),
+("Quản lý bài thi", "/admin/test"),
+("Xem kết quả", "admin/result"),
+("Xem Dashboard", "/admin/statistic"),
+("Sửa thông tin cá nhân", "/admin/profile");
+
+
+
+
+INSERT INTO HasPermission(Role_id, Permission_id)
+VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6);
+
+
+
+
 
 
