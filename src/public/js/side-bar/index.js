@@ -1,3 +1,8 @@
+document.querySelector("html").addEventListener("mousedown", function (e) {});
+
+document.querySelector("i").addEventListener("transitionend", function () {
+  document.querySelector("i").classList.remove("active");
+});
 const list_button_dropdown = document.querySelectorAll(
   "[button-dropdown-item]"
 );

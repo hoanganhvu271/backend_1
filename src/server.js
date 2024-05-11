@@ -26,7 +26,7 @@ app.set("view engine", "pug");
 app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
 // app.use(trimInputs)
-app.use(trimInputs)
+// app.use(trimInputs)
 //express-session
 viewEngine(app);
 app.listen(port, () => {
