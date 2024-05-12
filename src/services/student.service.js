@@ -112,15 +112,24 @@ const createNewStudent = async (student) => {
   }
 };
 
-const deleteStudentById = async (id) => {
+const deleteStudentById = async (data) => {
+  // console.log(id)
   try {
-    await db.Student.destroy({
+    const result = await db.Student.destroy({
       where: {
-        MSV: id,
+        MSV: data.id,
       },
     });
-    return true;
+
+    if (result > 0) {
+      // If result is greater than 0, then a row was deleted
+      return true;
+    } else {
+      // If result is 0, then no rows were deleted
+      return false;
+    }
   } catch (error) {
+    console.log(error)
     return false;
   }
 };
