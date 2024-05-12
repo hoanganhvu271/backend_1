@@ -111,13 +111,14 @@
 }
 
 .test-item {
-  background-color: #cae0f6;
+  background-color: #f5d8d8b3;
   border-radius: 10px;
   width: 98%;
   margin-left: 1%;
   margin-top: 15px;
   height: 120px;
   display: flex;
+  box-shadow: 0 3px 3px 3px rgba(114, 114, 114, 0.432);
 }
 
 .dropdown-menu-1 {
@@ -170,6 +171,7 @@ td {
 }
 
 .btn {
+  border-color: rgb(204, 21, 21);
   margin-left: 10px;
   background-color: #c32b2b;
   color: white;
@@ -182,18 +184,25 @@ td {
 }
 
 .page-item {
-  margin-left: 10px;
+  margin-left: 5px;
+  border-radius: 10px;
 }
 
 .page-link {
-  color: #c32b2b;
+  color: black;
+  border-radius: 10px;
 }
 
 .btn:hover {
-  background-color: #c32b2b;
+  background-color: #d92110;
   color: white;
 }
+.page-item.active .page-link{
+  background-color: #c32b2b;
+  color: white;
+  border-color: #d32121;
 
+}
 .test-name {
   font-size: 25px;
   font-weight: bold;
@@ -69131,7 +69140,6 @@ label,
   padding: 0;
   overflow-y: visible;
 }
-
 .navbar-dark {
   --bs-navbar-color: rgba(255, 255, 255, 0.85);
   --bs-navbar-hover-color: rgba(255, 255, 255, 0.75);
