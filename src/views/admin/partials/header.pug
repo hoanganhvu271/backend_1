@@ -17,6 +17,7 @@ include ../mixins/itemSlider.pug
                 a(href="" class="td-n")
                   i(class="ti-arrow-circle-left")
     ul.sidebar-menu.scrollable.pos-r
+        +normal-item('Trang chủ', 'ti-view-grid c-red-500','/admin/dashboard')
         +item-arrow('Danh sách bài thi', 'ti-home c-red-500',
         [
           {title:"Bài thi trắc nghiệm", href:"/index"},
@@ -28,7 +29,8 @@ include ../mixins/itemSlider.pug
                 {title: 'Kết quả sinh viên', href: '/admin/result/student'}
             ])
         +item-arrow('Thống kê', 'ti-bar-chart c-red-500',
-            [
-                {title: 'Thống kê bài thi', href: '/admin/statistic/test'},
-                {title: 'Thống kê sinh viên', href: '/admin/statistic/student'}
-            ])
+        [
+          {title:"Thống kê sinh viên", href:"/index"},
+          {title:"Thống kê bài thi", href:"/index"}
+        ])
+        

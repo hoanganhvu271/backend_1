@@ -7,7 +7,7 @@ const indexAdmin = require("./admin.login.router");
 const statisticRouter = require("./statistic.router");
 const permissionRouter = require("./permission.router");
 const messageRouter = require("./message.router");
-
+const dashboardRouter = require("./dashboard.router");
 const { isAdminPermission } = require("../../middleware/auth.middleware");
 module.exports = (app) => {
   app.use("/admin/result", viewResultRoutes);
@@ -18,4 +18,5 @@ module.exports = (app) => {
   app.use("/admin/permission", permissionRouter);
   app.use("/admin/message", messageRouter);
   app.use("/admin", indexAdmin);
+  app.use("/admin/dashboard", dashboardRouter);
 };

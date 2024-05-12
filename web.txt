@@ -8,3 +8,7 @@ chưa xong cái kiểm tra dữ liệu đầu vào
 
 hoan thanh login user
 có thời gian sẽ làm rõ các lỗi trong đăng ký mới
+
+
+
+điêm trung bình các bài thi 

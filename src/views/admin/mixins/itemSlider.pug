@@ -12,7 +12,7 @@ mixin item-arrow(title, icon, items, id)
           a.sidebar-link(href= item.href) #{item.title}
 mixin normal-item(title, icon, href, id)
   li.nav-item.mT-30(btn-nav-tag)
-      a.sidebar-link(#{id})
+      a.sidebar-link.btn-nav(#{id} href= href )
         span.icon-holder
           i(class= icon)
         span.title= title
