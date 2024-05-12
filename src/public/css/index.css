@@ -336,7 +336,7 @@ body {
 }
 
 a {
-  transition: all 0.3s ease-in-out;
+  /* transition: all 0.3s ease-in-out; */
   text-decoration: none;
 }
 
@@ -615,7 +615,7 @@ a.btn:hover {
   line-height: 40px;
   position: absolute;
   right: 30px;
-  transition: all 0.05s ease-in;
+  /* transition: all 0.05s ease-in; */
 }
 
 @media screen and (max-width: 991px) {
@@ -850,7 +850,7 @@ a.btn:hover {
   line-height: 65px;
   min-height: 65px;
   padding: 0 15px;
-  transition: all 0.2s ease-in-out;
+  /* transition: all 0.2s ease-in-out; */
 }
 
 .header .header-container .nav-left>li>a i,
@@ -909,7 +909,7 @@ a.btn:hover {
 .header .header-container .dropdown-menu {
   margin: 0;
   transform-origin: top right;
-  transition: transform 0.15s ease-out;
+  /* stransition: transform 0.15s ease-out; */
 }
 
 .header .header-container .dropdown-menu .divider {

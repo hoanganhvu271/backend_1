@@ -38,7 +38,9 @@ list_button_dropdown.forEach((button) => {
     }
   });
 });
-
+document.addEventListener("DOMContentLoaded", function () {
+  list_button_dropdown[sessionStorage.getItem("indexSlider")].click();
+});
 const studentResult = document.querySelectorAll("[result-student]");
 const testResult = document.querySelectorAll("[result-test]");
 

@@ -283,9 +283,12 @@ if (localStorage.getItem("backSlideBar") !== null) {
 const listBtnNav = document.querySelectorAll("[btn-nav-tag]");
 
 console.log(listBtnNav);
-
-listBtnNav.forEach(function (btn) {
+for (var i = 0; i < listBtnNav.length; i++) {
+  const btn = listBtnNav[i];
+  let ind = i;
   btn.addEventListener("click", function () {
+    console.log(ind);
+    sessionStorage.setItem("indexSlider", ind.toString());
     btn.classList.add("active-item-nav");
     var parent = btn.querySelector(".btn-nav");
     parent.classList.add(localStorage.getItem("sidebarColor"));
@@ -319,9 +322,14 @@ listBtnNav.forEach(function (btn) {
       });
     }
   });
-});
-listBtnNav[0].classList.add("active-item-nav");
-var parent = listBtnNav[0].querySelector(".btn-nav");
+}
+var indexSlider = sessionStorage.getItem("indexSlider");
+if (indexSlider === null) {
+  indexSlider = 0;
+}
+
+listBtnNav[indexSlider].classList.add("active-item-nav");
+var parent = listBtnNav[indexSlider].querySelector(".btn-nav");
 parent.classList.add(localStorage.getItem("sidebarColor"));
 function sidebarColor(a) {
   var parent = document.querySelector(".active-item-nav .btn-nav");
