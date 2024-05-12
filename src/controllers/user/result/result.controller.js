@@ -10,7 +10,6 @@ const { Op } = require("sequelize");
 const jwtHelper = require("../../../helpers/jwt.helper");
 const { getQuestionOfTest, getQuestionOfTestUser } = require('../../../services/question.service')
 var request = require('request');
-const path = require('path');
 
 
 // [GET] /admin/my-account
@@ -173,8 +172,9 @@ module.exports.widgetProb = async (req, res) => {
   let idProb = req.params.idProb
   let filename = idProb + '.html'
   //lấy thư mục gốc hiện tại đến /src/views/user/pages/test_list/problist/:
-  const problistPath = path.join(__dirname, '../../../views/user/pages/test_list/problist/');
-  res.sendFile(problistPath + filename);
+
+  res.sendFile('/opt/render/project/src/src/views/user/pages/test_list/problist/' + filename);
+  // res.sendFile('/opt/render/project/src/src/views/user/pages/test_list/problist/' + filename);
 };
 // [GET] /admin/my-account
 
