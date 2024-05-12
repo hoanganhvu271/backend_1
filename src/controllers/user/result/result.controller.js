@@ -175,7 +175,7 @@ module.exports.widgetProb = async (req, res) => {
 
   // Use path.join again to add the filename to the path
   const filePath = path.join(problistPath, filename);
-
+  console.log(filePath)
   res.sendFile(filePath);
 };
 // [GET] /admin/my-account
