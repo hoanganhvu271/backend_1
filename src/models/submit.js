@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
 
             // console.log(models.Test)
-            
+
             Submit.belongsTo(models.Student, { foreignKey: 'MSV' });
 
         }
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
             // options
             sequelize,
             modelName: 'Submit',
-            tableName: 'submit',
+            tableName: 'Submit',
             timestamps: false,
 
         },

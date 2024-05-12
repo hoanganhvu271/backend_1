@@ -52,77 +52,77 @@ const refreshToken = async (req, res) => {
 const checkLoginUser = async (req, res) => {
     // console.log(req.params.role)
     // if (req.params.role === 'user') {
-        //check valid user and password
-        if (!req.body.msv || !req.body.password) {
+    //check valid user and password
+    if (!req.body.msv || !req.body.password) {
+        const response = {
+            code: 0,
+            status: 400,
+            message: "Yêu cầu điền thông tin đầy đủ",
+        };
+
+        res.status(400).json(response);
+    }
+    else {
+        // check database
+        let data = await getStudentById(req.body.msv);
+        //status = 200 -> tim thay sinh vien -> check password 
+        //status = 404 -> khong tim thay sinh vien -> response failed to login 
+        //status = 500 -> lỗi trong quá trình xử lý
+        if (data.status === 404) {
             const response = {
                 code: 0,
-                status: 400,
-                message: "Yêu cầu điền thông tin đầy đủ",
+                status: 404,
+                message: "Đăng nhập thất bại",
             };
-
-            res.status(400).json(response);
+            res.status(404).json(response);
         }
-        else {
-            // check database
-            let data = await getStudentById(req.body.msv);
-            //status = 200 -> tim thay sinh vien -> check password 
-            //status = 404 -> khong tim thay sinh vien -> response failed to login 
-            //status = 500 -> lỗi trong quá trình xử lý
-            if (data.status === 404) {
-                const response = {
+        if (data.status === 500) {
+            const response = {
+                code: 0,
+                status: 500,
+                message: "Truy vấn cơ sở dữ liệu thất bại",
+            };
+            res.status(500).json(response);
+        }
+        if (data.status === 200) {
+            var ok = await bcrypt.compareSync(req.body.password, data.data[0].MatKhau);
+            let response = {}
+            if (ok) {
+                console.log(data.data[0])
+                const userData = {
+                    id: req.body.msv,
+                    role: req.params.role,
+                    email: data.data[0].email,
+                };
+
+                data = await createTokenResponse(userData)
+
+                response = {
+                    code: 1,
+                    status: 200,
+                    message: "Đăng nhập thành công",
+                    // data: data
+                };
+                res.cookie("jwt", data.accessToken, { maxAge: 86400000, httpOnly: true, SameSite: "None" });
+                return res.redirect("/user/result")
+            }
+            else {
+                response = {
                     code: 0,
                     status: 404,
-                    message: "Đăng nhập thất bại",
+                    title: "Đăng nhập thất bại",
+                    message: "Thông tin tài khoản hoặc mật khẩu không chính xác",
                 };
-                res.status(404).json(response);
+                // res.status(404).json(response);
             }
-            if (data.status === 500) {
-                const response = {
-                    code: 0,
-                    status: 500,
-                    message: "Truy vấn cơ sở dữ liệu thất bại",
-                };
-                res.status(500).json(response);
-            }
-            if (data.status === 200) {
-                var ok = await bcrypt.compareSync(req.body.password, data.data[0].MatKhau);
-                let response =  {}
-                if (ok) {
-                    console.log(data.data[0])
-                    const userData = {
-                        id: req.body.msv,
-                        role: req.params.role,
-                        email: data.data[0].email,
-                    };
-
-                    data = await createTokenResponse(userData)
-
-                    response = {
-                        code: 1,
-                        status: 200,
-                        message: "Đăng nhập thành công",
-                        // data: data
-                    };
-                    res.cookie("jwt", data.accessToken, { maxAge: 86400000, httpOnly: true, SameSite: "None" });
-                    return res.redirect("/user/result")
-                }
-                else {
-                    response = {
-                        code: 0,
-                        status: 404,
-                        title: "Đăng nhập thất bại",
-                        message: "Thông tin tài khoản hoặc mật khẩu không chính xác",
-                    };
-                    // res.status(404).json(response);
-                }
-                res.render("user/login.pug", {
-                    data: response,
-                });
-            }
+            res.render("user/login.pug", {
+                data: response,
+            });
         }
+    }
 
-    
-   
+
+
 }
 
 const createTokenResponse = async (userData) => {
@@ -139,5 +139,5 @@ const createTokenResponse = async (userData) => {
 }
 
 module.exports = {
-    refreshToken, checkLoginUser
+    refreshToken, checkLoginUser, createTokenResponse
 }

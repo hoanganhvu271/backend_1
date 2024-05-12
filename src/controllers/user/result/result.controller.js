@@ -119,7 +119,7 @@ module.exports.testWithId = async (req, res) => {
   const testId = req.params.testId;
   const test = await testServices.getTestById(testId);
   var questions = await getQuestionOfTest(testId);
-  const data = {test: test.data[0], questions: questions.data}
+  const data = { test: test.data[0], questions: questions.data }
   // console.log(data)
   var tmp = "hiep"
   res.render("user/pages/viewResult/testResultStudent.pug", {
@@ -171,7 +171,7 @@ module.exports.widgetProb = async (req, res) => {
   // res.sendFile("D:/CODE/backend_1 - Copy/src/views/user/pages/test_list/codeList.html", tmp);
   let idProb = req.params.idProb
   let filename = idProb + '.html'
-  res.sendFile('D:/CODE/backend_1 - Copy/src/views/user/pages/test_list/problist/' + filename);
+  res.sendFile('D:/TAILIEUPTIT/Ki2Nam3/LTWeb/BaiTapClassroom/5. Backend_1/src/views/user/pages/test_list/problist/' + filename);
 };
 // [GET] /admin/my-account
 
@@ -225,32 +225,32 @@ module.exports.source = async (req, res) => {
   let url = await testServices.getURL(req.params.idSubmit)
   console.log(url)
   request({
-      url: url,
-      method: 'GET'
-    }, function (error, response, body) {
+    url: url,
+    method: 'GET'
+  }, function (error, response, body) {
 
-      if (error) {
-          console.log('Connection problem');
-      }
+    if (error) {
+      console.log('Connection problem');
+    }
 
-      // process response
-      if (response) {
-          if (response.statusCode === 200) {
-              console.log(response.body)
-              let source = response.body
-              res.render("user/pages/viewResult/source.pug", {
-                source: source
-              });
-          } else {
-              if (response.statusCode === 401) {
-                  console.log('Invalid access token');
-              } else if (response.statusCode === 403) {
-                  console.log('Access denied');
-              } else if (response.statusCode === 404) {
-                  console.log('Submision not found');
-              }
-          }
+    // process response
+    if (response) {
+      if (response.statusCode === 200) {
+        console.log(response.body)
+        let source = response.body
+        res.render("user/pages/viewResult/source.pug", {
+          source: source
+        });
+      } else {
+        if (response.statusCode === 401) {
+          console.log('Invalid access token');
+        } else if (response.statusCode === 403) {
+          console.log('Access denied');
+        } else if (response.statusCode === 404) {
+          console.log('Submision not found');
+        }
       }
+    }
   });
 };
 

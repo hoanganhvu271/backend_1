@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
 
             // console.log(models.Test)
-        
+
         }
     }
     Problem.init(
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
             // options
             sequelize,
             modelName: 'Problem',
-            tableName: 'problem',
+            tableName: 'Problem',
             timestamps: false,
 
         },

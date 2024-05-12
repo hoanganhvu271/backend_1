@@ -19,7 +19,7 @@ block main
               const messageDiv = document.createElement('div');
               messageDiv.className = 'message'
               const messageElement = document.createElement('li');
-              messageElement.className = message.fromAdmin ? 'other-message' : 'self-message';
+              messageElement.className = message.fromAdmin ? 'self-message' : 'other-message';
               messageDiv.appendChild(messageElement);
               messageElement.innerHTML = message.Content;
               chatMessages.appendChild(messageDiv);

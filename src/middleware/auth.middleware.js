@@ -97,6 +97,7 @@ const isAdminPermission = async (req, res, next) => {
             if (check.status == 200) {
                 next();
             } else {
+                return res.redirect('/admin/error')
                 return res.status(401).json({
                     code: 0,
                     status: 401,
@@ -105,6 +106,7 @@ const isAdminPermission = async (req, res, next) => {
             }
         } catch (error) {
             console.log(error);
+            return res.redirect('/admin/error')
             return res.status(401).json({
                 code: 0,
                 status: 401,
@@ -112,6 +114,7 @@ const isAdminPermission = async (req, res, next) => {
             });
         }
     } else {
+        return res.redirect('/admin')
         return res.status(403).json({
             code: 0,
             status: 403,
