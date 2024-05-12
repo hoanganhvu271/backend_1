@@ -103,7 +103,7 @@ const checkLoginUser = async (req, res) => {
                         message: "Đăng nhập thành công",
                         // data: data
                     };
-                    res.cookie("jwt", data.accessToken, { maxAge: 86400000, httpOnly: true });
+                    res.cookie("jwt", data.accessToken, { maxAge: 86400000, httpOnly: true, SameSite: "None" });
                     return res.redirect("/user/result")
                 }
                 else {

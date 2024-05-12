@@ -34,8 +34,6 @@ app.use(cookieParser())
 app.use('/api', apiRoutes)
 viewEngine(app);
 
-
-
 const server = app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

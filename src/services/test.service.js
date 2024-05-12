@@ -4,6 +4,33 @@ const { createNewQuestion } = require("./question.service");
 const { where } = require("sequelize");
 const Sequelize = require("sequelize");
 
+const getURL = async (idSubmit) => {
+  let submit = await db.Submit.findAll ({
+    where: {MaSubmit: idSubmit},
+  })
+  return submit[0].dataValues.Source
+}
+
+const getAllProbPerPage = async (page) => {
+  var data = { status: null, data: null };
+  try {
+    const probs = await db.Problem.findAll({
+      limit: 8,
+      offset: (page - 1) * 8,
+    });
+    if (probs.length > 0) {
+      data.status = 200;
+      data.data = probs;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    data.status = 500;
+    return data;
+  }
+};
+
 const getAllTest = async () => {
   var data = { status: null, data: null };
   try {
@@ -235,6 +262,28 @@ const getTestByStudentId = async (stuID) => {
   }
 };
 
+const getSubmitByStudentId = async (stuID) => {
+  try {
+    const data = { status: null, data: [] };
+    const listSubmit = await db.Submit.findAll({
+      raw: true,
+      where: {
+          MSV: stuID,
+      },
+    });
+    if (listSubmit.length > 0) {
+      data.status = 200;
+      data.data = listSubmit;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
+    throw error;
+  }
+};
+
 const getTestWithFindObject = async (find, pagination) => {
   const data = { status: null, data: null };
   // console.log(pagination.limit, pagination.offset);
@@ -348,6 +397,31 @@ const getTestByStudentIdWithPage = async (stuID, pagination) => {
     throw error;
   }
 };
+
+const getSubmitByStudentIdWithPage = async (stuID, pagination) => {
+  try {
+    const data = { status: null, data: [] };
+    const listSubmit = await db.Submit.findAll({
+      raw: true,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      where: {
+          MSV: stuID,
+      },
+    });
+    if (listSubmit.length > 0) {
+      data.status = 200;
+      data.data = listSubmit;
+    } else {
+      data.status = 404;
+    }
+    return data;
+  } catch (error) {
+    console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
+    throw error;
+  }
+};
+
 const getTestWithFindObjectAndPage = async (find, pagination) => {
   const data = { status: null, data: null };
   try {
@@ -455,4 +529,8 @@ module.exports = {
   getTestListForStudent,
   getCountTestListForStudentWithFindObject,
   getTestListForStudentWithFindObject,
+  getAllProbPerPage,
+  getSubmitByStudentIdWithPage,
+  getSubmitByStudentId,
+  getURL
 };

@@ -108,6 +108,55 @@ btnDetailTestList.forEach(function (btn) {
   });
 });
 
+const btnDetailResult = document.querySelectorAll(
+  "[btn-detail-test-with-idResult]"
+);
+btnDetailResult.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    const idResult = btn.getAttribute("idResult");
+    console.log(idResult);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("keyword");
+    url.searchParams.delete("page");
+    url.searchParams.delete("class");
+    url.href += '/'+ idResult;
+    window.location.href = url;
+  });
+});
+
+const btnDetailSubmit = document.querySelectorAll(
+  "[btn-detail-submit]"
+);
+btnDetailSubmit.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    const idSubmit = btn.getAttribute("idSubmit");
+    console.log(idSubmit);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("keyword");
+    url.searchParams.delete("page");
+    url.searchParams.delete("class");
+    url.href += `/${idSubmit}`;
+    window.location.href = url;
+  });
+});
+
+const btnWidget = document.querySelectorAll(
+  "[btn-widget]"
+);
+btnWidget.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    const idProb = btn.getAttribute("idProb");
+    console.log(idProb);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("keyword");
+    url.searchParams.delete("page");
+    url.searchParams.delete("class");
+    url.href += `/${idProb}`;
+    window.location.href = url;
+  });
+});
+
+
 const btnLocTest = document.querySelectorAll("[btn-loc-test]");
 btnLocTest.forEach(function (btn) {
   btn.addEventListener("click", function () {
