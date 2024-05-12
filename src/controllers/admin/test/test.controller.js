@@ -22,7 +22,7 @@ const testListPaginate = async (req, res) => {
         ];
     }
 
-    // console.log(find);
+    // //console.log(find);
     const count = await getCountTestWithFindObject(find);
     const pagination = paginationHelper(
         {
@@ -39,7 +39,7 @@ const testListPaginate = async (req, res) => {
 
     var data = testList.data;
 
-    // console.log(data);
+    // //console.log(data);
     for (var i = 0; i < data.length; i++) {
         var y = data[i].ThoiGianBatDau;
         var timeFormat = new Date(y)
@@ -64,7 +64,7 @@ const createNewTest = async (req, res) => {
 
 const EditTest = async (req, res) => {
     const testId = req.params.id;
-    // console.log("id: ", testId);
+    // //console.log("id: ", testId);
     var metadata = await getTestById(testId);
     var questions = await getQuestionOfTest(testId);
 
@@ -76,10 +76,10 @@ const EditTest = async (req, res) => {
     const datePart = datetimeString.split('T')[0];
     const timePart = datetimeString.split('T')[1].split('.')[0];
 
-    // console.log(metadata.data[0].MaBaiThi)
+    // //console.log(metadata.data[0].MaBaiThi)
     metadata.data[0].date = datePart
     metadata.data[0].time = timePart
-    // console.log(metadata[0].MaBaiThi);
+    // //console.log(metadata[0].MaBaiThi);
 
     var list = questions.data;
 

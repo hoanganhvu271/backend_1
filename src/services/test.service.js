@@ -3,6 +3,8 @@ const { sequelize } = require("../config/connectDB");
 const { createNewQuestion } = require("./question.service");
 const { where } = require("sequelize");
 const Sequelize = require("sequelize");
+var request = require('request');
+
 
 const getURL = async (idSubmit) => {
   let submit = await db.Submit.findAll ({
@@ -35,7 +37,7 @@ const getAllTest = async () => {
   var data = { status: null, data: null };
   try {
     const tests = await db.Test.findAll({ raw: true });
-    console.log(tests);
+    //console.log(tests);
     if (tests.length > 0) {
       data.status = 200;
       data.data = tests;
@@ -73,7 +75,7 @@ const getTestById = async (id) => {
   var data = { status: null, data: null };
   try {
     const tests = await db.Test.findAll({ raw: true, where: { MaBaiThi: id } });
-    // console.log(tests);
+    // //console.log(tests);
     if (tests.length > 0) {
       data.status = 200;
       data.data = tests;
@@ -108,7 +110,7 @@ const createNewTest = async (test, questionList) => {
     );
 
     var mbt = newTest.dataValues.MaBaiThi;
-    // console.log(newTest.dataValues.MaBaiThi);
+    // //console.log(newTest.dataValues.MaBaiThi);
 
     for (var i = 0; i < questionList.length; i++) {
       await createNewQuestion(questionList[i], mbt, i + 1, t);
@@ -143,10 +145,10 @@ const updateTestById = async (testId, updateData) => {
       where: { MaBaiThi: testId },
       transaction: t,
     });
-    // console.log(updateData)
+    // //console.log(updateData)
     metadata = updateData.metadata;
     data = updateData.data;
-    // console.log(metadata)
+    // //console.log(metadata)
 
     test.TenBaithi = metadata.examName;
     test.ThoiGianBatDau = metadata.examDateTime;
@@ -187,7 +189,7 @@ const updateTestById = async (testId, updateData) => {
             transaction: t,
           });
 
-          // console.log(data[i][answerProperty])
+          // //console.log(data[i][answerProperty])
 
           answer.NoiDung = data[i][answerProperty];
           await answer.save({ transaction: t });
@@ -210,7 +212,7 @@ const updateTestById = async (testId, updateData) => {
     await t.commit();
     return true;
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     await t.rollback();
     return false;
   }
@@ -286,8 +288,8 @@ const getSubmitByStudentId = async (stuID) => {
 
 const getTestWithFindObject = async (find, pagination) => {
   const data = { status: null, data: null };
-  // console.log(pagination.limit, pagination.offset);
-  // console.log(find);
+  // //console.log(pagination.limit, pagination.offset);
+  // //console.log(find);
   try {
     const tests = await db.Test.findAll({
       where: find,
@@ -400,27 +402,57 @@ const getTestByStudentIdWithPage = async (stuID, pagination) => {
 
 const getSubmitByStudentIdWithPage = async (stuID, pagination) => {
   try {
-    const data = { status: null, data: [] };
-    const listSubmit = await db.Submit.findAll({
-      raw: true,
-      limit: pagination.limitedItem,
-      offset: pagination.limitedItem * (pagination.currentPage - 1),
-      where: {
-          MSV: stuID,
-      },
-    });
-    if (listSubmit.length > 0) {
-      data.status = 200;
-      data.data = listSubmit;
-    } else {
-      data.status = 404;
-    }
-    return data;
+      let data = { status: null, data: [] };
+      let listSubmit = await db.Submit.findAll({
+          raw: true,
+          limit: pagination.limitedItem,
+          offset: pagination.limitedItem * (pagination.currentPage - 1),
+          where: {
+              MSV: stuID,
+          },
+      });
+
+      let submissionsIds = listSubmit.map(submit => submit.MaSubmit);
+      var accessToken = '9b348449f67afb2fa93a5e53e417b609';
+      var endpoint = 'ec2e5307.problems.sphere-engine.com';
+
+      const requestData = await new Promise((resolve, reject) => {
+          request({
+              url: 'https://' + endpoint + '/api/v4/submissions?ids=' + submissionsIds.join() + '&access_token=' + accessToken,
+              method: 'GET'
+          }, (error, response, body) => {
+              if (error) {
+                  console.log('Connection problem');
+                  reject('Connection problem');
+                  return;
+              }
+              // process response
+              if (response && response.statusCode === 200) {
+                  const listSubmit = JSON.parse(response.body).items;
+                  // console.log(listSubmit); // list of submissions in JSON
+                  data.status = 200;
+                  data.data = listSubmit;
+              } else {
+                  if (response && response.statusCode === 401) {
+                      console.log('Invalid access token');
+                  } else if (response && response.statusCode === 400) {
+                      const body = JSON.parse(response.body);
+                      console.log('Error code: ' + body.error_code + ', details available in the message: ' + body.message)
+                  }
+                  data.status = 404;
+              }
+              resolve(data);
+          });
+      });
+      console.log(requestData)
+      return requestData;
   } catch (error) {
-    console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
-    throw error;
+      console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
+      throw error;
   }
 };
+
+
 
 const getTestWithFindObjectAndPage = async (find, pagination) => {
   const data = { status: null, data: null };

@@ -11,12 +11,12 @@ let availableQuesions = [];
 let myArray = new Array(100).fill(0);
 let ansUser = [];
 let questions = [];
-// console.log(test)
+// //console.log(test)
 let jsonQuestions = '../cauhoi/' + localStorage.getItem('currentSubject') + '.json';
 // localStorage.setItem('setTime', 1)
 
 var data = JSON.parse(document.querySelector('script').getAttribute('data-data'));
-// console.log(data);
+// //console.log(data);
 // fetch(jsonQuestions)
 let offsetHours = 7;
 let currentTime = new Date();
@@ -25,7 +25,7 @@ let adjustedTime = new Date(currentTime.getTime() + (offsetHours * 60 * 60 * 100
 
 let ThoiGianLamBai = adjustedTime.toISOString().slice(0, 19).replace('T', ' ');
 
-console.log(ThoiGianLamBai);
+//console.log(ThoiGianLamBai);
 
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 3;
@@ -34,7 +34,7 @@ const MAX_QUESTIONS = 3;
     questionCounter = 0;
     // score = 0;
     availableQuesions = [...questions];
-    // console.log(availableQuesions);
+    // //console.log(availableQuesions);
     ansUser = myArray;
     // getNewQuestion();
     
@@ -43,11 +43,11 @@ const MAX_QUESTIONS = 3;
 // hiencauhoi = () => {
     let subject = document.getElementById('subject');
     subject.textContent = data.test.TenBaithi;
-    // console.log(data.test.TenBaithi)
+    // //console.log(data.test.TenBaithi)
 
     let cauhoi = document.getElementById('cauhoi');
-    // console.log(cauhoi);
-    // console.log("so cau hoi:", availableQuesions.length);
+    // //console.log(cauhoi);
+    // //console.log("so cau hoi:", availableQuesions.length);
     for(let i=0; i<data.questions.length; i++) {
         let container_hoitrl = document.createElement('div');
         container_hoitrl.classList.add('container-hoitrl');
@@ -60,7 +60,7 @@ const MAX_QUESTIONS = 3;
 
         let container_cauhoi = document.createElement('div');
         container_cauhoi.textContent = data.questions[i].DeBai;
-        console.log(data.questions[i].DeBai)
+        //console.log(data.questions[i].DeBai)
         container_cauhoi.classList.add('container-cauhoi');
         container_hoitrl.appendChild(container_cauhoi);
 
@@ -86,7 +86,7 @@ const MAX_QUESTIONS = 3;
     trangthai.appendChild(blockDiv);
 
     let choice = Array.from(document.getElementsByClassName('choice'));
-    // console.log('choice: ', choice);
+    // //console.log('choice: ', choice);
     for(let i=0; i<choice.length; i++) {
         let x = choice[i];
         x.addEventListener('click', (e) => {
@@ -122,7 +122,7 @@ const MAX_QUESTIONS = 3;
 // }
 
 nopbai = async () => {
-    console.log(data)
+    //console.log(data)
     openDialog('Nộp bài', 'Thời gian làm bài thi chưa hết, bạn có chắc chắn muốn nộp bài?', async () => {
         localStorage.setItem('answerofUser', JSON.stringify(ansUser));
         let metadata = []
@@ -135,7 +135,7 @@ nopbai = async () => {
     
         let ThoiGianNopBai = adjustedTime.toISOString().slice(0, 19).replace('T', ' ');
     
-        console.log(ThoiGianNopBai);
+        //console.log(ThoiGianNopBai);
 
         metadata.push({
             "start" : ThoiGianLamBai,
@@ -151,7 +151,7 @@ nopbai = async () => {
                 "maluachon": option
             })
         }
-        // console.log({metadata, dataoption})
+        // //console.log({metadata, dataoption})
         let databody = JSON.stringify({ metadata, dataoption });
 
         fetch("/api/submit", {
@@ -168,7 +168,7 @@ nopbai = async () => {
             return response.json();
         })
         .then(data => {
-            console.log(data)
+            //console.log(data)
             let resultId = data.data.MaKetQua;
             window.location.assign(`../tn/${resultId}`);
         })
@@ -224,7 +224,7 @@ document.addEventListener('scroll', function() {
     var leftDivBottom = leftDiv.getBoundingClientRect().bottom;
     var rightDivBottom = rightDiv.getBoundingClientRect().bottom;
     
-    // console.log(leftDivBottom + ' ' + rightDivBottom);
+    // //console.log(leftDivBottom + ' ' + rightDivBottom);
     
     if (leftDivBottom > rightDivBottom) {
         rightDiv.style.top = (scrollTop) + 'px';
@@ -244,7 +244,7 @@ function openDialog(tittle, content, func) {
     btnContinue.onclick = func;
     dialogOverlay.style.display = 'block';
     dialogContent.style.display = 'block';
-    console.log('click');
+    //console.log('click');
 }
 
 // Hàm đóng dialog

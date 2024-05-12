@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-console.log("result.js");
+//console.log("result.js");
 
 const btnloc = document.querySelectorAll("[btn-loc]");
 
@@ -98,7 +98,7 @@ const btnDetailTestList = document.querySelectorAll(
 btnDetailTestList.forEach(function (btn) {
   btn.addEventListener("click", function () {
     const testId = btn.getAttribute("idTest");
-    console.log(testId);
+    //console.log(testId);
     const url = new URL(window.location.href);
     url.searchParams.delete("keyword");
     url.searchParams.delete("page");
@@ -114,7 +114,7 @@ const btnDetailResult = document.querySelectorAll(
 btnDetailResult.forEach(function (btn) {
   btn.addEventListener("click", function () {
     const idResult = btn.getAttribute("idResult");
-    console.log(idResult);
+    //console.log(idResult);
     const url = new URL(window.location.href);
     url.searchParams.delete("keyword");
     url.searchParams.delete("page");
@@ -130,7 +130,7 @@ const btnDetailSubmit = document.querySelectorAll(
 btnDetailSubmit.forEach(function (btn) {
   btn.addEventListener("click", function () {
     const idSubmit = btn.getAttribute("idSubmit");
-    console.log(idSubmit);
+    //console.log(idSubmit);
     const url = new URL(window.location.href);
     url.searchParams.delete("keyword");
     url.searchParams.delete("page");
@@ -146,7 +146,7 @@ const btnWidget = document.querySelectorAll(
 btnWidget.forEach(function (btn) {
   btn.addEventListener("click", function () {
     const idProb = btn.getAttribute("idProb");
-    console.log(idProb);
+    //console.log(idProb);
     const url = new URL(window.location.href);
     url.searchParams.delete("keyword");
     url.searchParams.delete("page");
@@ -191,7 +191,7 @@ const btnDetailTestUser = document.querySelectorAll("[btn-detail-test-user]");
 btnDetailTestUser.forEach(function (btn) {
   btn.addEventListener("click", function () {
     const testId = btn.getAttribute("idTest");
-    console.log(testId)
+    //console.log(testId)
     const url = new URL(window.location.href);
     url.searchParams.delete("keyword");
     url.searchParams.delete("page");
@@ -250,11 +250,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const btnAdmin = document.querySelectorAll("[admin-btn]");
-console.log(btnAdmin);
+//console.log(btnAdmin);
 const dropdownAdminProfile = document.querySelectorAll(
   "[dropdown-admin-profile]"
 );
-console.log(dropdownAdminProfile);
+//console.log(dropdownAdminProfile);
 btnAdmin.forEach(function (btn) {
   btn.addEventListener("click", function () {
     dropdownAdminProfile.forEach(function (dropdown) {
@@ -268,7 +268,7 @@ btnAdmin.forEach(function (btn) {
       !dropdownAdminProfile[0].contains(event.target)
     ) {
       dropdownAdminProfile.forEach(function (dropdown) {
-        console.log("Test");
+        //console.log("Test");
         dropdown.classList.remove("show");
       });
     }

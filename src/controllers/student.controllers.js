@@ -14,7 +14,7 @@ const saltRounds = 10;
 
 const getStudentHandler = async (req, res) => {
   var students = await getAllStudent();
-  // console.log(questions)
+  // //console.log(questions)
   if (students.status === 200) {
     var hiddenStudents = students.data.map((student) => {
       const { TaiKhoan, MatKhau, ...rest } = student;
@@ -79,7 +79,7 @@ const getStudentByPage = async (req, res) => {
 
 const getStudentByIdHandler = async (req, res) => {
   const id = req.params.id;
-  console.log(id)
+  //console.log(id)
   var student = await getStudentById(id);
 
   // var studentData = student.data;
@@ -183,10 +183,10 @@ const updateStudentHandler = async (req, res) => {
 const getStudentInresultHandler = async (req, res) => {
   var value = req.query.value;
   var keyword = req.query.keyword;
-  console.log(value + " " + keyword);
+  //console.log(value + " " + keyword);
   var students = await getAllStudent();
   if (value && keyword) students = await getStudentCondition(value, keyword);
-  // console.log(questions)
+  // //console.log(questions)
 
   if (students.status === 200) {
     var hiddenStudents = students.data.map((student) => {

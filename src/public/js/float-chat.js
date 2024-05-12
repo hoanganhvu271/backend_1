@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 async function loadMessage(room) {
     const chatWindow = document.getElementById('chat-window');
     if (chatWindow.style.display == 'none') {
-        // console.log('Loading message: ', room);
+        // //console.log('Loading message: ', room);
 
         var url = '/api/get-message/' + room
         const response = await fetch(url, {
@@ -25,7 +25,7 @@ async function loadMessage(room) {
         });
 
         const data = await response.json();
-        // console.log(data.length)
+        // //console.log(data.length)
         if (data.data.length > 0) {
             for (let i = 0; i < data.data.length; i++) {
                 const message = data.data[i];

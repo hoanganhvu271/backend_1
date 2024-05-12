@@ -9,7 +9,7 @@ const getResultWithIdStuAndIdTest = async (req, res) => {
   const idStu = req.params.id;
   const idTest = req.params.idTest;
   const data = await getResultByIdStuAndIdTest(idStu, idTest);
-  // console.log(data);
+  // //console.log(data);
   return res.json(data);
 };
 const getDetailTestWithIdStuAndIdTest = async (idStudent, idTest) => {
@@ -62,11 +62,11 @@ const getDetailTestWithIdStuAndIdResult = async (idStudent, idResult) => {
     detail: [],
   };
   let result = await getResultWithMaKetQua(idResult);
-  console.log(result)
+  //console.log(result)
   let idTest = result.data[0].MaBaiThi;
-  console.log(idTest)
+  //console.log(idTest)
   const questionList = await getQuestionOfTest(idTest); //thong tin cac cau hoi
-  console.log(questionList)
+  //console.log(questionList)
   const student = await getStudentById(idStudent); //thong tin sinh vien
   // const result = await getResultByIdStuAndIdTest(idStudent, idTest); //thong tin ket qua
 

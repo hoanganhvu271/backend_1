@@ -17,7 +17,7 @@ const getResultByIdStuAndIdTest = async (idStu, idTest) => {
         MaBaiThi: idTest,
       },
     });
-    //console.log(res);
+    ////console.log(res);
     if (res) {
       data.status = 200;
       data.data = res;
@@ -26,7 +26,7 @@ const getResultByIdStuAndIdTest = async (idStu, idTest) => {
     }
     return data;
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     data.status = 500;
     return data;
   }
@@ -43,7 +43,7 @@ const getResultByIdTest = async (idTest) => {
         MaBaiThi: idTest,
       },
     });
-    //console.log(res);
+    ////console.log(res);
     if (res) {
       data.status = 200;
       data.data = res;
@@ -52,7 +52,7 @@ const getResultByIdTest = async (idTest) => {
     }
     return data;
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     data.status = 500;
     return data;
   }
@@ -66,7 +66,7 @@ const getAllResult = async (req, res) => {
   };
   try {
     const res = await db.Result.findAll();
-    // console.log(res);
+    // //console.log(res);
     if (res.length > 0) {
       data.status = 200;
       data.data = res;
@@ -75,7 +75,7 @@ const getAllResult = async (req, res) => {
     }
     return data;
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     data.status = 500;
     return data;
   }
@@ -96,7 +96,7 @@ const getResultWithIdResult = async (idResult) => {
         MaBaiThi: idResult,
       },
     });
-    //console.log(res);
+    ////console.log(res);
     //neu ton tai -> 200
     // khong ton tai -> 400
     //truy van loi -> 500
@@ -108,7 +108,7 @@ const getResultWithIdResult = async (idResult) => {
       data.data = null;
     }
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     data.status = 500;
   }
   return data;
@@ -127,7 +127,7 @@ const getResultWithMaKetQua = async (idResult) => {
         MaKetQua: idResult,
       },
     });
-    //console.log(res);
+    ////console.log(res);
     //neu ton tai -> 200
     // khong ton tai -> 400
     //truy van loi -> 500
@@ -139,7 +139,7 @@ const getResultWithMaKetQua = async (idResult) => {
       data.data = null;
     }
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     data.status = 500;
   }
   return data;
@@ -212,8 +212,8 @@ const tinhdiem = async (questionList, testID, t) => {
     }
     return 0;
   });
-  console.log("questionlist: ", questionList);
-  console.log("cauhoi: ", cauhoi);
+  //console.log("questionlist: ", questionList);
+  //console.log("cauhoi: ", cauhoi);
   let diem = [];
   for (var i = 0; i < questionList.length; i++) {
     if (questionList[i].maluachon == cauhoi[i].MaLuaChon) {
@@ -235,7 +235,7 @@ const createNewResult = async (msv, test, questionList) => {
       tongdiem += element;
     });
     tongdiem = ((tongdiem / diem.length) * 10).toFixed(2);
-    console.log(tongdiem);
+    //console.log(tongdiem);
     let result = await db.Result.create(
       {
         MSV: msv,
@@ -246,7 +246,7 @@ const createNewResult = async (msv, test, questionList) => {
       },
       { transaction: t }
     );
-    console.log('result:', result.dataValues.MaKetQua)
+    //console.log('result:', result.dataValues.MaKetQua)
 
     for (var i = 0; i < questionList.length; i++) {
       if(questionList[i].maluachon != 'E') {
@@ -271,7 +271,7 @@ const createNewResult = async (msv, test, questionList) => {
 
 const createSubmitCode = async (msv, submitid, problemname, namestatus, uri) => {
   try {
-    // console.log(status)
+    // //console.log(status)
     let submit = await db.Submit.create(
       {
         MaSubmit: submitid,
@@ -281,10 +281,10 @@ const createSubmitCode = async (msv, submitid, problemname, namestatus, uri) => 
         Source: uri
       },
     )
-    console.log(submit)
+    //console.log(submit)
   }
   catch (error) {
-    console.log(error)
+    //console.log(error)
   }
 }
 
