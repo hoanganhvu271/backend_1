@@ -154,15 +154,29 @@ nopbai = async () => {
         // console.log({metadata, dataoption})
         let databody = JSON.stringify({ metadata, dataoption });
 
-        await fetch("/api/submit", {
+        fetch("/api/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: databody
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data)
+            let resultId = data.data.MaKetQua;
+            window.location.assign(`../tn/${resultId}`);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
         });
         
-        // window.location.assign('../html/end.html');
+        
     });
 }
 thoat = () => {

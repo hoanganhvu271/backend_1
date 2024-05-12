@@ -113,6 +113,38 @@ const getResultWithIdResult = async (idResult) => {
   }
   return data;
 };
+
+const getResultWithMaKetQua = async (idResult) => {
+  const data = {
+    status: null,
+    data: null,
+  };
+
+  try {
+    const res = await db.Result.findAll({
+      raw: true,
+      where: {
+        MaKetQua: idResult,
+      },
+    });
+    //console.log(res);
+    //neu ton tai -> 200
+    // khong ton tai -> 400
+    //truy van loi -> 500
+    if (res.length > 0) {
+      data.status = 200;
+      data.data = res;
+    } else {
+      data.status = 404;
+      data.data = null;
+    }
+  } catch (e) {
+    console.log(e);
+    data.status = 500;
+  }
+  return data;
+};
+
 const getResultWithDate = async (Date) => { };
 
 const getResultbyIdStuandIdResult = async (mkq) => {
@@ -229,13 +261,32 @@ const createNewResult = async (msv, test, questionList) => {
       }
     }
     await t.commit();
-    return true;
+    return result;
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
     await t.rollback();
     return false;
   }
 };
+
+const createSubmitCode = async (msv, submitid, problemname, namestatus, uri) => {
+  try {
+    // console.log(status)
+    let submit = await db.Submit.create(
+      {
+        MaSubmit: submitid,
+        MSV: msv,
+        TenVanDe: problemname,
+        TrangThai: namestatus,
+        Source: uri
+      },
+    )
+    console.log(submit)
+  }
+  catch (error) {
+    console.log(error)
+  }
+}
 
 
 
@@ -246,5 +297,7 @@ module.exports = {
   getResultListofStudent,
   getResultbyIdStuandIdResult,
   createNewResult,
-  getResultByIdTest
+  getResultByIdTest,
+  getResultWithMaKetQua,
+  createSubmitCode 
 };

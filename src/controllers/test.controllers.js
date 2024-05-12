@@ -1,6 +1,6 @@
 
 const { getAllTest, getTestById, createNewTest, deleteTestById, updateTestById, searchTestByName, getTestByStudentId, getAllTestPerPage
-  , getTestByText } = require('../services/test.service')
+  , getTestByText, getAllProbPerPage } = require('../services/test.service')
 const { getQuestionOfTest, getQuestionOfTestUser } = require('../services/question.service')
 const { getStudentById } = require('../services/student.service')
 const { getDetailListWithIdResultandIdStu } = require('../services/detail.services')
@@ -41,6 +41,36 @@ const getTestList = async (req, res) => {
     }
   }
 };
+
+const getProbByPage = async (req, res) => {
+  var probs = await getAllProbPerPage(1)
+  if (probs.status === 200) {
+    const response = {
+      code: 1,
+      status: 200,
+      message: "successfully",
+      data: probs.data,
+
+    }
+    res.status(200).json(response);
+  } else if (probs.status === 500) {
+    const response = {
+      code: 0,
+      status: 500,
+      message: "Internal Server Error",
+    };
+
+    res.status(500).json(response);
+  } else {
+    const response = {
+      code: 0,
+      status: 404,
+      message: "Không tìm thấy bài thi",
+    };
+
+    res.status(404).json(response);
+  }
+}
 
 const getSearchTest = async (req, res) => {
   const inputText = req.query.text;
@@ -339,12 +369,13 @@ const postSubmit = async (req, res) => {
   var test = reqBody.metadata
   var questionList = reqBody.dataoption
 
-  var status = await createNewResult(msv, test[0], questionList)
-  if (status) {
+  var result = await createNewResult(msv, test[0], questionList)
+  if (result) {
     res.status(200).json({
       code: 1,
       error: 200,
-      message: "Tạo thành công!"
+      message: "Tạo thành công!",
+      data: result
     })
   }
   else {
@@ -359,7 +390,8 @@ const postSubmit = async (req, res) => {
 
 module.exports = {
   getTestList, getQuestionByTestHandler, postTestHandler, deleteTestHandler, updateTestHandler, searchTestHandler,
-  getTestWithStudent, getResultList, getDetailList, postTestHandler, getQuestionHandlernoAns, postSubmit, getTestByPage, getSearchTest
+  getTestWithStudent, getResultList, getDetailList, postTestHandler, getQuestionHandlernoAns, postSubmit, getTestByPage, getSearchTest,
+  getProbByPage
 }
 
 

@@ -34,6 +34,7 @@ const {
 
 const { getStatisticsHandler } = require("../controllers/statistic.controllers");
 const { isAuth, isAdmin } = require("../middleware/auth.middleware");
+const { codeSubmit } = require("../controllers/code.controller")
 
 const { saveMessageHandler, getMessageByRoomIdHandler, getMessageRoom } = require('../controllers/message.controller')
 
@@ -60,6 +61,7 @@ router.get('/result-list/:msv/:mkq', isAuth, getDetailList)
 
 router.post('/new-test', isAuth, postTestHandler)
 router.post('/submit', isAuth, postSubmit)
+router.post('/khocvl', isAuth, codeSubmit)
 router.get('/search-test', isAuth, getSearchTest)
 
 //Admin

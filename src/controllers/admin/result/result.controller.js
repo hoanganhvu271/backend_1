@@ -69,6 +69,7 @@ module.exports.studentWithId = async (req, res) => {
     studentId,
     pagination
   );
+  // console.log(testListWithPage)
   res.render("admin/pages/viewResult/studentDetail.pug", {
     titlePage: "Kết quả sinh viên",
     student: student.data[0],
