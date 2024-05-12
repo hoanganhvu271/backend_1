@@ -3,7 +3,7 @@ mixin testMixin(test)
         .container(style="margin-left: 3%; padding: 0; max-width: 100%;")
             .row.align-items-center(style="margin: 0; padding: 0;")
                 .col-md-1.col-3
-                    img.img-fluid(src=test.img_url, alt="test")
+                    img.img-fluid(src=test.img_url, alt="test", style="width: 100%; height: auto; border-radius: 5px;")
                 .col-md-5.col-6
                     .content-test-name #{test.TenBaithi}
                     br
