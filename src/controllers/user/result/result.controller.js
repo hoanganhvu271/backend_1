@@ -10,6 +10,7 @@ const { Op } = require("sequelize");
 const jwtHelper = require("../../../helpers/jwt.helper");
 const { getQuestionOfTest, getQuestionOfTestUser } = require('../../../services/question.service')
 var request = require('request');
+const path = require('path');
 
 
 // [GET] /admin/my-account
@@ -166,15 +167,16 @@ module.exports.codeListForStudent = async (req, res) => {
 };
 
 module.exports.widgetProb = async (req, res) => {
-  // const testListForStudent = await testServices.getTestListForStudent();
-  let tmp = 'hiep'
-  // res.sendFile("D:/CODE/backend_1 - Copy/src/views/user/pages/test_list/codeList.html", tmp);
-  let idProb = req.params.idProb
-  let filename = idProb + '.html'
-  //lấy thư mục gốc hiện tại đến /src/views/user/pages/test_list/problist/:
+  let idProb = req.params.idProb;
+  let filename = idProb + '.html';
 
-  res.sendFile('/opt/render/project/src/src/views/user/pages/test_list/problist/' + filename);
-  // res.sendFile('/opt/render/project/src/src/views/user/pages/test_list/problist/' + filename);
+  // Get the relative path to the problist directory
+  const problistPath = path.join(__dirname, '../../../views/user/pages/test_list/problist/');
+
+  // Use path.join again to add the filename to the path
+  const filePath = path.join(problistPath, filename);
+
+  res.sendFile(filePath);
 };
 // [GET] /admin/my-account
 
