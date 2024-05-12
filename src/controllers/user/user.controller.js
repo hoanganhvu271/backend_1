@@ -70,7 +70,11 @@ module.exports.verifyOTP = async (req, res) => {
 
 
     let newotp = await (req.body.digit1 + req.body.digit2 + req.body.digit3 + req.body.digit4 + req.body.digit5 + req.body.digit6);
+<<<<<<< HEAD
     // console.log(newotp);
+=======
+    //console.log(newotp);
+>>>>>>> 1b34965137f6fd98da198142b0c2db0c634fc911
     // Lấy email và mã OTP đã lưu trữ
     const email = await req.body.email;
     const data = await getOtpWithEmail(email);
@@ -106,8 +110,14 @@ module.exports.verifyOTP = async (req, res) => {
         });
         return;
     }
+<<<<<<< HEAD
     const otp = data.data[0].otp_code;
     if (otp.toString() == newotp && data.data[0].end_time > new Date()) {
+=======
+    const otp = data.data.otp_code;
+    //console.log(otp);
+    if (otp === newotp && data.data.end_time > new Date()) {
+>>>>>>> 1b34965137f6fd98da198142b0c2db0c634fc911
         await deleteOtp(email);
         res.render("user/changePassword.pug");
     } else {

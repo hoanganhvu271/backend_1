@@ -13,7 +13,7 @@ router.post('/cloudinary-upload', fileUploader.single('file'), (req, res, next) 
         next(new Error('No file uploaded!'));
         return;
     }
-    console.log(req.file.path);
+    //console.log(req.file.path);
 
     var response = {
         img_url: req.file.path

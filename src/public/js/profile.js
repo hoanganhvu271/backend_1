@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Profile updated:", data);
+        //console.log("Profile updated:", data);
         saveBtn.classList.add("hide");
         inputs.forEach((input) => {
           input.setAttribute("readonly", true);

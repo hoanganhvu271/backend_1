@@ -44,7 +44,7 @@ async function loadMessage() {
         });
 
         const data = await response.json();
-        // console.log(data.length)
+        // //console.log(data.length)
         if (data.data.length > 0) {
             for (let i = 0; i < data.data.length; i++) {
                 const message = data.data[i];

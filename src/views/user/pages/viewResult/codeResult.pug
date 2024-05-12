@@ -12,15 +12,21 @@ block main
     thead
       tr
         th ID
+        th Date
         th Problem
         th Status
+        th Language
+        th Summary
         th Chi tiết
     tbody
         each submit, index in submitList
             tr
-            td #{submit.MaSubmit}
-            td #{submit.TenVanDe}
-            td #{submit.TrangThai}
+            td #{submit.id}
+            td #{submit.date}
+            td #{submit.problem.name}
+            td #{submit.result.status.name}
+            td #{submit.compiler.version.name}
+            td #{submit.result.time}s #{submit.result.memory}KB
             td
-                a.btn.btn-primary(btn-detail-submit idSubmit = submit.MaSubmit ) Xem source
+                a.btn.btn-primary(btn-detail-submit idSubmit = submit.id ) Xem source
   +pagination(pagination)

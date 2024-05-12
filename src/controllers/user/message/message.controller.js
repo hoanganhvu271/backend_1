@@ -14,7 +14,7 @@ const getMessage = async (req, res) => {
         } catch (error) {
         }
     }
-    console.log(room)
+    //console.log(room)
     res.render("user/pages/message/message.pug", {
         room: room
     });

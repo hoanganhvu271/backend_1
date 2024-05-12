@@ -193,7 +193,7 @@ document.getElementById('excel-file').addEventListener('change', function (event
         excelData.forEach(function (row, index) {
             for (var i = 1; i <= 4; i++) {
                 if (row['correct'] == i) {
-                    // console.log(i);
+                    // //console.log(i);
                     toggleCheckbox(index + 'checkbox' + i);
                 }
             }
@@ -384,7 +384,7 @@ async function Save() {
 
     formData.imageUrl = newImageUrl;
 
-    console.log(newImageUrl)
+    //console.log(newImageUrl)
 
     const backendURL = '/api/new-test';
     const options = {
@@ -401,7 +401,7 @@ async function Save() {
             throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
         }
         const data = await response.json();
-        console.log('Dữ liệu đã được gửi thành công đến backend:', data);
+        //console.log('Dữ liệu đã được gửi thành công đến backend:', data);
         window.location.href = "/admin/test";
     } catch (error) {
         showAlert('Đã xảy ra lỗi !!!')
@@ -412,7 +412,7 @@ async function Save() {
 
 function DeleteQuestion(id) {
     var element = document.getElementById(id);
-    console.log(element);
+    //console.log(element);
     UpDateIdForQuestion(id);
     element.remove();
 }

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
 
-            // console.log(models.Test)
+            // //console.log(models.Test)
 
 
         }

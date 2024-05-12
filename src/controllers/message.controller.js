@@ -7,7 +7,7 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 
 const saveMessageHandler = async (req, res) => {
     const data = req.body;
-    // console.log(data);
+    // //console.log(data);
     try {
         const result = await saveMessage(data.message, data.room, data.isAdmin);
         if (result.status == 200) {
@@ -17,7 +17,7 @@ const saveMessageHandler = async (req, res) => {
             res.status(404).json({ message: 'Message not saved' })
         }
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(500).json({ message: 'Internal server error' })
     }
 }
@@ -36,7 +36,7 @@ const getMessageByRoomIdHandler = async (req, res) => {
             res.status(500).json({ message: 'Internal server error' })
         }
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(500).json({ message: 'Internal server error' })
     }
 }

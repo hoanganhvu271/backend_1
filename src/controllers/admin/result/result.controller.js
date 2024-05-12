@@ -20,7 +20,7 @@ module.exports.student = async (req, res) => {
     find.Lop = lop;
   }
 
-  console.log(req.query.keyword);
+  //console.log(req.query.keyword);
 
   if (req.query.keyword) {
     const regexExpression = new RegExp(req.query.keyword, "i").source;
@@ -30,7 +30,7 @@ module.exports.student = async (req, res) => {
     ];
   }
 
-  console.log(find);
+  //console.log(find);
   const count = await studentServices.getCountStudentWithFindObject(find);
   const pagination = paginationHelper(
     {
@@ -54,7 +54,7 @@ module.exports.student = async (req, res) => {
 };
 module.exports.studentWithId = async (req, res) => {
   const studentId = req.params.studentId;
-  console.log(studentId);
+  //console.log(studentId);
   const testList = await testServices.getTestByStudentId(studentId);
   const pagination = paginationHelper(
     {
@@ -69,7 +69,7 @@ module.exports.studentWithId = async (req, res) => {
     studentId,
     pagination
   );
-  // console.log(testListWithPage)
+  // //console.log(testListWithPage)
   res.render("admin/pages/viewResult/studentDetail.pug", {
     titlePage: "Kết quả sinh viên",
     student: student.data[0],

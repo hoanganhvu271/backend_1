@@ -28,7 +28,7 @@ function closePopUp(id) {
 }
 
 function submitForm(id) {
-    // console.log("hello")
+    // //console.log("hello")
     var details = document.getElementById(id);
 
 
@@ -67,7 +67,7 @@ function submitForm(id) {
         })
         .then(data => {
             // Xử lý phản hồi từ backend nếu cần
-            console.log(data);
+            //console.log(data);
         })
         .catch(error => {
             console.error('There was an error with the fetch operation:', error);
@@ -91,7 +91,7 @@ async function deleteAccount(id) {
         });
         const data = await response.json();
         if (data.status === 200) {
-            console.log(data.message)
+            //console.log(data.message)
             var testTr = document.getElementById(id)
             testTr.remove();
         } else {
@@ -139,7 +139,7 @@ async function getStudentData(id, msv, role) {
             document.getElementById('edit-email').value = student.Email
             document.getElementById('edit-password').value = ""
 
-            // console.log(data.data[0]);
+            // //console.log(data.data[0]);
         })
         .catch(error => {
             console.error('There was an error with the fetch operation:', error);
@@ -157,7 +157,7 @@ function finishEdit(id) {
         email: document.getElementById('edit-email').value,
         password: document.getElementById('edit-password').value
     };
-    console.log(formData);
+    //console.log(formData);
 
     if (!formData.name || !formData.class || !formData.email || !formData.password) {
         showAlert('Vui lòng điền đầy đủ thông tin!');
@@ -165,7 +165,7 @@ function finishEdit(id) {
     }
 
     var url = '/api/update-student/' + document.getElementById('edit-msv').value
-    console.log(url);
+    //console.log(url);
     fetch(url, {
         method: 'PUT',
         headers: {
@@ -187,7 +187,7 @@ function finishEdit(id) {
         })
         .then(data => {
             // Xử lý phản hồi từ backend nếu cần
-            console.log(data);
+            //console.log(data);
         })
         .catch(error => {
             showAlert("Đã xảy ra lỗi khi cập nhật tài khoản!")

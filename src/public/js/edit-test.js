@@ -288,8 +288,8 @@ async function Save(id) {
 
         const backendURL = '/api/update-test/' + id;
 
-        // console.log(questions)
-        // console.log(formData);
+        // //console.log(questions)
+        // //console.log(formData);
 
         const options = {
             method: 'PUT',
@@ -299,7 +299,7 @@ async function Save(id) {
             body: JSON.stringify({ metadata: formData, data: questions })
         };
 
-        // console.log(options)
+        // //console.log(options)
         await fetch(backendURL, options)
             .then(response => {
                 if (!response.ok) {
@@ -308,7 +308,7 @@ async function Save(id) {
                 return response.json(); // Trả về phản hồi dưới dạng JSON
             })
             .then(data => {
-                console.log('Dữ liệu đã được gửi thành công đến backend:', data);
+                //console.log('Dữ liệu đã được gửi thành công đến backend:', data);
                 window.location.href = "/admin/test";
             })
             .catch(error => {
@@ -322,7 +322,7 @@ async function Save(id) {
 
 function DeleteQuestion(id) {
     var element = document.getElementById(id);
-    console.log(element);
+    //console.log(element);
     UpDateIdForQuestion(id);
     element.remove();
 }

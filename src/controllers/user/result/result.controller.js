@@ -26,7 +26,7 @@ module.exports.student = async (req, res) => {
     find.Lop = lop;
   }
 
-  console.log(req.query.keyword);
+  //console.log(req.query.keyword);
 
   if (req.query.keyword) {
     const regexExpression = new RegExp(req.query.keyword, "i").source;
@@ -36,7 +36,7 @@ module.exports.student = async (req, res) => {
     ];
   }
 
-  // console.log(find);
+  // //console.log(find);
   const count = await studentServices.getCountStudentWithFindObject(find);
   const pagination = paginationHelper(
     {
@@ -60,7 +60,7 @@ module.exports.student = async (req, res) => {
 };
 module.exports.studentWithId = async (req, res) => {
   const studentId = req.params.studentId;
-  console.log(studentId);
+  //console.log(studentId);
   const testList = await testServices.getTestByStudentId(studentId);
   const pagination = paginationHelper(
     {
@@ -119,8 +119,13 @@ module.exports.testWithId = async (req, res) => {
   const testId = req.params.testId;
   const test = await testServices.getTestById(testId);
   var questions = await getQuestionOfTest(testId);
+<<<<<<< HEAD
   const data = { test: test.data[0], questions: questions.data }
   // console.log(data)
+=======
+  const data = {test: test.data[0], questions: questions.data}
+  // //console.log(data)
+>>>>>>> 1b34965137f6fd98da198142b0c2db0c634fc911
   var tmp = "hiep"
   res.render("user/pages/viewResult/testResultStudent.pug", {
     data: data
@@ -159,7 +164,7 @@ module.exports.codeListForStudent = async (req, res) => {
   let tmp = 'hiep'
   // res.sendFile("D:/CODE/backend_1 - Copy/src/views/user/pages/test_list/codeList.html", tmp);
   let codeList = await testServices.getAllProbPerPage(1)
-  // console.log(codeList.data)
+  // //console.log(codeList.data)
   res.render("user/pages/test_list/codeList.pug", {
     codeList: codeList.data
   })
@@ -190,7 +195,7 @@ module.exports.resultTestOfStudent = async (req, res) => {
     req.jwtDecoded.data.id,
     pagination
   );
-  console.log(testListWithPage);
+  //console.log(testListWithPage);
   res.render("user/pages/viewResult/testResult.pug", {
     titlePage: "Kết quả sinh viên",
     student: student.data[0],
@@ -213,7 +218,7 @@ module.exports.submitOfStudent = async (req, res) => {
     req.jwtDecoded.data.id,
     pagination
   );
-  console.log(submitListWithPage);
+  //console.log(submitListWithPage);
   res.render("user/pages/viewResult/codeResult.pug", {
     titlePage: "Kết quả sinh viên",
     submitList: submitListWithPage.data,
@@ -223,12 +228,13 @@ module.exports.submitOfStudent = async (req, res) => {
 
 module.exports.source = async (req, res) => {
   let url = await testServices.getURL(req.params.idSubmit)
-  console.log(url)
+  //console.log(url)
   request({
     url: url,
     method: 'GET'
   }, function (error, response, body) {
 
+<<<<<<< HEAD
     if (error) {
       console.log('Connection problem');
     }
@@ -249,6 +255,29 @@ module.exports.source = async (req, res) => {
         } else if (response.statusCode === 404) {
           console.log('Submision not found');
         }
+=======
+      if (error) {
+          //console.log('Connection problem');
+      }
+
+      // process response
+      if (response) {
+          if (response.statusCode === 200) {
+              //console.log(response.body)
+              let source = response.body
+              res.render("user/pages/viewResult/source.pug", {
+                source: source
+              });
+          } else {
+              if (response.statusCode === 401) {
+                  //console.log('Invalid access token');
+              } else if (response.statusCode === 403) {
+                  //console.log('Access denied');
+              } else if (response.statusCode === 404) {
+                  //console.log('Submision not found');
+              }
+          }
+>>>>>>> 1b34965137f6fd98da198142b0c2db0c634fc911
       }
     }
   });

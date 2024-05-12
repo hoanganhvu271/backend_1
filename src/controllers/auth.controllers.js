@@ -50,7 +50,7 @@ const refreshToken = async (req, res) => {
 };
 
 const checkLoginUser = async (req, res) => {
-    // console.log(req.params.role)
+    // //console.log(req.params.role)
     // if (req.params.role === 'user') {
     //check valid user and password
     if (!req.body.msv || !req.body.password) {
@@ -126,7 +126,7 @@ const checkLoginUser = async (req, res) => {
 }
 
 const createTokenResponse = async (userData) => {
-    // console.log(userData);
+    // //console.log(userData);
 
 
     const accessToken = await jwtHelper.generateToken(userData, accessTokenSecret, accessTokenLife);

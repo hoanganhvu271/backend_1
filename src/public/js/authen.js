@@ -11,7 +11,7 @@
 //     // Lấy phần đuôi (pathname) của URL
 //     const pathname = urlObject.pathname;
 
-//     console.log(pathname); // In ra "/admin/login"
+//     //console.log(pathname); // In ra "/admin/login"
 
 //     if (token) {
 //         // Thêm token vào header Authorization của mỗi yêu cầu gửi từ client tới máy chủ

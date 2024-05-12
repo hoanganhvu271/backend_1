@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
 
-            // console.log(models.Test)
+            // //console.log(models.Test)
             Question.belongsTo(models.Test, { foreignKey: 'MaBaiThi' });
             Question.hasMany(models.Option, { foreignKey: 'MaCauHoi', targetKey: 'MaCauHoi', as: 'LuaChon' });
 

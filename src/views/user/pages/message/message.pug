@@ -12,9 +12,14 @@ html
     script(src='/js/float-chat.js')
 
   body
+<<<<<<< HEAD
     //- - console.log(room)
     //- +floating-chat(room)
     +floating-chat
+=======
+    //- - //console.log(room)
+    +floating-chat(room)
+>>>>>>> 1b34965137f6fd98da198142b0c2db0c634fc911
     #chat-app
       #chat.has-text-centered
         section.hero.is-success
@@ -55,10 +60,10 @@ html
               })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
+                    //console.log(data)
                 })
                 .catch(err => {
-                    console.log(err)
+                    //console.log(err)
                 })
               }
               catch (err) {

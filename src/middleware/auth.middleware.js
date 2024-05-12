@@ -9,14 +9,14 @@ const { checkPermission } = require("../services/permission.service")
 const isAuth = async (req, res, next) => {
 
     const tokenFromClient = req.cookies.jwt;
-    // console.log('token: ',tokenFromClient)
+    // //console.log('token: ',tokenFromClient)
     if (tokenFromClient) {
 
         try {
 
             const decoded = await jwtHelper.verifyToken(tokenFromClient, accessTokenSecret);
             req.jwtDecoded = decoded;
-            // console.log(decoded)
+            // //console.log(decoded)
             next();
         } catch (error) {
             return res.status(401).json({
@@ -35,7 +35,7 @@ const isAdmin = async (req, res, next) => {
     if (tokenFromClient) {
         try {
             const decoded = await jwtHelper.verifyToken(tokenFromClient, accessTokenSecret);
-            // console.log(decoded);
+            // //console.log(decoded);
             if (decoded.data.role === 'admin') {
                 next();
             } else {
@@ -64,7 +64,7 @@ const isAdmin = async (req, res, next) => {
 
 const isAdminPermission = async (req, res, next) => {
     var orginUrl = req.originalUrl;
-    console.log(req.params.id)
+    //console.log(req.params.id)
     var len = Object.keys(req.params).length;
     var count = orginUrl.split(/[\/?]/);
     // console.log("len:", len)
@@ -81,16 +81,16 @@ const isAdminPermission = async (req, res, next) => {
 
     url = '/' + count[1] + '/' + count[2]
 
-    // console.log(url);
-    // console.log("hê")
+    // //console.log(url);
+    // //console.log("hê")
 
     const tokenFromClient = req.cookies.jwt;
-    // console.log(req.cookies)
-    // console.log(tokenFromClient)
+    // //console.log(req.cookies)
+    // //console.log(tokenFromClient)
     if (tokenFromClient) {
         try {
             const decoded = await jwtHelper.verifyToken(tokenFromClient, accessTokenSecret);
-            // console.log(decoded);
+            // //console.log(decoded);
 
             var role = decoded.data.role;
             var check = await checkPermission(url, role);
@@ -105,8 +105,12 @@ const isAdminPermission = async (req, res, next) => {
                 });
             }
         } catch (error) {
+<<<<<<< HEAD
             console.log(error);
             return res.redirect('/admin/error')
+=======
+            //console.log(error);
+>>>>>>> 1b34965137f6fd98da198142b0c2db0c634fc911
             return res.status(401).json({
                 code: 0,
                 status: 401,
