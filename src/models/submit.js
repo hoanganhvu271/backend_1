@@ -8,13 +8,8 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
 
-<<<<<<< HEAD
             // console.log(models.Test)
 
-=======
-            // //console.log(models.Test)
-            
->>>>>>> 1b34965137f6fd98da198142b0c2db0c634fc911
             Submit.belongsTo(models.Student, { foreignKey: 'MSV' });
 
         }

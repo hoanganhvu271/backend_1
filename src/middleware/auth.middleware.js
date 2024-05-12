@@ -105,12 +105,8 @@ const isAdminPermission = async (req, res, next) => {
                 });
             }
         } catch (error) {
-<<<<<<< HEAD
             console.log(error);
             return res.redirect('/admin/error')
-=======
-            //console.log(error);
->>>>>>> 1b34965137f6fd98da198142b0c2db0c634fc911
             return res.status(401).json({
                 code: 0,
                 status: 401,

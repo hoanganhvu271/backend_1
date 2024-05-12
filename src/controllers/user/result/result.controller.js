@@ -119,13 +119,8 @@ module.exports.testWithId = async (req, res) => {
   const testId = req.params.testId;
   const test = await testServices.getTestById(testId);
   var questions = await getQuestionOfTest(testId);
-<<<<<<< HEAD
   const data = { test: test.data[0], questions: questions.data }
   // console.log(data)
-=======
-  const data = {test: test.data[0], questions: questions.data}
-  // //console.log(data)
->>>>>>> 1b34965137f6fd98da198142b0c2db0c634fc911
   var tmp = "hiep"
   res.render("user/pages/viewResult/testResultStudent.pug", {
     data: data
@@ -176,7 +171,7 @@ module.exports.widgetProb = async (req, res) => {
   // res.sendFile("D:/CODE/backend_1 - Copy/src/views/user/pages/test_list/codeList.html", tmp);
   let idProb = req.params.idProb
   let filename = idProb + '.html'
-  res.sendFile('D:/TAILIEUPTIT/Ki2Nam3/LTWeb/BaiTapClassroom/5. Backend_1/src/views/user/pages/test_list/problist/' + filename);
+  res.sendFile('/opt/render/project/src/src/views/user/pages/test_list/problist/' + filename);
 };
 // [GET] /admin/my-account
 
@@ -234,7 +229,6 @@ module.exports.source = async (req, res) => {
     method: 'GET'
   }, function (error, response, body) {
 
-<<<<<<< HEAD
     if (error) {
       console.log('Connection problem');
     }
@@ -255,29 +249,6 @@ module.exports.source = async (req, res) => {
         } else if (response.statusCode === 404) {
           console.log('Submision not found');
         }
-=======
-      if (error) {
-          //console.log('Connection problem');
-      }
-
-      // process response
-      if (response) {
-          if (response.statusCode === 200) {
-              //console.log(response.body)
-              let source = response.body
-              res.render("user/pages/viewResult/source.pug", {
-                source: source
-              });
-          } else {
-              if (response.statusCode === 401) {
-                  //console.log('Invalid access token');
-              } else if (response.statusCode === 403) {
-                  //console.log('Access denied');
-              } else if (response.statusCode === 404) {
-                  //console.log('Submision not found');
-              }
-          }
->>>>>>> 1b34965137f6fd98da198142b0c2db0c634fc911
       }
     }
   });
