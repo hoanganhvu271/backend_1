@@ -132,6 +132,7 @@
 .search-box-test {
   height: 40px;
   width: 400px;
+  border: #000000 solid 1px;
 }
 
 th,
@@ -317,6 +318,7 @@ td {
   margin-left: 50px;
   height: 40px;
   width: 300px;
+  border: #00000027 solid 1px !important;
 }
 
 .user-info {
@@ -68157,9 +68159,7 @@ label,
   transition: 0.2s ease all;
 }
 
-.form-control {
-  border: none;
-}
+
 
 .form-control.is-invalid {
   border: 1px solid #d2d6da;
@@ -68350,9 +68350,7 @@ label,
   transition: 0.2s ease all;
 }
 
-.form-control {
-  border: none;
-}
+
 
 .form-control.is-invalid {
   border: 1px solid #d2d6da;
