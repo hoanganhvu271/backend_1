@@ -22,7 +22,7 @@ const isAuth = async (req, res, next) => {
             return res.status(401).json({
                 code: 0,
                 status: 401,
-                message: 'Unauthorized.',
+                message: 'User Unauthorized.',
             });
         }
     } else {

@@ -11,7 +11,7 @@ const errorRouter = require("./error.router");
 
 const { isAdminPermission } = require("../../middleware/auth.middleware");
 module.exports = (app) => {
-  app.use("/admin/result", isAdminPermission, viewResultRoutes);
+  app.use("/admin/result", viewResultRoutes);
   app.use("/admin/test", isAdminPermission, testListRoutes);
   app.use("/admin/account", isAdminPermission, accountManageRoutes);
   app.use("/admin/profile", isAdminPermission, profileRoutes);
