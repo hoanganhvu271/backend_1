@@ -17,10 +17,10 @@ include ../mixins/itemSlider.pug
                 a(href="" class="td-n")
                   i(class="ti-arrow-circle-left")
     ul.sidebar-menu.scrollable.pos-r
-        +item-arrow('Danh sách bài thi', 'ti-home c-red-500',
+        +item-arrow('Quản lý', 'ti-home c-red-500',
         [
-          {title:"Bài thi trắc nghiệm", href:"/index"},
-          {title:"Bài tập lập trình", href:"/index"}
+          {title:"Quản lý bài thi", href:"/admin/test"},
+          {title:"Quản lý tài khoản", href:"/admin/account"}
         ])
         +item-arrow('Kết quả', 'ti-harddrives c-red-500',
             [
