@@ -22,7 +22,7 @@ module.exports.student = async (req, res) => {
 
   //console.log(req.query.keyword);
 
-  if (req.query.keyword) {
+  if (req.query.keyword && req.query.keyword !== "") {
     const regexExpression = new RegExp(req.query.keyword, "i").source;
     find[Op.or] = [
       { Ten: { [Op.regexp]: regexExpression } },
@@ -94,8 +94,12 @@ module.exports.detailStudentAndTest = async (req, res) => {
 module.exports.test = async (req, res) => {
   const find = {};
   if (req.query.keyword && req.query.keyword !== "") {
+    console.log(req.query.keyword);
     const regexExpression = new RegExp(req.query.keyword, "i").source;
-    find.TenBaiThi = { [Op.regexp]: regexExpression };
+    find[Op.or] = [
+      { TenBaiThi: { [Op.regexp]: regexExpression } },
+      { TheLoai: { [Op.regexp]: regexExpression } },
+    ];
   }
   const testList = await testServices.getAllTest();
   const pagination = paginationHelper(
@@ -110,7 +114,9 @@ module.exports.test = async (req, res) => {
     find,
     pagination
   );
-  // let token 
+  console.log(find);
+  console.log(testListWithPage);
+  // let token
   // if(req.token) token = req.token
   res.render("admin/pages/viewResult/test.pug", {
     // token: token,
