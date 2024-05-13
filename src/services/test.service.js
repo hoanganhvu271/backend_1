@@ -7,8 +7,8 @@ var request = require('request');
 
 
 const getURL = async (idSubmit) => {
-  let submit = await db.Submit.findAll ({
-    where: {MaSubmit: idSubmit},
+  let submit = await db.Submit.findAll({
+    where: { MaSubmit: idSubmit },
   })
   return submit[0].dataValues.Source
 }
@@ -270,7 +270,7 @@ const getSubmitByStudentId = async (stuID) => {
     const listSubmit = await db.Submit.findAll({
       raw: true,
       where: {
-          MSV: stuID,
+        MSV: stuID,
       },
     });
     if (listSubmit.length > 0) {
@@ -402,53 +402,53 @@ const getTestByStudentIdWithPage = async (stuID, pagination) => {
 
 const getSubmitByStudentIdWithPage = async (stuID, pagination) => {
   try {
-      let data = { status: null, data: [] };
-      let listSubmit = await db.Submit.findAll({
-          raw: true,
-          limit: pagination.limitedItem,
-          offset: pagination.limitedItem * (pagination.currentPage - 1),
-          where: {
-              MSV: stuID,
-          },
-      });
+    let data = { status: null, data: [] };
+    let listSubmit = await db.Submit.findAll({
+      raw: true,
+      limit: pagination.limitedItem,
+      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      where: {
+        MSV: stuID,
+      },
+    });
 
-      let submissionsIds = listSubmit.map(submit => submit.MaSubmit);
-      var accessToken = '9b348449f67afb2fa93a5e53e417b609';
-      var endpoint = 'ec2e5307.problems.sphere-engine.com';
+    let submissionsIds = listSubmit.map(submit => submit.MaSubmit);
+    var accessToken = '4115b63958a9eb31a4d33ac722af04d5';
+    var endpoint = '02b87882.problems.sphere-engine.com';
 
-      const requestData = await new Promise((resolve, reject) => {
-          request({
-              url: 'https://' + endpoint + '/api/v4/submissions?ids=' + submissionsIds.join() + '&access_token=' + accessToken,
-              method: 'GET'
-          }, (error, response, body) => {
-              if (error) {
-                  console.log('Connection problem');
-                  reject('Connection problem');
-                  return;
-              }
-              // process response
-              if (response && response.statusCode === 200) {
-                  const listSubmit = JSON.parse(response.body).items;
-                  // console.log(listSubmit); // list of submissions in JSON
-                  data.status = 200;
-                  data.data = listSubmit;
-              } else {
-                  if (response && response.statusCode === 401) {
-                      console.log('Invalid access token');
-                  } else if (response && response.statusCode === 400) {
-                      const body = JSON.parse(response.body);
-                      console.log('Error code: ' + body.error_code + ', details available in the message: ' + body.message)
-                  }
-                  data.status = 404;
-              }
-              resolve(data);
-          });
+    const requestData = await new Promise((resolve, reject) => {
+      request({
+        url: 'https://' + endpoint + '/api/v4/submissions?ids=' + submissionsIds.join() + '&access_token=' + accessToken,
+        method: 'GET'
+      }, (error, response, body) => {
+        if (error) {
+          console.log('Connection problem');
+          reject('Connection problem');
+          return;
+        }
+        // process response
+        if (response && response.statusCode === 200) {
+          const listSubmit = JSON.parse(response.body).items;
+          // console.log(listSubmit); // list of submissions in JSON
+          data.status = 200;
+          data.data = listSubmit;
+        } else {
+          if (response && response.statusCode === 401) {
+            console.log('Invalid access token');
+          } else if (response && response.statusCode === 400) {
+            const body = JSON.parse(response.body);
+            console.log('Error code: ' + body.error_code + ', details available in the message: ' + body.message)
+          }
+          data.status = 404;
+        }
+        resolve(data);
       });
-      console.log(requestData)
-      return requestData;
+    });
+    console.log(requestData)
+    return requestData;
   } catch (error) {
-      console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
-      throw error;
+    console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
+    throw error;
   }
 };
 

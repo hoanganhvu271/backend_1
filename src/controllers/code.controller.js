@@ -1,8 +1,8 @@
 var request = require('request');
 const { createSubmitCode } = require('../services/result.services')
 // define access parameters
-var accessToken = '9b348449f67afb2fa93a5e53e417b609';
-var endpoint = 'ec2e5307.problems.sphere-engine.com';
+var accessToken = '4115b63958a9eb31a4d33ac722af04d5';
+var endpoint = '02b87882.problems.sphere-engine.com';
 
 // define request parameters
 // var submissionId = 66439554;
@@ -19,11 +19,11 @@ const codeSubmit = async (req, res) => {
         url: 'https://' + endpoint + '/api/v4/submissions/' + submissionId + '?access_token=' + accessToken,
         method: 'GET'
     }, async (error, response, body) => {
-    
+
         if (error) {
             //console.log('Connection problem');
         }
-    
+
         // process response
         if (response) {
             if (response.statusCode === 200) {
