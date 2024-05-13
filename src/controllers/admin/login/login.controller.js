@@ -54,7 +54,7 @@ module.exports.checkLoginAdmin = async (req, res) => {
                 // data: data
             };
             res.cookie("jwt", data.accessToken, { maxAge: 86400000, httpOnly: true, SameSite: "None" });
-            return res.redirect("/admin/test")
+            return res.redirect("/admin/dashboard")
             res.status(200).json({ message: "Đăng nhập thành công" });
 
         }
