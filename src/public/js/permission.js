@@ -13,6 +13,8 @@ async function SavePermission(permissionsLength) {
         permissionArray[colIndex][rowIndex] = isChecked;
     });
 
+    showLoading();
+
     const backendURL = '/admin/permission/save-permission';
     const options = {
         method: 'POST',
@@ -27,6 +29,7 @@ async function SavePermission(permissionsLength) {
         if (!response.ok) {
             throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
         }
+        hideLoading();
         window.location.href = "/admin/permission";
         showAlert("Cập nhật quyền thành công !!!")
     } catch (error) {
@@ -50,6 +53,8 @@ function SaveEditAdmin(id) {
         return;
     }
 
+    showLoading();
+
     var url = '/admin/permission/update-admin'
     fetch(url, {
         method: 'POST',
@@ -63,6 +68,7 @@ function SaveEditAdmin(id) {
                 throw new Error('Network response was not ok');
             }
             if (response.statusCode === 200) {
+                hideLoading();
                 showAlert('Cập nhật thành công')
             }
             window.location.href = "/admin/permission";
