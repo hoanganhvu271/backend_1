@@ -151,6 +151,7 @@ module.exports.testListForStudent = async (req, res) => {
   );
   const testListForStudent =
     await testServices.getTestListForStudentWithFindObject(find, pagination);
+  console.log(testListForStudent);
   res.render("user/pages/test_list/testList.pug", {
     titlePage: "Danh sách bài thi",
     tests: testListForStudent.data,
