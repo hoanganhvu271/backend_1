@@ -1,5 +1,5 @@
 const studentController = require("../../student.controllers");
-const testController = require("../../test.controllers")
+const testController = require("../../test.controllers");
 const studentServices = require("../../../services/student.service");
 const testServices = require("../../../services/test.service");
 const resultServices = require("../../../services/result.services");
@@ -8,10 +8,12 @@ const paginationHelper = require("../../../helpers/paginationHelper");
 const searchHelper = require("../../../helpers/search");
 const { Op } = require("sequelize");
 const jwtHelper = require("../../../helpers/jwt.helper");
-const { getQuestionOfTest, getQuestionOfTestUser } = require('../../../services/question.service')
-var request = require('request');
-const path = require('path');
-
+const {
+  getQuestionOfTest,
+  getQuestionOfTestUser,
+} = require("../../../services/question.service");
+var request = require("request");
+const path = require("path");
 
 // [GET] /admin/my-account
 module.exports.index = async (req, res) => {
@@ -86,7 +88,6 @@ module.exports.studentWithId = async (req, res) => {
 
 // [GET] /admin/my-account
 module.exports.test = async (req, res) => {
-
   const find = {};
   if (req.query.keyword) {
     const regexExpression = new RegExp(req.query.keyword, "i").source;
@@ -120,11 +121,11 @@ module.exports.testWithId = async (req, res) => {
   const testId = req.params.testId;
   const test = await testServices.getTestById(testId);
   var questions = await getQuestionOfTest(testId);
-  const data = { test: test.data[0], questions: questions.data }
+  const data = { test: test.data[0], questions: questions.data };
   // console.log(data)
-  var tmp = "hiep"
+  var tmp = "hiep";
   res.render("user/pages/viewResult/testResultStudent.pug", {
-    data: data
+    data: data,
   });
 };
 
@@ -132,7 +133,10 @@ module.exports.testListForStudent = async (req, res) => {
   const find = {};
   if (req.query.keyword) {
     const regexExpression = new RegExp(req.query.keyword, "i").source;
-    find.TenBaiThi = { [Op.regexp]: regexExpression };
+    find[Op.or] = [
+      { TenBaiThi: { [Op.regexp]: regexExpression } },
+      { TheLoai: { [Op.regexp]: regexExpression } },
+    ];
   }
   const count = await testServices.getCountTestListForStudentWithFindObject(
     find
@@ -157,31 +161,36 @@ module.exports.testListForStudent = async (req, res) => {
 
 module.exports.codeListForStudent = async (req, res) => {
   // const testListForStudent = await testServices.getTestListForStudent();
-  let tmp = 'hiep'
+  let tmp = "hiep";
   // res.sendFile("D:/CODE/backend_1 - Copy/src/views/user/pages/test_list/codeList.html", tmp);
-  let codeList = await testServices.getAllProbPerPage(1)
+  let codeList = await testServices.getAllProbPerPage(1);
   // //console.log(codeList.data)
   res.render("user/pages/test_list/codeList.pug", {
-    codeList: codeList.data
-  })
+    codeList: codeList.data,
+  });
 };
 
 module.exports.widgetProb = async (req, res) => {
   let idProb = req.params.idProb;
-  let filename = idProb + '.html';
+  let filename = idProb + ".html";
 
   // Get the relative path to the problist directory
-  const problistPath = path.join(__dirname, '../../../views/user/pages/test_list/problist/');
+  const problistPath = path.join(
+    __dirname,
+    "../../../views/user/pages/test_list/problist/"
+  );
 
   // Use path.join again to add the filename to the path
   const filePath = path.join(problistPath, filename);
-  console.log(filePath)
+  console.log(filePath);
   res.sendFile(filePath);
 };
 // [GET] /admin/my-account
 
 module.exports.resultTestOfStudent = async (req, res) => {
-  const testList = await testServices.getTestByStudentId(req.jwtDecoded.data.id);
+  const testList = await testServices.getTestByStudentId(
+    req.jwtDecoded.data.id
+  );
   const pagination = paginationHelper(
     {
       currentPage: 1,
@@ -205,7 +214,9 @@ module.exports.resultTestOfStudent = async (req, res) => {
 };
 
 module.exports.submitOfStudent = async (req, res) => {
-  const submitList = await testServices.getSubmitByStudentId(req.jwtDecoded.data.id);
+  const submitList = await testServices.getSubmitByStudentId(
+    req.jwtDecoded.data.id
+  );
   const pagination = paginationHelper(
     {
       currentPage: 1,
@@ -227,36 +238,38 @@ module.exports.submitOfStudent = async (req, res) => {
 };
 
 module.exports.source = async (req, res) => {
-  let url = await testServices.getURL(req.params.idSubmit)
+  let url = await testServices.getURL(req.params.idSubmit);
   //console.log(url)
-  request({
-    url: url,
-    method: 'GET'
-  }, function (error, response, body) {
+  request(
+    {
+      url: url,
+      method: "GET",
+    },
+    function (error, response, body) {
+      if (error) {
+        console.log("Connection problem");
+      }
 
-    if (error) {
-      console.log('Connection problem');
-    }
-
-    // process response
-    if (response) {
-      if (response.statusCode === 200) {
-        console.log(response.body)
-        let source = response.body
-        res.render("user/pages/viewResult/source.pug", {
-          source: source
-        });
-      } else {
-        if (response.statusCode === 401) {
-          console.log('Invalid access token');
-        } else if (response.statusCode === 403) {
-          console.log('Access denied');
-        } else if (response.statusCode === 404) {
-          console.log('Submision not found');
+      // process response
+      if (response) {
+        if (response.statusCode === 200) {
+          console.log(response.body);
+          let source = response.body;
+          res.render("user/pages/viewResult/source.pug", {
+            source: source,
+          });
+        } else {
+          if (response.statusCode === 401) {
+            console.log("Invalid access token");
+          } else if (response.statusCode === 403) {
+            console.log("Access denied");
+          } else if (response.statusCode === 404) {
+            console.log("Submision not found");
+          }
         }
       }
     }
-  });
+  );
 };
 
 module.exports.detailStudentAndTest = async (req, res) => {

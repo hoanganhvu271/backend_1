@@ -2,7 +2,6 @@ extends ../../layout/default.pug
 include ../../mixins/pagination.pug
 include ../../mixins/test.pug
 
-
 block main
   br
   .search-wrapper.d-flex.align-items-center
@@ -16,7 +15,7 @@ block main
       div(style="margin-left: auto;")
         span(style="font-size: 20px; margin-right: 20px;") Tính thời gian
         label.switch(style="margin-right: 20px;")
-          input(type="checkbox" checked)
+          input#time-toggle(type="checkbox" checked)
           span.slider.round
   .test-list
     if (tests === null)
@@ -28,12 +27,24 @@ block main
 
   script.
     document.addEventListener("DOMContentLoaded", function() {
+        var timeToggle = document.getElementById('time-toggle');
+
+        timeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                localStorage.setItem('time', 1);
+            } else {
+                localStorage.setItem('time', 0);
+            }
+        });
         var timeState = localStorage.getItem('time');
-        var btnTime = document.getElementById('btn-time');
-        if (timeState === '0' || timeState === null) {
-            btnTime.textContent = 'Luyện tập';
-            if (timeState === null) localStorage.setItem('time', 0);
-        } else { 
-            btnTime.textContent = 'Thi';
+        if(timeState === '1') {
+            timeToggle.checked = true;
+        } else {
+            timeToggle.checked = false;
+        }
+        if (timeState === '1') {
+            timeToggle.checked = true;
+        } else {
+            timeToggle.checked = false;
         }
     });
