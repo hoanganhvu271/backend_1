@@ -5,7 +5,7 @@ const profileRoutes = require("./profile.router");
 
 module.exports = (app) => {
   app.use("/", indexUser);
-  app.use("/user/practice", userListTest);
-  app.use("/user/result", userResult);
-  app.use("/user/profile", profileRoutes)
+  app.use("/practice", userListTest);
+  app.use("/result", userResult);
+  app.use("/profile", profileRoutes)
 };

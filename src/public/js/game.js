@@ -182,7 +182,7 @@ nopbai = async () => {
 thoat = () => {
 
     openDialog('Thoát', 'Tiến trình sẽ không được lưu lại, bạn có muốn thoát khỏi bài thi?', function() {
-        window.location.assign('../html/luyentap.html');
+        window.location.assign('../../practice/tn');
     });
 }
 

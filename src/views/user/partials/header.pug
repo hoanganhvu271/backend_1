@@ -4,7 +4,7 @@ include ../mixins/itemSlider.pug
     .sidebar-logo
           .peers.ai-c.fxw-nw
             .peer.peer-greed
-              a(class="sidebar-link td-n" href="index.html")
+              a(class="sidebar-link td-n" href="/result")
                 .peers.ai-c.fxw-nw
                   .peer
                     .logo
@@ -18,12 +18,12 @@ include ../mixins/itemSlider.pug
     ul.sidebar-menu.scrollable.pos-r
         +item-arrow('Danh sách bài thi', 'ti-home c-red-500',
             [
-                {title: 'Bài thi trắc nghiệm', href: '/user/practice/tn'},
-                {title: 'Bài tập lập trình', href: '/user/practice/code'}
+                {title: 'Bài thi trắc nghiệm', href: '/practice/tn'},
+                {title: 'Bài tập lập trình', href: '/practice/code'}
             ])
         +item-arrow('Kết quả', 'ti-harddrives c-red-500',
             [
-                {title: 'Bài thi trắc nghiệm', href: '/user/result/tn'},
-                {title: 'Bài tập lập trình', href: '/user/result/code'}
+                {title: 'Bài thi trắc nghiệm', href: '/result/tn'},
+                {title: 'Bài tập lập trình', href: '/result/code'}
             ])
-        +normal-item('Danh sách bài thi', 'ti-home c-blue-500', '/user/code')
+        +normal-item('Danh sách bài thi', 'ti-home c-blue-500', '/code')

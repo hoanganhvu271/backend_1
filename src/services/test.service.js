@@ -375,11 +375,12 @@ const getTestByText = async (inputText) => {
 
 const getTestByStudentIdWithPage = async (stuID, pagination) => {
   try {
+    console.log(pagination.limitedItem)
     const data = { status: null, data: [] };
-    const listTest = await db.Test.findAll({
+    let listTest = await db.Test.findAll({
       raw: true,
-      limit: pagination.limitedItem,
-      offset: pagination.limitedItem * (pagination.currentPage - 1),
+      // limit: pagination.limitedItem,
+      // offset: pagination.limitedItem * (pagination.currentPage - 1),
       include: {
         model: db.Result,
         where: {
@@ -387,9 +388,12 @@ const getTestByStudentIdWithPage = async (stuID, pagination) => {
         },
       },
     });
+    let start = pagination.limitedItem * (pagination.currentPage - 1)
+    newlist = listTest.slice(start, start + 5)
+
     if (listTest.length > 0) {
       data.status = 200;
-      data.data = listTest;
+      data.data = newlist;
     } else {
       data.status = 404;
     }

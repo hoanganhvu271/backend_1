@@ -1,6 +1,14 @@
 extends ../../layout/default.pug
 include ../../mixins/pagination.pug
-
+extends ../../layout/default.pug
+include ../../mixins/pagination.pug
+include ../../mixins/question.pug
+block main
+  .container
+    .row.mt-3
+      .col-md-12
+        p.test-name #{test.TenBaithi}
+        table.table.table-striped
 block main
   .row.align-items-center.justify-content-between.mb-6
     .d-flex.align-items-center
@@ -21,7 +29,7 @@ block main
         button.btn.btn-light(btn-loc) Lọc
   hr
   h5 Danh sách sinh viên
-  table(class="table table-striped")
+  table.table.table-striped
     thead
       tr
         th STT
