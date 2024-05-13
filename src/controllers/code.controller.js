@@ -1,8 +1,9 @@
 var request = require('request');
+require("dotenv").config();
 const { createSubmitCode } = require('../services/result.services')
 // define access parameters
-var accessToken = '4115b63958a9eb31a4d33ac722af04d5';
-var endpoint = '02b87882.problems.sphere-engine.com';
+var accessToken = process.env.TOKEN_PROBLEM;
+var endpoint = process.env.ENDPOINT_API;
 
 // define request parameters
 // var submissionId = 66439554;

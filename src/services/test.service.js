@@ -3,6 +3,7 @@ const { sequelize } = require("../config/connectDB");
 const { createNewQuestion } = require("./question.service");
 const { where } = require("sequelize");
 const Sequelize = require("sequelize");
+require("dotenv").config();
 var request = require("request");
 
 const getURL = async (idSubmit) => {
@@ -412,8 +413,8 @@ const getSubmitByStudentIdWithPage = async (stuID, pagination) => {
     });
 
     let submissionsIds = listSubmit.map((submit) => submit.MaSubmit);
-    var accessToken = "9b348449f67afb2fa93a5e53e417b609";
-    var endpoint = "ec2e5307.problems.sphere-engine.com";
+    var accessToken = process.env.TOKEN_PROBLEM;
+    var endpoint = process.env.ENDPOINT_API;
 
     const requestData = await new Promise((resolve, reject) => {
       request(
@@ -446,9 +447,9 @@ const getSubmitByStudentIdWithPage = async (stuID, pagination) => {
               const body = JSON.parse(response.body);
               console.log(
                 "Error code: " +
-                  body.error_code +
-                  ", details available in the message: " +
-                  body.message
+                body.error_code +
+                ", details available in the message: " +
+                body.message
               );
             }
             data.status = 404;
