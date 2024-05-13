@@ -104,8 +104,15 @@ html
           messageDiv.append(messageElement);
           $('#chat-messages').append(messageDiv);
 
+
+
           var chatMessages = document.getElementById('chat-messages');
           chatMessages.scrollTop = chatMessages.scrollHeight;
+
+          const chatWindow = document.getElementById('chat-window');
+          //- if (chatWindow.style.display == 'none') {
+          //-   chatWindow.style.display == 'block'
+          //- }
         });
     include ../partials/setting.pug
     script(src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js")
