@@ -8,9 +8,16 @@ block main
   .search-wrapper.d-flex.align-items-center
     input(type="text" class="form-control search-box-test" tim-kiem-test placeholder="---Tìm kiếm---" value=keyword)
     button.btn.btn-light(btn-loc-test) Lọc
-    button.btn.btn-light(btn-time) Luyện tập
   br
-  h4 Danh sách bài thi
+  div.row
+    div.col-12.col-md-6.text-md-end
+      h4.d-inline-block.mb-0 Danh sách bài thi
+    div.col-12.col-md-6.text-md-start.d-flex.align-items-center.justify-content-end
+      div(style="margin-left: auto;")
+        span(style="font-size: 20px; margin-right: 20px;") Tính thời gian
+        label.switch(style="margin-right: 20px;")
+          input(type="checkbox" checked)
+          span.slider.round
   .test-list
     if (tests === null)
       p Không có bài thi nào
