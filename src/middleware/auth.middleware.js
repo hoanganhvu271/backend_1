@@ -19,10 +19,14 @@ const isAuth = async (req, res, next) => {
             // //console.log(decoded)
             next();
         } catch (error) {
-            return res.status(401).json({
+            response = {
                 code: 0,
-                status: 401,
-                message: 'User Unauthorized.',
+                status: 404,
+                title: "Đăng nhập thất bại",
+                message: "Thông tin tài khoản hoặc mật khẩu không chính xác",
+            };
+            res.render("user/login.pug", {
+                data: response,
             });
         }
     } else {

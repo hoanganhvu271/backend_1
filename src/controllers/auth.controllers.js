@@ -60,7 +60,9 @@ const checkLoginUser = async (req, res) => {
             message: "Yêu cầu điền thông tin đầy đủ",
         };
 
-        res.status(400).json(response);
+        res.render("user/login.pug", {
+            data: response,
+        });
     }
     else {
         // check database
@@ -74,15 +76,19 @@ const checkLoginUser = async (req, res) => {
                 status: 404,
                 message: "Đăng nhập thất bại",
             };
-            res.status(404).json(response);
+            res.render("user/login.pug", {
+                data: response,
+            });
         }
         if (data.status === 500) {
             const response = {
                 code: 0,
                 status: 500,
-                message: "Truy vấn cơ sở dữ liệu thất bại",
+                message: "Đăng nhập thất bại",
             };
-            res.status(500).json(response);
+            res.render("user/login.pug", {
+                data: response,
+            });
         }
         if (data.status === 200) {
             var ok = await bcrypt.compareSync(req.body.password, data.data[0].MatKhau);
@@ -113,6 +119,9 @@ const checkLoginUser = async (req, res) => {
                     title: "Đăng nhập thất bại",
                     message: "Thông tin tài khoản hoặc mật khẩu không chính xác",
                 };
+                res.render("user/login.pug", {
+                    data: response,
+                });
                 // res.status(404).json(response);
             }
             res.render("user/login.pug", {
@@ -124,6 +133,11 @@ const checkLoginUser = async (req, res) => {
 
 
 }
+
+
+
+
+
 
 const createTokenResponse = async (userData) => {
     // //console.log(userData);
