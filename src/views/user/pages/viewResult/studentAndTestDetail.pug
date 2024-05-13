@@ -29,7 +29,7 @@ block main
     .row.mt-3
       .col-md-12
         p.test-name Chi tiết các câu hỏi
-        button.btn.btn-light(btn-again data-mbt=result.MaBaiThi) Làm lại
+          button.btn.btn-light.again(btn-again data-mbt=result.MaBaiThi) Làm lại
         .overflow-auto.list-question
           each question, index in detail
             +question(index + 1, question.question.DeBai, question.question.LuaChon, question._detail.MaLuaChon)
