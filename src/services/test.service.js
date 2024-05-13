@@ -3,15 +3,14 @@ const { sequelize } = require("../config/connectDB");
 const { createNewQuestion } = require("./question.service");
 const { where } = require("sequelize");
 const Sequelize = require("sequelize");
-var request = require('request');
-
+var request = require("request");
 
 const getURL = async (idSubmit) => {
   let submit = await db.Submit.findAll({
     where: { MaSubmit: idSubmit },
-  })
-  return submit[0].dataValues.Source
-}
+  });
+  return submit[0].dataValues.Source;
+};
 
 const getAllProbPerPage = async (page) => {
   var data = { status: null, data: null };
@@ -105,7 +104,7 @@ const createNewTest = async (test, questionList) => {
         TheLoai: "Trắc nghiệm",
         TrangThai: "Đóng",
         img_url: test.imageUrl,
-      },
+      }
       // { transaction: t }
     );
 
@@ -154,7 +153,7 @@ const updateTestById = async (testId, updateData) => {
     test.ThoiGianBatDau = metadata.examDateTime;
     test.ThoiGianThi = parseInt(metadata.examTime);
     test.SoLuongCau = parseInt(data.length);
-    if (metadata.imageUrl != '') {
+    if (metadata.imageUrl != "") {
       test.img_url = metadata.imageUrl;
     }
 
@@ -412,47 +411,59 @@ const getSubmitByStudentIdWithPage = async (stuID, pagination) => {
       },
     });
 
-    let submissionsIds = listSubmit.map(submit => submit.MaSubmit);
-    var accessToken = '4115b63958a9eb31a4d33ac722af04d5';
-    var endpoint = '02b87882.problems.sphere-engine.com';
+    let submissionsIds = listSubmit.map((submit) => submit.MaSubmit);
+    var accessToken = "9b348449f67afb2fa93a5e53e417b609";
+    var endpoint = "ec2e5307.problems.sphere-engine.com";
 
     const requestData = await new Promise((resolve, reject) => {
-      request({
-        url: 'https://' + endpoint + '/api/v4/submissions?ids=' + submissionsIds.join() + '&access_token=' + accessToken,
-        method: 'GET'
-      }, (error, response, body) => {
-        if (error) {
-          console.log('Connection problem');
-          reject('Connection problem');
-          return;
-        }
-        // process response
-        if (response && response.statusCode === 200) {
-          const listSubmit = JSON.parse(response.body).items;
-          // console.log(listSubmit); // list of submissions in JSON
-          data.status = 200;
-          data.data = listSubmit;
-        } else {
-          if (response && response.statusCode === 401) {
-            console.log('Invalid access token');
-          } else if (response && response.statusCode === 400) {
-            const body = JSON.parse(response.body);
-            console.log('Error code: ' + body.error_code + ', details available in the message: ' + body.message)
+      request(
+        {
+          url:
+            "https://" +
+            endpoint +
+            "/api/v4/submissions?ids=" +
+            submissionsIds.join() +
+            "&access_token=" +
+            accessToken,
+          method: "GET",
+        },
+        (error, response, body) => {
+          if (error) {
+            console.log("Connection problem");
+            reject("Connection problem");
+            return;
           }
-          data.status = 404;
+          // process response
+          if (response && response.statusCode === 200) {
+            const listSubmit = JSON.parse(response.body).items;
+            // console.log(listSubmit); // list of submissions in JSON
+            data.status = 200;
+            data.data = listSubmit;
+          } else {
+            if (response && response.statusCode === 401) {
+              console.log("Invalid access token");
+            } else if (response && response.statusCode === 400) {
+              const body = JSON.parse(response.body);
+              console.log(
+                "Error code: " +
+                  body.error_code +
+                  ", details available in the message: " +
+                  body.message
+              );
+            }
+            data.status = 404;
+          }
+          resolve(data);
         }
-        resolve(data);
-      });
+      );
     });
-    console.log(requestData)
+    console.log(requestData);
     return requestData;
   } catch (error) {
     console.error("Đã xảy ra lỗi khi lấy dữ liệu:", error);
     throw error;
   }
 };
-
-
 
 const getTestWithFindObjectAndPage = async (find, pagination) => {
   const data = { status: null, data: null };
@@ -543,8 +554,6 @@ const getTestListForStudentWithFindObject = async (find, pagination) => {
   }
 };
 
-
-
 module.exports = {
   getAllTest,
   getTestById,
@@ -564,5 +573,5 @@ module.exports = {
   getAllProbPerPage,
   getSubmitByStudentIdWithPage,
   getSubmitByStudentId,
-  getURL
+  getURL,
 };
