@@ -119,6 +119,17 @@ CREATE TABLE Permission(
 	Id int auto_increment primary key,
     Name varchar(50)
 );
+use testbtl;
+CREATE TABLE thongke (
+    idThongKe INT AUTO_INCREMENT PRIMARY KEY,
+    LuotXem INT,
+    TaiKhoanMoi INT,
+    BaiThiMoi INT,
+    SoLanLamBaiTheoThang INT,
+    ThangNam DATETIME
+);
+
+
 
 
 CREATE TABLE HasPermission(

@@ -136,6 +136,44 @@ INSERT INTO otp (start_time, end_time, otp_code, email) VALUES
 ('2024-05-11 09:00:00', '2024-05-11 09:30:00', '654321', 'example2@example.com'),
 ('2024-05-11 10:00:00', '2024-05-11 10:30:00', '987654', 'example3@example.com');
 
+
+-- insert thongke
+INSERT INTO thongke (LuotXem, TaiKhoanMoi, BaiThiMoi, SoLanLamBaiTheoThang, ThangNam)
+VALUES
+    (1000, 50, 20, 30, '2024-01-01 00:00:00'),
+    (1200, 60, 25, 35, '2024-02-01 00:00:00'),
+    (1500, 70, 30, 40, '2024-03-01 00:00:00'),
+    (1300, 55, 22, 32, '2024-04-01 00:00:00'),
+    (1400, 65, 28, 38, '2024-05-01 00:00:00'),
+    (1600, 75, 32, 42, '2024-06-01 00:00:00'),
+    (1700, 80, 35, 45, '2024-07-01 00:00:00'),
+    (1800, 85, 38, 48, '2024-08-01 00:00:00'),
+    (1900, 90, 40, 50, '2024-09-01 00:00:00'),
+    (2000, 95, 45, 55, '2024-10-01 00:00:00'),
+    (2100, 100, 50, 60, '2024-11-01 00:00:00'),
+    (2200, 105, 55, 65, '2024-12-01 00:00:00');
+
+
+
+    --update
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Giải tích' WHERE (`MaCauHoi` = 'C01') and (`MaBaiThi` = 'BT02');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Đại số' WHERE (`MaCauHoi` = 'C01') and (`MaBaiThi` = 'BT03');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Đại số' WHERE (`MaCauHoi` = 'C01') and (`MaBaiThi` = 'BT04');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Đại số ' WHERE (`MaCauHoi` = 'C01') and (`MaBaiThi` = 'BT05');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Giải tích' WHERE (`MaCauHoi` = 'C02') and (`MaBaiThi` = 'BT02');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'TTHCM' WHERE (`MaCauHoi` = 'C02') and (`MaBaiThi` = 'BT03');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Triết' WHERE (`MaCauHoi` = 'C02') and (`MaBaiThi` = 'BT04');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Triết' WHERE (`MaCauHoi` = 'C02') and (`MaBaiThi` = 'BT05');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Triết' WHERE (`MaCauHoi` = 'C03') and (`MaBaiThi` = 'BT02');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Tiếng Anh' WHERE (`MaCauHoi` = 'C03') and (`MaBaiThi` = 'BT03');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Triết' WHERE (`MaCauHoi` = 'C03') and (`MaBaiThi` = 'BT04');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Tiếng Anh' WHERE (`MaCauHoi` = 'C04') and (`MaBaiThi` = 'BT03');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Đại số' WHERE (`MaCauHoi` = 'C04') and (`MaBaiThi` = 'BT04');
+UPDATE `testbtl`.`cauhoi` SET `TheLoai` = 'Giải tích' WHERE (`MaCauHoi` = 'C05') and (`MaBaiThi` = 'BT04');
+
+
+
+
 -- Dữ liệu cho bảng KetQuaTungCau
 INSERT INTO KetQuaTungCau (MaChiTiet, MaKetQua, MaBaiThi, MaCauHoi, MaLuaChon, Dung)
 VALUES 

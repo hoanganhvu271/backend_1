@@ -17,6 +17,7 @@ include ../mixins/itemSlider.pug
                 a(href="" class="td-n")
                   i(class="ti-arrow-circle-left")
     ul.sidebar-menu.scrollable.pos-r
+        +normal-item('Trang chủ', 'ti-view-grid c-red-500','/admin/dashboard')
         +item-arrow('Quản lý', 'ti-home c-red-500',
         [
           {title:"Quản lý bài thi", href:"/admin/test"},
@@ -28,10 +29,10 @@ include ../mixins/itemSlider.pug
                 {title: 'Kết quả sinh viên', href: '/admin/result/student'}
             ])
         +item-arrow('Thống kê', 'ti-bar-chart c-red-500',
-            [
-                {title: 'Thống kê bài thi', href: '/admin/statistic/test'},
-                {title: 'Thống kê sinh viên', href: '/admin/statistic/student'}
-            ])
+        [
+          {title:"Thống kê sinh viên", href:"/index"},
+          {title:"Thống kê bài thi", href:"/index"}
+        ])
         +normal-item('Yêu cầu hỗ trợ', 'ti-email c-red-500', '/admin/message/B21DCCN343')
         +normal-item('Phân quyền', 'ti-lock c-red-500', '/admin/permission')
-        
+

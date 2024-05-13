@@ -2,12 +2,8 @@ extends ../../layout/default.pug
 include ../../mixins/pagination.pug
 
 block main
-  .row.align-items-center.justify-content-between.mb-6
-    .search-wrapper.d-flex.align-items-left.ml-2
-        input( type="text" class="form-control search-box-2" tim-kiem-stu placeholder="---Tìm kiếm---" value=keyword)
-        button.btn.btn-light(btn-loc-stu) Lọc
-  hr
-  h5 Problems
+  br
+  h4 Problems
   table(class="table table-striped")
     thead
       tr

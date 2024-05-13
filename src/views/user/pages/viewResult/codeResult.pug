@@ -2,12 +2,8 @@ extends ../../layout/default.pug
 include ../../mixins/pagination.pug
 
 block main
-  .row.align-items-center.justify-content-between.mb-6
-    .search-wrapper.d-flex.align-items-left.ml-2
-        input( type="text" class="form-control search-box-2" tim-kiem-stu placeholder="---Tìm kiếm---" value=keyword)
-        button.btn.btn-light(btn-loc-stu) Lọc
-  hr
-  h5 Danh sách bài thi đã làm
+  br
+  h4 Danh sách bài lập trình đã làm
   table(class="table table-striped")
     thead
       tr
@@ -17,16 +13,19 @@ block main
         th Status
         th Language
         th Summary
-        th Chi tiết
+        th Detail
     tbody
         each submit, index in submitList
             tr
             td #{submit.id}
             td #{submit.date}
             td #{submit.problem.name}
-            td #{submit.result.status.name}
+            if submit.result.status.name === 'accepted'
+                td(style="color: #00BB00;") #{submit.result.status.name}
+            else
+                td(style="color: red;") #{submit.result.status.name}
             td #{submit.compiler.version.name}
             td #{submit.result.time}s #{submit.result.memory}KB
             td
-                a.btn.btn-primary(btn-detail-submit idSubmit = submit.id ) Xem source
+                a.btn.btn-primary(btn-detail-submit idSubmit = submit.id ) Review
   +pagination(pagination)

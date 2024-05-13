@@ -66234,7 +66234,67 @@ table.dataTable.no-footer {
   box-shadow: none;
   border: 1px solid rgba(0, 0, 0, 0.0625);
 }
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px; /* Giảm kích thước đi 1.5 lần */
+  height: 22.67px; /* Giảm kích thước đi 1.5 lần */
+}
 
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  /* -webkit-transition: .4s; */
+  /* transition: .4s; */
+  border-radius: 11.34px; /* Tương ứng với 50% chiều cao */
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17px; /* Giảm kích thước đi 1.5 lần */
+  width: 17px; /* Giảm kích thước đi 1.5 lần */
+  left: 3.4px; /* Giảm kích thước đi 1.5 lần */
+  bottom: 3.4px; /* Giảm kích thước đi 1.5 lần */
+  background-color: white;
+  /* -webkit-transition: .2s; */
+  /* transition: .2s; */
+  border-radius: 50%; /* Đảm bảo là hình tròn */
+}
+
+input:checked + .slider {
+  background-color: red;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px red;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(17px); /* Giảm kích thước đi 1.5 lần */
+  -ms-transform: translateX(17px); /* Giảm kích thước đi 1.5 lần */
+  transform: translateX(17px); /* Giảm kích thước đi 1.5 lần */
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 .daterangepicker .input-mini {
   border-radius: 0;
   margin-bottom: 20px;
@@ -68027,6 +68087,7 @@ License - nucleoapp.com/license/
   border-color: #e91e63;
 }
 
+
 .form-check:not(.form-switch) .form-check-input[type="checkbox"] {
   background-image: none;
 }
@@ -68110,6 +68171,7 @@ License - nucleoapp.com/license/
   background-color: #ced4da;
   height: 0.9375rem;
   width: 1.875rem;
+
 }
 
 .form-check-input {
@@ -68119,8 +68181,8 @@ License - nucleoapp.com/license/
 .form-switch .form-check-input:after {
   transition: transform 0.25s ease-in-out, background-color 0.25s ease-in-out;
   content: "";
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.4rem;
+  height: 1.4rem;
   border-radius: 50% !important;
   border: 1px solid #ced4da;
   position: absolute;
