@@ -171,7 +171,8 @@ module.exports.widgetProb = async (req, res) => {
   // res.sendFile("D:/CODE/backend_1 - Copy/src/views/user/pages/test_list/codeList.html", tmp);
   let idProb = req.params.idProb
   let filename = idProb + '.html'
-  res.sendFile('D:/CODE/backend_1 - Copy/src/views/user/pages/test_list/problist/' + filename);
+  // res.sendFile('backend_1 - Copy/src/views/user/pages/test_list/problist/' + filename);
+  res.sendFile(filename, {root: 'src/views/user/pages/test_list/problist'});
 };
 // [GET] /admin/my-account
 

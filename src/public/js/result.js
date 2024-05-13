@@ -173,6 +173,21 @@ btnLocTest.forEach(function (btn) {
   });
 });
 
+const btnTime = document.querySelectorAll("[btn-time]");
+btnTime.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    let timeState = localStorage.getItem('time');
+    if (timeState == 0 || timeState === null) {
+      localStorage.setItem('time', 1);
+      btn.textContent = 'Thi'; // Thay đổi textContent của nút được click
+    } else {
+      localStorage.setItem('time', 0);
+      btn.textContent = 'Luyện tập'; // Thay đổi textContent của nút được click
+    }
+  });
+});
+
+
 const btnDetailTest = document.querySelectorAll("[btn-detail-test]");
 btnDetailTest.forEach(function (btn) {
   btn.addEventListener("click", function () {

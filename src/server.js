@@ -16,6 +16,7 @@ const errorRoutes = require("./routes/pageError/index.router");
 
 //test connection
 // connection();
+app.use(express.static('views/user/pages/test_list/problist'));
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
