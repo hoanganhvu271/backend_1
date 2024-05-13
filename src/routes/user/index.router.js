@@ -6,7 +6,7 @@ const { isAuth } = require('../../middleware/auth.middleware')
 
 module.exports = (app) => {
   app.use("/", indexUser);
-  app.use("/user/practice", isAuth, userListTest);
-  app.use("/user/result", isAuth, userResult);
-  app.use("/user/profile", isAuth, profileRoutes)
+  app.use("/practice", isAuth, userListTest);
+  app.use("/result", isAuth, userResult);
+  app.use("/profile", isAuth, profileRoutes)
 };

@@ -204,7 +204,7 @@ module.exports.resultTestOfStudent = async (req, res) => {
     req.jwtDecoded.data.id,
     pagination
   );
-  //console.log(testListWithPage);
+  // console.log(testListWithPage);
   res.render("user/pages/viewResult/testResult.pug", {
     titlePage: "Kết quả sinh viên",
     student: student.data[0],

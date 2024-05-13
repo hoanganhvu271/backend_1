@@ -208,7 +208,7 @@ btnDetailTestUser.forEach(function (btn) {
     url.searchParams.delete("keyword");
     url.searchParams.delete("page");
     url.searchParams.delete("class");
-    url.pathname = `/user/result/test/${testId}`;
+    url.pathname = `/result/test/${testId}`;
     window.location.href = url;
   });
 });
@@ -224,6 +224,28 @@ btnDetailStudentAndTest.forEach(function (btn) {
     url.searchParams.delete("page");
     url.searchParams.delete("class");
     url.href += `/${studentId}`;
+    window.location.href = url;
+  });
+});
+
+const btnAgain = document.querySelectorAll(
+  "[btn-again]"
+);
+
+btnAgain.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    let maBaiThi = btn.getAttribute('data-mbt');
+    
+    // Tạo URL mới từ URL hiện tại
+    const url = new URL(window.location.href);
+    
+    // Thay thế phần cuối của đường dẫn với '/result/test/maBaiThi'
+    const pathArray = url.pathname.split('/');
+    pathArray[2] = 'test';
+    pathArray[3] = maBaiThi;
+    url.pathname = pathArray.join('/');
+    
+    // Chuyển hướng đến URL mới
     window.location.href = url;
   });
 });

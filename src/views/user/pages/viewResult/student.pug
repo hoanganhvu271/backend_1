@@ -1,6 +1,14 @@
 extends ../../layout/default.pug
 include ../../mixins/pagination.pug
-
+extends ../../layout/default.pug
+include ../../mixins/pagination.pug
+include ../../mixins/question.pug
+block main
+  .container
+    .row.mt-3
+      .col-md-12
+        p.test-name #{test.TenBaithi}
+        table.table.table-striped
 block main
   .row.align-items-center.justify-content-between.mb-6
     .d-flex.align-items-center
@@ -21,11 +29,24 @@ block main
         button.btn.btn-light(btn-loc) Lọc
   hr
   h5 Danh sách sinh viên
+<<<<<<< HEAD
   if studentList == null || studentList.length == 0
     p Không có dữ liệu
   else
     table(class="table table-striped")
       thead
+=======
+  table.table.table-striped
+    thead
+      tr
+        th STT
+        th Mã sinh viên
+        th Họ và tên
+        th Lớp
+        th Chi tiết
+    tbody
+      each student, index in studentList
+>>>>>>> eb1eaf7b980fe7c716ef2d46605a006b8d80a720
         tr
           th STT
           th Mã sinh viên

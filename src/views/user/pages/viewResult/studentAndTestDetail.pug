@@ -14,12 +14,12 @@ block main
             tr
               th(scope="row" class="text-left") Tên:
               td.text-left #{student.Ten}
-              th(scope="row" class="text-left") Thời gian bắt đầu:
+              th(scope="row" class="text-left") Thời gian làm bài:
               td.text-left #{result.ThoiGianLamBai.toISOString().replace('T', ' ').replace('Z', '').split('.')[0]}
             tr
               th(scope="row" class="text-left") Mã SV:
               td.text-left #{student.MSV}
-              th(scope="row" class="text-left") Thời gian kết thúc:
+              th(scope="row" class="text-left") Thời gian nộp bài:
               td.text-left #{result.ThoiGianNopBai.toISOString().replace('T', ' ').replace('Z', '').split('.')[0]}
             tr
               th(scope="row" class="text-left") Lớp:
@@ -29,6 +29,7 @@ block main
     .row.mt-3
       .col-md-12
         p.test-name Chi tiết các câu hỏi
+        button.btn.btn-light(btn-again data-mbt=result.MaBaiThi) Làm lại
         .overflow-auto.list-question
           each question, index in detail
             +question(index + 1, question.question.DeBai, question.question.LuaChon, question._detail.MaLuaChon)
