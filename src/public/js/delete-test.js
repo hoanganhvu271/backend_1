@@ -8,8 +8,7 @@ async function deleteTest(id) {
         });
         const data = await response.json();
         if (data.status === 200) {
-            var testTr = document.getElementById(id)
-            testTr.remove();
+            window.location.href = "/admin/test";
         } else {
             alert('Xóa không thành công!');
         }

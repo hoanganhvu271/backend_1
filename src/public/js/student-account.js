@@ -1,5 +1,5 @@
 // const { getHasPermission } = require("../../services/permission.service");
-
+// const bcrypt = require('bcrypt')
 
 function openPopUp(id) {
 
@@ -27,7 +27,7 @@ function closePopUp(id) {
     details.style.display = 'none';
 }
 
-function submitForm(id) {
+async function submitForm(id) {
     // //console.log("hello")
     var details = document.getElementById(id);
 
@@ -44,9 +44,11 @@ function submitForm(id) {
         return;
     }
 
+    // const hashedPassword = await bcrypt.hash(newPassword, 10);
+
     details.style.display = 'none';
 
-    fetch('/api/new-student', {
+    await fetch('/api/new-student', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -67,6 +69,7 @@ function submitForm(id) {
         })
         .then(data => {
             // Xử lý phản hồi từ backend nếu cần
+            window.location.href = "/admin/account";
             //console.log(data);
         })
         .catch(error => {
@@ -90,11 +93,9 @@ async function deleteAccount(id) {
             }
         });
         const data = await response.json();
+        console.log(data)
         if (data.status === 200) {
-            //console.log(data.message)
-            // var testTr = document.getElementById(id)
-            // testTr.remove();
-            window.redirect('/admin/account')
+            window.location.href = "/admin/account";
         } else {
             showAlert('Xóa không thành công!')
         }
@@ -187,6 +188,7 @@ function finishEdit(id) {
             return response.json();
         })
         .then(data => {
+            window.location.href = "/admin/account";
             // Xử lý phản hồi từ backend nếu cần
             //console.log(data);
         })

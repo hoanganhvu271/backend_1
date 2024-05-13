@@ -124,7 +124,7 @@ document.getElementById('excel-file').addEventListener('change', function (event
         excelData.forEach(function (row, index) {
             var questionContent = document.createElement('div');
             questionContent.className = 'question-content';
-            questionContent.id = index;
+            questionContent.id = parseInt(index + 1) + 1;
 
             var questionDiv = document.createElement('div');
             questionDiv.className = 'question-container';
@@ -147,13 +147,13 @@ document.getElementById('excel-file').addEventListener('change', function (event
 
             //old
             var questionLabel = document.createElement('label');
-            questionLabel.textContent = 'Câu hỏi ' + (parseInt(index) + parseInt(1)) + ':';
+            questionLabel.textContent = 'Câu hỏi ' + (parseInt(index + 1) + parseInt(1)) + ':';
 
             var questionInput = document.createElement('textarea');
             questionInput.cols = 140;
             questionInput.rows = 3;
             questionInput.value = row.question;
-            questionInput.id = 'question' + index;
+            questionInput.id = 'question' + parseInt(index + 1);
 
 
             questionTitle.appendChild(questionLabel);
@@ -169,7 +169,7 @@ document.getElementById('excel-file').addEventListener('change', function (event
 
                 var answerCheckbox = document.createElement('div');
                 answerCheckbox.className = 'checkbox';
-                answerCheckbox.id = index + 'checkbox' + j;
+                answerCheckbox.id = parseInt(index + 1) + 'checkbox' + j;
                 answerCheckbox.onclick = function () {
                     toggleCheckbox(this.id);
                 };
@@ -179,8 +179,8 @@ document.getElementById('excel-file').addEventListener('change', function (event
                 answerInput.cols = "140";
                 answerInput.rows = "1";
                 answerInput.value = row['answer' + j];
-                answerInput.id = 'question' + index + 'answer' + j;
-                answerInput.name = 'question' + index + 'answer' + j;
+                answerInput.id = 'question' + parseInt(index + 1) + 'answer' + j;
+                answerInput.name = 'question' + parseInt(index + 1) + 'answer' + j;
 
                 answerDiv.appendChild(answerCheckbox);
                 answerDiv.appendChild(answerInput);
@@ -194,7 +194,7 @@ document.getElementById('excel-file').addEventListener('change', function (event
             for (var i = 1; i <= 4; i++) {
                 if (row['correct'] == i) {
                     // //console.log(i);
-                    toggleCheckbox(index + 'checkbox' + i);
+                    toggleCheckbox(parseInt(index + 1) + 'checkbox' + i);
                 }
             }
         });

@@ -113,6 +113,7 @@ const getStudentByIdHandler = async (req, res) => {
 
 const postStudentHandler = async (req, res) => {
   student = req.body;
+  student.password = await bcrypt.hashSync(student.password, saltRounds);
   var status = await createNewStudent(student);
   if (status == 1) {
     res.status(200).json({
@@ -157,7 +158,13 @@ const deleteStudentHandler = async (req, res) => {
 const updateStudentHandler = async (req, res) => {
   const studentId = req.params.id;
   const updatedData = req.body;
+
+  updatedData.password = await bcrypt.hashSync(updatedData.password, saltRounds);
+  // console.log(updatedData)
+
   const status = await updateStudentById(studentId, updatedData);
+
+
 
   if (status == 1) {
     res.status(200).json({
