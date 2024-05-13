@@ -70,15 +70,17 @@
 }
 
 .content-test-name {
-  font-size: 25px;
+  font-size: 33px;
+  color: rgb(252, 62, 97);
   font-weight: bold;
   margin-left: 10px;
 }
 
 .content-test-detail {
   margin-top: 10px;
-  font-size: 20px;
+  font-size: 15px;
   margin-left: 10px;
+  color: rgb(2, 2, 2);
 }
 
 .status-test-open {
@@ -177,6 +179,8 @@ td {
   color: white;
   height: 40px;
   min-width: 80px;
+  text-align: center;
+  justify-content: center;
 }
 
 .pagination {

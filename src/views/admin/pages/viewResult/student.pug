@@ -21,22 +21,25 @@ block main
         button.btn.btn-light(btn-loc) Lọc
   hr
   h5 Danh sách sinh viên
-  table(class="table table-striped")
-    thead
-      tr
-        th STT
-        th Mã sinh viên
-        th Họ và tên
-        th Lớp
-        th Chi tiết
-    tbody
-      - if (studentList)
-          each student, index in studentList
-            tr
-              td #{index + 1}
-              td #{student.MSV}
-              td #{student.Ten}
-              td #{student.Lop}
-              td
-                a.btn.btn-primary( idStu = student.MSV btn-detail) Xem chi tiết
+  if studentList == null || studentList.length == 0
+    p Không có dữ liệu
+  else
+    table(class="table table-striped")
+      thead
+        tr
+          th STT
+          th Mã sinh viên
+          th Họ và tên
+          th Lớp
+          th Chi tiết
+      tbody
+        - if (studentList)
+            each student, index in studentList
+              tr
+                td #{index + 1}
+                td #{student.MSV}
+                td #{student.Ten}
+                td #{student.Lop}
+                td
+                  a.btn.btn-primary( idStu = student.MSV btn-detail) Xem chi tiết
   +pagination(pagination)

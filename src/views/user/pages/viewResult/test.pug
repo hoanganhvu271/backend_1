@@ -11,6 +11,9 @@ block main
   br
   h4 Danh sách bài thi
   .test-list
-    each test in tests
-      +testMixin(test)
+    if (tests === null)
+      p Không có bài thi nào
+    else
+      each test in tests
+        +testMixin(test)
   +pagination(pagination)
