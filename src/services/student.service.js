@@ -103,6 +103,7 @@ const createNewStudent = async (student) => {
       Email: student.email,
       TaiKhoan: student.msv,
       MatKhau: hashPassword,
+      ThoiGian: new Date(),
     });
 
     return 1;
