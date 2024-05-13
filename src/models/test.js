@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       MaBaiThi: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       TenBaithi: DataTypes.STRING,
       ThoiGianBatDau: DataTypes.STRING,
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       SoLuongCau: DataTypes.INTEGER,
       TheLoai: DataTypes.STRING,
       TrangThai: DataTypes.STRING,
-      // img_url: DataTypes.STRING,
+      img_url: DataTypes.STRING,
     },
     {
       // options
