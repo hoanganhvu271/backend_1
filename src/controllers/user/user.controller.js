@@ -13,7 +13,7 @@ function generateOTP() {
 }
 module.exports.index = async (req, res) => {
 
-
+    
 
     res.render("user/login.pug", {
         titlePage: "Thông tin cá nhân"

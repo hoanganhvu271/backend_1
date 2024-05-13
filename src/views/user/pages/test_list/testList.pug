@@ -8,6 +8,7 @@ block main
   .search-wrapper.d-flex.align-items-center
     input(type="text" class="form-control search-box-test" tim-kiem-test placeholder="---Tìm kiếm---" value=keyword)
     button.btn.btn-light(btn-loc-test) Lọc
+    button.btn.btn-light(btn-time) Luyện tập
   br
   h4 Danh sách bài thi
   .test-list
@@ -17,3 +18,15 @@ block main
       each test in tests
         +testMixin(test)
   +pagination(pagination)
+
+  script.
+    document.addEventListener("DOMContentLoaded", function() {
+        var timeState = localStorage.getItem('time');
+        var btnTime = document.getElementById('btn-time');
+        if (timeState === '0' || timeState === null) {
+            btnTime.textContent = 'Luyện tập';
+            if (timeState === null) localStorage.setItem('time', 0);
+        } else { 
+            btnTime.textContent = 'Thi';
+        }
+    });

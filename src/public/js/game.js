@@ -186,7 +186,7 @@ thoat = () => {
     });
 }
 
-if(data.test.ThoiGianThi > 0) {
+if(data.test.ThoiGianThi > 0 && !(localStorage.getItem('time') == 0 || localStorage.getItem('time') == null)) {
 
     var distance = 1000 * data.test.ThoiGianThi * 60;
     // Cập nhật thời gian mỗi 1 giây
