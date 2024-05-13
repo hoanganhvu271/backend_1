@@ -20,5 +20,5 @@ module.exports = (app) => {
   app.use("/admin/message", isAdminPermission, messageRouter);
   app.use("/admin/error", errorRouter);
   app.use("/admin", indexAdmin);
-  app.use("/admin/dashboard", dashboardRouter);
+  app.use("/admin/dashboard", isAdminPermission, dashboardRouter);
 };
