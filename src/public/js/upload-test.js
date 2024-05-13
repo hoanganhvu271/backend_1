@@ -396,11 +396,13 @@ async function Save() {
     };
 
     try {
+        showLoading()
         const response = await fetch(backendURL, options);
         if (!response.ok) {
             throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
         }
         const data = await response.json();
+        hideLoading();
         //console.log('Dữ liệu đã được gửi thành công đến backend:', data);
         window.location.href = "/admin/test";
     } catch (error) {

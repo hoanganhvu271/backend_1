@@ -5,13 +5,13 @@ html
     link(rel="stylesheet",  href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
     link(rel="stylesheet",  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css")
     link(rel="stylesheet",  href="/css/index.css")
+    script(src="/js/loading.js")
     link(rel="stylesheet", href="/css/new.css")
     link(rel="stylesheet", href="/css/edit-test.css")
     link(rel="stylesheet", href="/css/admin-chat.css")
     link(rel="stylesheet", href="/css/loading.css")
     <script src="https://cdn.socket.io/socket.io-4.2.0.min.js"></script>
     script(src="/js/authen.js")
-    script(src="/js/loading.js")
     style.
       #clickEffect {
         margin: -30px;
@@ -30,8 +30,8 @@ html
 
       }
   body.app
-    //- #loading
-    //-   img(src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif", alt="Loading...")
+    #loading
+      img(src="https://i.pinimg.com/originals/3d/6a/a9/3d6aa9082f3c9e285df9970dc7b762ac.gif", alt="Loading...")
     include ../partials/header.pug
     .page-container
       include ../partials/nav-header.pug

@@ -92,8 +92,9 @@ async function deleteAccount(id) {
         const data = await response.json();
         if (data.status === 200) {
             //console.log(data.message)
-            var testTr = document.getElementById(id)
-            testTr.remove();
+            // var testTr = document.getElementById(id)
+            // testTr.remove();
+            window.redirect('/admin/account')
         } else {
             showAlert('Xóa không thành công!')
         }

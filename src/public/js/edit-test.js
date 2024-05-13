@@ -12,6 +12,19 @@ document.getElementById('fileOption').addEventListener('change', function () {
     }
 });
 
+// Hiển thị trạng thái loading khi bắt đầu yêu cầu
+function showLoading() {
+    console.log('mở')
+    var loading = document.getElementById('loading');
+    loading.style.display = 'block';
+}
+
+// Ẩn trạng thái loading khi kết thúc yêu cầu
+function hideLoading() {
+    console.log('đóng')
+    var loading = document.getElementById('loading');
+    loading.style.display = 'none';
+}
 
 function render(questions) {
 
@@ -300,15 +313,19 @@ async function Save(id) {
         };
 
         // //console.log(options)
+        showLoading()
         await fetch(backendURL, options)
+
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Có lỗi xảy ra khi gửi yêu cầu: ' + response.status);
                 }
                 return response.json(); // Trả về phản hồi dưới dạng JSON
             })
+
             .then(data => {
                 //console.log('Dữ liệu đã được gửi thành công đến backend:', data);
+                hideLoading()
                 window.location.href = "/admin/test";
             })
             .catch(error => {

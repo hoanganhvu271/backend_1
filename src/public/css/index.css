@@ -197,12 +197,14 @@ td {
   background-color: #d92110;
   color: white;
 }
-.page-item.active .page-link{
+
+.page-item.active .page-link {
   background-color: #c32b2b;
   color: white;
   border-color: #d32121;
 
 }
+
 .test-name {
   font-size: 25px;
   font-weight: bold;
@@ -812,7 +814,6 @@ a.btn:hover {
   transition: all 0.2s ease;
   width: calc(100% - 280px);
   z-index: 800;
-  height: 85px;
 }
 
 @media screen and (max-width: 991px) {
@@ -69140,6 +69141,7 @@ label,
   padding: 0;
   overflow-y: visible;
 }
+
 .navbar-dark {
   --bs-navbar-color: rgba(255, 255, 255, 0.85);
   --bs-navbar-hover-color: rgba(255, 255, 255, 0.75);

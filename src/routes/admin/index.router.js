@@ -14,7 +14,7 @@ module.exports = (app) => {
   app.use("/admin/result", viewResultRoutes);
   app.use("/admin/test", isAdminPermission, testListRoutes);
   app.use("/admin/account", isAdminPermission, accountManageRoutes);
-  app.use("/admin/profile", isAdminPermission, profileRoutes);
+  app.use("/admin/profile", profileRoutes);
   app.use("/admin/statistic", isAdminPermission, statisticRouter);
   app.use("/admin/permission", isAdminPermission, permissionRouter);
   app.use("/admin/message", messageRouter);

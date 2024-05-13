@@ -16,8 +16,7 @@ block main
             p #{admin.Email}
         .col-md-5
     br
-    .col-md-12.text-right
-      button.btn.btn-primary.btn-sm#editBtn Chỉnh sửa thông tin
+
     hr
     .col-md-12
       .row
@@ -40,8 +39,8 @@ block main
             label(for="instagram") Instagram:
             input.form-control(type="text", id="instagram", value= admin.Instagram, readonly)
           .form-group
-            label(for="zalo") Zalo:
-            input.form-control(type="text", id="zalo", value= admin.Zalo, readonly)
+            label(for="zalo") Vai trò:
+            input.form-control(type="text", id="zalo", value= admin.Role_id, readonly)
     br
     .col-md-12.text-center
       button.btn.btn-primary.hide#saveBtn() Lưu
