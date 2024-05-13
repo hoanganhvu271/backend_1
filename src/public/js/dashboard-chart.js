@@ -2,7 +2,7 @@ const done = document.getElementById('done');
 const visited = document.getElementById('visited');
 var list = JSON.parse(document.querySelector('input').getAttribute('data-view-dashboard'));
 var first_theloai = JSON.parse(document.querySelectorAll('input')[1].getAttribute('data-TheLoai-dashboard'));
-console.log(list.first);
+
 
 new Chart(done, {
     type: 'polarArea',
@@ -38,7 +38,7 @@ new Chart('visited', {
     data: {
         labels: list.first,
         datasets: [{
-            label: 'Visited Website Per Month',
+            label: 'Người dùng tạo mới mỗi tháng',
             data: list.second,
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',

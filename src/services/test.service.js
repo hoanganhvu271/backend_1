@@ -545,6 +545,7 @@ const getTestListForStudentWithFindObject = async (find, pagination) => {
       offset: pagination.limitedItem * (pagination.currentPage - 1),
       raw: true,
     });
+    console.log(tests);
     if (tests.length > 0) {
       data.status = 200;
       data.data = tests;

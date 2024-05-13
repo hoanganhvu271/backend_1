@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       MaBaiThi: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       TenBaithi: DataTypes.STRING,
       ThoiGianBatDau: DataTypes.STRING,
