@@ -5,28 +5,31 @@ block main
     .cardBox-dashboard
         .card-dashboard
           div
-            .number-dashboard 1,042 
-            .cardName-dashboard Daily Views 
+             
+            .cardName-dashboard Tổng số lượt xem trang web
+            .number-dashboard=data.TongLuotXem
           .iconBox-dashboard
             i.fas.fa-eye 
         .card-dashboard
           div
-            .number-dashboard-dashboard 2
-            .cardName-dashboard New Account
+            
+            .cardName-dashboard Tổng số bài thi
+            .number-dashboard=data.TongBaiThiMoi
           .iconBox-dashboard
-             i.fa-solid.fa-pen
+             i.fa-solid.fa-file-circle-plus
         .card-dashboard
           div
-            .number-dashboard-dashboard 2
-            .cardName-dashboard New Account
+           
+            .cardName-dashboard Tổng số lượt làm bài
+            .number-dashboard=data.TongSoLanLamBaiTheoThang
           .iconBox-dashboard
-             i.fa-solid.fa-comment
+             i.fa-solid.fa-user-pen
         .card-dashboard
           div
-            .number-dashboard-dashboard 2
-            .cardName-dashboard New Account
+            .cardName-dashboard Số lượng tài khoản mới
+            .number-dashboard=data.TongTaiKhoanMoi
           .iconBox-dashboard
-             i.fa-regular.fa-user
+             i.fa-solid.fa-user-plus
 
 
     
@@ -34,8 +37,6 @@ block main
       each box in [1, 2] 
         .box
           canvas(id=box === 1 ? "done" : "visited")
-
-    
     .details-dashboard
       .topuser-dashboard
         .cardHeader-dashboard
@@ -44,25 +45,24 @@ block main
           thead
             tr
               th STT
-              th avatar
-              th Name
-              th Msv
-              th Lop
-              th Point
+              th Ảnh đại diện
+              th Tên
+              th Mã sinh viên
+              th Lớp
+              th Điểm trung bình 
           tbody
-            each user, index in [1, 2, 3, 4, 5,6,7,8,9,10] 
+            each  user,index in data3 
               tr
-                td #{index}
+                td #{index + 1}
                 td
                   span.iconBox-dashboard
                     i.fa-regular.fa-user
-                td Nguyen Van A 
-                td 123456 
-                td 18CTT1 
-                td 100 
-
-      .message-dashboard
-        .cardHeader-dashboard
-          h2 message 
+                td #{user.dataValues.Student.dataValues.Ten} 
+                td #{user.dataValues.MSV}
+                td #{user.dataValues.Student.dataValues.Lop} 
+                td #{user.dataValues.averageScore} 
+    input( type ="hidden" data-view-dashboard = JSON.stringify(data1))
+    input( type ="hidden" data-TheLoai-dashboard = JSON.stringify(data2))
     script(src="https://cdn.jsdelivr.net/npm/chart.js")
     script(src="/js/dashboard-chart.js")
+   

@@ -29,6 +29,7 @@
     grid-gap: 10px;
 }
 
+
 .cardBox-dashboard .card-dashboard {
 
 
@@ -41,7 +42,14 @@
     border-radius: 20px;
     grid-gap: 20px;
     cursor: pointer;
+    font-weight: 600px;
 
+}
+
+
+.cardBox-dashboard .card-dashboard:hover {
+    background: yellow;
+    color: white;
 }
 
 .cardBox-dashboard .card-dashboard .number-dashboard {
@@ -76,7 +84,7 @@
     width: 100%;
     padding-top: 0;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr;
 
 }
 

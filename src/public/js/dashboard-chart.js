@@ -1,12 +1,16 @@
 const done = document.getElementById('done');
 const visited = document.getElementById('visited');
+var list = JSON.parse(document.querySelector('input').getAttribute('data-view-dashboard'));
+var first_theloai = JSON.parse(document.querySelectorAll('input')[1].getAttribute('data-TheLoai-dashboard'));
+console.log(list.first);
+
 new Chart(done, {
     type: 'polarArea',
     data: {
-        labels: ['Toán', 'Lý', 'Hóa', 'Sinh'],
+        labels: first_theloai.first,
         datasets: [{
             // label: '# of Votes',
-            data: [1200, 1900, 4000, 3000],
+            data: first_theloai.second,
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
@@ -24,17 +28,18 @@ new Chart(done, {
         },
         responsive: true,
     }
-});
+}
+)
 
 
 
-new Chart('visited', { // Thay 'visited' bằng id của canvas
+new Chart('visited', {
     type: 'bar',
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        labels: list.first,
         datasets: [{
-            label: 'Visited Website',
-            data: [65, 59, 80, 81, 56, 55, 40, 11, 27, 122, 33, 44],
+            label: 'Visited Website Per Month',
+            data: list.second,
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(255, 159, 64, 1)',
@@ -66,33 +71,12 @@ new Chart('visited', { // Thay 'visited' bằng id của canvas
             y: {
                 beginAtZero: true
             }
+        },
+        xAxis: {
+            title: {
+                display: true,
+                text: 'Tên Cột X'
+            }
         }
     }
 });
-
-
-// new Chart(visited, {
-//     type: 'bar',
-//     data: {
-//         labels: ['Toán', 'Lý', 'Hóa', 'Sinh'],
-//         datasets: [{
-//             // label: '# of Votes',
-//             data: [1200, 1900, 4000, 3000],
-//             backgroundColor: [
-//                 'rgba(255, 99, 132, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(255, 206, 86, 1)',
-//                 'rgba(75, 192, 192, 1)'
-//             ],
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             y: {
-//                 beginAtZero: true
-//             }
-//         },
-//         responsive: true,
-//     }
-// });
