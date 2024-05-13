@@ -4,13 +4,16 @@ include ../mixins/itemSlider.pug
     .sidebar-logo
           .peers.ai-c.fxw-nw
             .peer.peer-greed
-              a(class="sidebar-link td-n" href="/")
+              a(class="sidebar-link td-n" href="/result")
                 .peers.ai-c.fxw-nw
                   .peer
                     .logo
                       img(src="assets/static/images/logo.png" alt="")
                   .peer.peer-greed
-                    h5(class="lh-1 mB-0 logo-text" name-admin) PTIT QUIZ
+                    h5.lh-1.mB-0.logo-text(name-admin)
+                      | 
+                      each char in "PTIT QUIZ"
+                        span(char)= char
             .peer
               .mobile-toggle.sidebar-toggle
                 a(href="" class="td-n")

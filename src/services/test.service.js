@@ -382,15 +382,17 @@ const getTestByStudentIdWithPage = async (stuID, pagination) => {
       // limit: pagination.limitedItem,
       // offset: pagination.limitedItem * (pagination.currentPage - 1),
       include: {
-        model: db.Result,
-        where: {
-          MSV: stuID,
-        },
+          model: db.Result,
+          where: {
+              MSV: stuID,
+          },
       },
-    });
+      order: [[db.Result, 'ThoiGianNopBai', 'DESC']], // Sắp xếp theo trường ThoiGianNopBai trong bảng Result theo thứ tự giảm dần
+  });
+  
     let start = pagination.limitedItem * (pagination.currentPage - 1)
     newlist = listTest.slice(start, start + 5)
-
+    // console.log(newlist)
     if (listTest.length > 0) {
       data.status = 200;
       data.data = newlist;
@@ -414,6 +416,7 @@ const getSubmitByStudentIdWithPage = async (stuID, pagination) => {
       where: {
         MSV: stuID,
       },
+      // order: [['MaSubmit', 'DESC']]
     });
 
     let submissionsIds = listSubmit.map((submit) => submit.MaSubmit);

@@ -32,7 +32,7 @@ const getStudentById = async (id) => {
       where: { MSV: id },
     });
 
-    // //console.log(students)
+    // console.log(students)
     if (students.length > 0) {
       data.status = 200;
       data.data = students;
@@ -161,6 +161,33 @@ const updateStudentById = async (id, data) => {
   }
 };
 
+const updateStudentById2 = async (id, data) => {
+  try {
+    var student = await db.Student.findByPk(id);
+    if (!student) {
+      console.log("Student not found");
+      return 0;
+    }
+
+    var existStudent = await db.Student.findByPk(data.MSV);
+    if (existStudent) {
+      console.log("Student with the same MSV already exists");
+    }
+
+    student.Ten = data.Ten;
+    student.Lop = data.Lop;
+    student.Email = data.Email;
+    student.TaiKhoan = data.TaiKhoan;
+    student.MatKhau = student.MatKhau
+    await student.save();
+    console.log("Student updated successfully");
+    return 1;
+  } catch (err) {
+    console.error("Error updating student:", err);
+    return 0;
+  }
+};
+
 const getStudentCondition = async (condition, keyword) => {
   const data = { status: null, data: null };
   switch (condition) {
@@ -266,6 +293,7 @@ module.exports = {
   createNewStudent,
   deleteStudentById,
   updateStudentById,
+  updateStudentById2,
   getStudentCondition,
   getStudentWithFindObject,
   getCountStudentWithFindObject,

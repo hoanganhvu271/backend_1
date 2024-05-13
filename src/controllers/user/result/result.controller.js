@@ -230,6 +230,7 @@ module.exports.submitOfStudent = async (req, res) => {
     req.jwtDecoded.data.id,
     pagination
   );
+  submitListWithPage.data.sort((a, b) => b.id - a.id);
   //console.log(submitListWithPage);
   res.render("user/pages/viewResult/codeResult.pug", {
     titlePage: "Kết quả sinh viên",

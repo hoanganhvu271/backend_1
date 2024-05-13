@@ -20,13 +20,17 @@ block main
       tbody
           each submit, index in submitList
               tr
-                td #{submit.id}
+                td 
+                  strong #{submit.id}
                 td #{submit.date}
-                td #{submit.problem.name}
+                td 
+                  strong #{submit.problem.name}
                 if submit.result.status.name === 'accepted'
-                    td(style="color: #00BB00;") #{submit.result.status.name}
+                    td(style="color: #00BB00;") 
+                      strong #{submit.result.status.name}
                 else
-                    td(style="color: red;") #{submit.result.status.name}
+                    td(style="color: red;") 
+                      strong #{submit.result.status.name}
                 td #{submit.compiler.version.name}
                 td #{submit.result.time}s #{submit.result.memory}KB
                 td

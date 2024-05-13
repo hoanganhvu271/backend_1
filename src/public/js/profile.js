@@ -2,23 +2,34 @@ document.addEventListener("DOMContentLoaded", function () {
   const editBtn = document.getElementById("editBtn");
   const saveBtn = document.getElementById("saveBtn");
   const inputs = document.querySelectorAll(".form-control");
-
+let api = ''
   editBtn.addEventListener("click", function () {
     inputs.forEach((input) => {
-      input.removeAttribute("readonly");
+      if(input.id != 'MSV') {
+        input.removeAttribute("readonly");
+      } else {
+        api = '/api/update-profile-student/' + input.value
+      }
     });
     saveBtn.classList.remove("hide");
   });
 
-  saveBtn.addEventListener("click", function () {
+  saveBtn.addEventListener("click", async () => {
     let formData = new FormData();
-    inputs.forEach((input) => {
-      formData.append(input.id, input.value);
+    console.log(api)
+    inputs.forEach(async (input) => {
+      formData[input.id] = input.value;
+      console.log(input.id, input.value)
     });
-    fetch("/save-profile", {
-      method: "POST",
-      body: formData,
-    })
+    // console.log(formData)
+    
+    await fetch(api, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData),
+      })
       .then((response) => response.json())
       .then((data) => {
         //console.log("Profile updated:", data);
