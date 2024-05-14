@@ -116,14 +116,12 @@ btnDetailResult.forEach(function (btn) {
     url.searchParams.delete("keyword");
     url.searchParams.delete("page");
     url.searchParams.delete("class");
-    url.href += '/' + idResult;
+    url.href += "/" + idResult;
     window.location.href = url;
   });
 });
 
-const btnDetailSubmit = document.querySelectorAll(
-  "[btn-detail-submit]"
-);
+const btnDetailSubmit = document.querySelectorAll("[btn-detail-submit]");
 btnDetailSubmit.forEach(function (btn) {
   btn.addEventListener("click", function () {
     const idSubmit = btn.getAttribute("idSubmit");
@@ -137,9 +135,7 @@ btnDetailSubmit.forEach(function (btn) {
   });
 });
 
-const btnWidget = document.querySelectorAll(
-  "[btn-widget]"
-);
+const btnWidget = document.querySelectorAll("[btn-widget]");
 btnWidget.forEach(function (btn) {
   btn.addEventListener("click", function () {
     const idProb = btn.getAttribute("idProb");
@@ -152,7 +148,6 @@ btnWidget.forEach(function (btn) {
     window.location.href = url;
   });
 });
-
 
 const btnLocTest = document.querySelectorAll("[btn-loc-test]");
 btnLocTest.forEach(function (btn) {
@@ -173,17 +168,16 @@ btnLocTest.forEach(function (btn) {
 const btnTime = document.querySelectorAll("[btn-time]");
 btnTime.forEach(function (btn) {
   btn.addEventListener("click", function () {
-    let timeState = localStorage.getItem('time');
+    let timeState = localStorage.getItem("time");
     if (timeState == 0 || timeState === null) {
-      localStorage.setItem('time', 1);
-      btn.textContent = 'Thi'; // Thay đổi textContent của nút được click
+      localStorage.setItem("time", 1);
+      btn.textContent = "Thi"; // Thay đổi textContent của nút được click
     } else {
-      localStorage.setItem('time', 0);
-      btn.textContent = 'Luyện tập'; // Thay đổi textContent của nút được click
+      localStorage.setItem("time", 0);
+      btn.textContent = "Luyện tập"; // Thay đổi textContent của nút được click
     }
   });
 });
-
 
 const btnDetailTest = document.querySelectorAll("[btn-detail-test]");
 btnDetailTest.forEach(function (btn) {
@@ -228,23 +222,21 @@ btnDetailStudentAndTest.forEach(function (btn) {
   });
 });
 
-const btnAgain = document.querySelectorAll(
-  "[btn-again]"
-);
+const btnAgain = document.querySelectorAll("[btn-again]");
 
 btnAgain.forEach(function (btn) {
   btn.addEventListener("click", function () {
-    let maBaiThi = btn.getAttribute('data-mbt');
-    
+    let maBaiThi = btn.getAttribute("data-mbt");
+
     // Tạo URL mới từ URL hiện tại
     const url = new URL(window.location.href);
-    
+
     // Thay thế phần cuối của đường dẫn với '/result/test/maBaiThi'
-    const pathArray = url.pathname.split('/');
-    pathArray[2] = 'test';
+    const pathArray = url.pathname.split("/");
+    pathArray[2] = "test";
     pathArray[3] = maBaiThi;
-    url.pathname = pathArray.join('/');
-    
+    url.pathname = pathArray.join("/");
+
     // Chuyển hướng đến URL mới
     window.location.href = url;
   });
@@ -367,7 +359,14 @@ if (localStorage.getItem("backSlideBar") !== null) {
 }
 
 const listBtnNav = document.querySelectorAll("[btn-nav-tag]");
-
+var indexSlider = sessionStorage.getItem("indexSlider");
+if (indexSlider === null) {
+  indexSlider = 0;
+}
+console.log("indexSlider: " + indexSlider);
+listBtnNav[indexSlider].classList.add("active-item-nav");
+var parent = listBtnNav[indexSlider].querySelector(".btn-nav");
+parent.classList.add(localStorage.getItem("sidebarColor"));
 console.log(listBtnNav);
 for (var i = 0; i < listBtnNav.length; i++) {
   const btn = listBtnNav[i];
@@ -375,6 +374,7 @@ for (var i = 0; i < listBtnNav.length; i++) {
   btn.addEventListener("click", function () {
     console.log(ind);
     sessionStorage.setItem("indexSlider", ind.toString());
+    console.log("Set indexSlider: " + ind.toString());
     btn.classList.add("active-item-nav");
     var parent = btn.querySelector(".btn-nav");
     parent.classList.add(localStorage.getItem("sidebarColor"));
@@ -409,14 +409,7 @@ for (var i = 0; i < listBtnNav.length; i++) {
     }
   });
 }
-var indexSlider = sessionStorage.getItem("indexSlider");
-if (indexSlider === null) {
-  indexSlider = 0;
-}
 
-listBtnNav[indexSlider].classList.add("active-item-nav");
-var parent = listBtnNav[indexSlider].querySelector(".btn-nav");
-parent.classList.add(localStorage.getItem("sidebarColor"));
 function sidebarColor(a) {
   var parent = document.querySelector(".active-item-nav .btn-nav");
 

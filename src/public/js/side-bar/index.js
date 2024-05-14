@@ -38,9 +38,13 @@ list_button_dropdown.forEach((button) => {
     }
   });
 });
-document.addEventListener("DOMContentLoaded", function () {
-  list_button_dropdown[sessionStorage.getItem("indexSlider")].click();
-});
+
+var indexSlider = sessionStorage.getItem("indexSlider");
+if (indexSlider !== null && (indexSlider === "1" || indexSlider === "2")) {
+  document.addEventListener("DOMContentLoaded", function () {
+    list_button_dropdown[parseInt(indexSlider)].click();
+  });
+}
 const studentResult = document.querySelectorAll("[result-student]");
 const testResult = document.querySelectorAll("[result-test]");
 
