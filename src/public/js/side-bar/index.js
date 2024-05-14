@@ -42,7 +42,7 @@ list_button_dropdown.forEach((button) => {
 var indexSlider = sessionStorage.getItem("indexSlider");
 if (indexSlider !== null && (indexSlider === "1" || indexSlider === "2")) {
   document.addEventListener("DOMContentLoaded", function () {
-    list_button_dropdown[parseInt(indexSlider)].click();
+    list_button_dropdown[parseInt(indexSlider) - 1].click();
   });
 }
 const studentResult = document.querySelectorAll("[result-student]");
