@@ -39,10 +39,10 @@ list_button_dropdown.forEach((button) => {
   });
 });
 
-const indexSlider = sessionStorage.getItem("indexSlider");
-if (indexSlider != null && (indexSlider == 1 || indexSlider == 2)) {
+var indexSlider = sessionStorage.getItem("indexSlider");
+if (indexSlider !== null && (indexSlider === "1" || indexSlider === "2")) {
   document.addEventListener("DOMContentLoaded", function () {
-    list_button_dropdown[sessionStorage.getItem("indexSlider")].click();
+    list_button_dropdown[parseInt(indexSlider)].click();
   });
 }
 const studentResult = document.querySelectorAll("[result-student]");
