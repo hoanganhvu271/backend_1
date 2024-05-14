@@ -1,2 +1,23 @@
-ALTER TABLE sinhvien
-ADD COLUMN ThoiGian DATE;
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'TTHCM' WHERE (`MaCauHoi` = 'C01') and (`MaBaiThi` = '1');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Đại Số' WHERE (`MaCauHoi` = 'C01') and (`MaBaiThi` = '3');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Giải Tích' WHERE (`MaCauHoi` = 'C01') and (`MaBaiThi` = '4');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Đại Số' WHERE (`MaCauHoi` = 'C01') and (`MaBaiThi` = '5');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Đại Số' WHERE (`MaCauHoi` = 'C01') and (`MaBaiThi` = '6');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Đại Số' WHERE (`MaCauHoi` = 'C01') and (`MaBaiThi` = '7');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Đại Số' WHERE (`MaCauHoi` = 'C02') and (`MaBaiThi` = '1');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Giải Tích' WHERE (`MaCauHoi` = 'C02') and (`MaBaiThi` = '3');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Giải Tích' WHERE (`MaCauHoi` = 'C02') and (`MaBaiThi` = '4');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Giải Tích' WHERE (`MaCauHoi` = 'C02') and (`MaBaiThi` = '5');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Giải Tích' WHERE (`MaCauHoi` = 'C02') and (`MaBaiThi` = '6');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Giải Tích' WHERE (`MaCauHoi` = 'C02') and (`MaBaiThi` = '7');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Giải Tích' WHERE (`MaCauHoi` = 'C03') and (`MaBaiThi` = '3');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Giải Tích' WHERE (`MaCauHoi` = 'C03') and (`MaBaiThi` = '4');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'TTHCM' WHERE (`MaCauHoi` = 'C03') and (`MaBaiThi` = '6');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'TTHCM' WHERE (`MaCauHoi` = 'C03') and (`MaBaiThi` = '7');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'TTHCM' WHERE (`MaCauHoi` = 'C04') and (`MaBaiThi` = '3');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'TTHCM' WHERE (`MaCauHoi` = 'C04') and (`MaBaiThi` = '4');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Tiếng Anh' WHERE (`MaCauHoi` = 'C04') and (`MaBaiThi` = '6');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Tiếng Anh' WHERE (`MaCauHoi` = 'C04') and (`MaBaiThi` = '7');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Tiếng Anh' WHERE (`MaCauHoi` = 'C05') and (`MaBaiThi` = '4');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Tiếng Anh' WHERE (`MaCauHoi` = 'C05') and (`MaBaiThi` = '6');
+UPDATE `javasql`.`cauhoi` SET `TheLoai` = 'Tiếng Anh' WHERE (`MaCauHoi` = 'C05') and (`MaBaiThi` = '7');
