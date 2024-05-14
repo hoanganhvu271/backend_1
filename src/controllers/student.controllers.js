@@ -4,6 +4,7 @@ const {
   createNewStudent,
   deleteStudentById,
   updateStudentById,
+  updateStudentById2,
   getStudentCondition,
   getAllStudentPerPage,
 } = require("../services/student.service");
@@ -187,6 +188,36 @@ const updateStudentHandler = async (req, res) => {
   }
 };
 
+const updateStudentHandler2 = async (req, res) => {
+  const studentId = req.params.id;
+  let updatedData = req.body;
+  console.log(updatedData)
+  const status = await updateStudentById2(studentId, updatedData);
+  console.log("thành công")
+
+
+  if (status == 1) {
+    res.status(200).json({
+      code: 1,
+      status: 200,
+      message: "Cập nhật sinh viên thành công",
+    });
+  } else if (status == 0) {
+    res.status(500).json({
+      code: 0,
+      status: 500,
+      message: "Cập nhật sinh viên thất bại",
+    });
+  } else {
+    res.status(409).json({
+      code: -1,
+      status: 409,
+      message: "Mã sinh viên đã tồn tại",
+    });
+  }
+};
+
+
 const getStudentInresultHandler = async (req, res) => {
   var value = req.query.value;
   var keyword = req.query.keyword;
@@ -279,6 +310,7 @@ module.exports = {
   postStudentHandler,
   deleteStudentHandler,
   updateStudentHandler,
+  updateStudentHandler2,
   getStudentInresultHandler,
   createNewStudentHandler,
   getStudentByPage,

@@ -10,16 +10,18 @@ block main
     table(class="table table-striped")
       thead
         tr
-          th Name
           th ID
+          th Problem
           th Created
           th Solve
       tbody
           each code, index in codeList
               tr
-              td #{code.TenVanDe}
-              td #{index + 1}
-              td #{code.ThoiGianTao}
-              td
-                  a.btn.btn-primary(btn-widget idProb = code.MaVanDe) Solve
+                td #{index + 1}
+                td 
+                  strong #{code.TenVanDe}
+                
+                td #{code.ThoiGianTao}
+                td
+                    a.btn.btn-primary(btn-widget idProb = code.MaVanDe) Solve
   //-   +pagination(pagination)

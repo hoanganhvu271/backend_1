@@ -24,22 +24,22 @@ block main
         .col-md-6
           .form-group
             label(for="firstname") Họ tên:
-            input.form-control(type="text", id="firstname", value= admin.Ten, readonly)
+            input.form-control(type="text", id="Ten", value= admin.Ten, readonly)
           .form-group
             label(for="lastname") Mã sinh viên:
-            input.form-control(type="text", id="lastname", value=admin.MSV, readonly)
+            input.form-control(type="text", id="MSV", value=admin.MSV, readonly)
           .form-group
             label(for="password") Lớp:
-            input.form-control(type="text", id="password", value=admin.Lop, readonly)
+            input.form-control(type="text", id="Lop", value=admin.Lop, readonly)
 
         .col-md-6
           .form-group
             label(for="facebook") Tài khoản:
-            input.form-control(type="text", id="facebook", value= admin.TaiKhoan, readonly)
+            input.form-control(type="text", id="TaiKhoan", value= admin.TaiKhoan, readonly)
           
           .form-group
             label(for="zalo") Email:
-            input.form-control(type="text", id="zalo", value= admin.Email, readonly)
+            input.form-control(type="text", id="Email", value= admin.Email, readonly)
     br
     .col-md-12.text-center
-      button.btn.btn-primary.hide#saveBtn() Lưu
+      button.btn.btn-primary.hide#saveBtn Lưu

@@ -3,19 +3,20 @@ include ../../mixins/pagination.pug
 include ../../mixins/test.pug
 
 block main
-  br
-  .search-wrapper.d-flex.align-items-center
-    input(type="text" class="form-control search-box-test" tim-kiem-test placeholder="---Tìm kiếm---" value=keyword)
-    button.btn.btn-light(btn-loc-test) Lọc
-  br
+
+
   div.row
-    div.col-12.col-md-6.text-md-end
+    div.col-12.col-md-3.text-md-end
       h4.d-inline-block.mb-0(style="font-weight:bold;font-size:28px;") Danh sách bài thi
-    div.col-12.col-md-6.text-md-start.d-flex.align-items-center.justify-content-end
+    div.col-12.col-md-6.text-md-end
+      .search-wrapper.d-flex.align-items-center
+        input(type="text" class="form-control search-box-test" tim-kiem-test placeholder="---Tìm kiếm---" value=keyword)
+        button.btn.btn-light(btn-loc-test) Lọc
+    div.col-12.col-md-3.text-md-start.d-flex.align-items-center.justify-content-end
       div(style="margin-left: auto;")
-        span(style="font-size: 20px; margin-right: 20px;") Tính thời gian
-        label.switch(style="margin-right: 20px;")
-          input#time-toggle(type="checkbox" checked)
+        span(style="font-size: 20px; margin-right: 10px; color: black") Tính thời gian
+        label.switch(style="margin-right: 40px;")
+          input#time-toggle(type="checkbox" style=" background-color: #c32b2b;" checked)
           span.slider.round
   .test-list
     if (tests === null)

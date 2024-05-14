@@ -19,6 +19,7 @@ const {
     postStudentHandler,
     deleteStudentHandler,
     updateStudentHandler,
+    updateStudentHandler2,
     getStudentInresultHandler,
     createNewStudentHandler,
     getStudentByPage
@@ -49,6 +50,7 @@ router.delete('/delete-student/:id', deleteStudentHandler)
 router.put('/update-test/:id', updateTestHandler)
 router.get('/get-student/:id', getStudentByIdHandler)
 router.put('/update-student/:id', updateStudentHandler)
+router.put('/update-profile-student/:id', updateStudentHandler2)
 router.post('/save-message', saveMessageHandler)
 router.get('/get-message/:id', getMessageByRoomIdHandler)
 router.get('/get-room/', getMessageRoom)
