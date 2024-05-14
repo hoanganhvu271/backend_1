@@ -29,24 +29,11 @@ block main
         button.btn.btn-light(btn-loc) Lọc
   hr
   h5 Danh sách sinh viên
-<<<<<<< HEAD
   if studentList == null || studentList.length == 0
     p Không có dữ liệu
   else
     table(class="table table-striped")
       thead
-=======
-  table.table.table-striped
-    thead
-      tr
-        th STT
-        th Mã sinh viên
-        th Họ và tên
-        th Lớp
-        th Chi tiết
-    tbody
-      each student, index in studentList
->>>>>>> eb1eaf7b980fe7c716ef2d46605a006b8d80a720
         tr
           th STT
           th Mã sinh viên
