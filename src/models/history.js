@@ -23,14 +23,13 @@ module.exports = (sequelize, DataTypes) => {
             UserId: DataTypes.STRING
         },
         {
-            // options
             sequelize,
-            modelName: "DetetcionHistory",
+            modelName: "DetectionHistory",
             tableName: "DetectionHistory",
             timestamps: false,
         }
     );
 
-    DetectionHistory.removeAttribute("username");
+    DetectionHistory.removeAttribute("id");
     return DetectionHistory;
 };

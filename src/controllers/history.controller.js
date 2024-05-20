@@ -3,10 +3,21 @@ const getHistoryById = async (req, res) => {
     const id = req.query.id;
     const data = await getDetectionHistory(id);
     if (data === null) {
-        res.status(500).json({ message: "Internal Server Error" });
+        const response = {
+            code: 0,
+            status: 500,
+            message: "Internal Server Error"
+        }
+        res.status(500).json(response);
     }
     else {
-        res.status(200).json(data);
+        const response = {
+            code: 0,
+            status: 200,
+            message: "ok",
+            data: data
+        }
+        res.status(200).json(response);
     }
 }
 
