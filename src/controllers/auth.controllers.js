@@ -53,11 +53,11 @@ const checkLoginApp = async (req, res) => {
     if (!req.body.username || !req.body.password) {
         const response = {
             code: 0,
-            status: 400,
+            status: 404,
             message: "Yêu cầu điền thông tin đầy đủ",
         };
 
-        res.status(400).json(response);
+        res.status(404).json(response);
     }
     else {
         let data = await getStudentById(req.body.username);

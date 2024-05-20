@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "hvxk2003",
-    "database": "javasql",
-    "host": "127.0.0.1",
+    "username": "uhv7bqutywjwtaga",
+    "password": "s9uR0I1udWuGpSWmat3d",
+    "database": "blzgbosgrt5jimzh2ude",
+    "host": "blzgbosgrt5jimzh2ude-mysql.services.clever-cloud.com",
     "port": "3306",
     "dialect": "mysql"
   },
