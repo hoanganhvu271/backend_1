@@ -38,11 +38,14 @@ const { isAuth, isAdmin } = require("../middleware/auth.middleware");
 const { codeSubmit } = require("../controllers/code.controller")
 
 const { saveMessageHandler, getMessageByRoomIdHandler, getMessageRoom } = require('../controllers/message.controller')
-const { getHistoryById } = require('../controllers/history.controller')
-//Guest
+const { getHistoryById, postHistory } = require('../controllers/history.controller')
 
+//app api
 router.post("/login-app", checkLoginApp)
 router.get("/get-history", getHistoryById)
+router.post("/new-history", postHistory)
+
+//Guest
 router.post("/login/:role", checkLoginUser);
 router.post("/createNewstudent", createNewStudentHandler);
 router.post('/new-test', postTestHandler)
