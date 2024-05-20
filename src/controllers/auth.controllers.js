@@ -49,6 +49,59 @@ const refreshToken = async (req, res) => {
     }
 };
 
+const checkLoginApp = async (req, res) => {
+    if (!req.body.username || !req.body.password) {
+        const response = {
+            code: 0,
+            status: 400,
+            message: "Yêu cầu điền thông tin đầy đủ",
+        };
+
+        res.status(400).json(response);
+    }
+    else {
+        let data = await getStudentById(req.body.username);
+        if (data.status === 404) {
+            const response = {
+                code: 0,
+                status: 404,
+                message: "Đăng nhập thất bại",
+            };
+            res.status(400).json(response);
+        }
+        if (data.status === 500) {
+            const response = {
+                code: 0,
+                status: 500,
+                message: "Đăng nhập thất bại",
+            };
+            res.status(500).json(response);
+        }
+        if (data.status === 200) {
+            var ok = await bcrypt.compareSync(req.body.password, data.data[0].MatKhau);
+            let response = {}
+            if (ok) {
+                response = {
+                    code: 1,
+                    status: 200,
+                    message: "Đăng nhập thành công",
+
+                };
+                res.status(200).json(response);
+            }
+            else {
+                response = {
+                    code: 0,
+                    status: 404,
+                    title: "Đăng nhập thất bại",
+                    message: "Thông tin tài khoản hoặc mật khẩu không chính xác",
+                };
+                res.status(404).json(response);
+            }
+        }
+    }
+}
+
 const checkLoginUser = async (req, res) => {
     // //console.log(req.params.role)
     // if (req.params.role === 'user') {
@@ -144,5 +197,5 @@ const createTokenResponse = async (userData) => {
 }
 
 module.exports = {
-    refreshToken, checkLoginUser, createTokenResponse
+    refreshToken, checkLoginUser, createTokenResponse, checkLoginApp
 }

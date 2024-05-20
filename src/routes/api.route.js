@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { checkLoginUser } = require("../controllers/auth.controllers");
+const { checkLoginUser, checkLoginApp } = require("../controllers/auth.controllers");
 
 const {
     getTestList,
@@ -41,6 +41,7 @@ const { saveMessageHandler, getMessageByRoomIdHandler, getMessageRoom } = requir
 
 //Guest
 
+router.post("/login-app", checkLoginApp)
 router.post("/login/:role", checkLoginUser);
 router.post("/createNewstudent", createNewStudentHandler);
 router.post('/new-test', postTestHandler)
