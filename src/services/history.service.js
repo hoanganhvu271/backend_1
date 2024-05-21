@@ -27,7 +27,6 @@ const insertHistory = async (data) => {
             SignId: data.SignId,
             Time: data.Time,
             UserId: data.UserId
-
         });
         if (result === null) {
             return false;
