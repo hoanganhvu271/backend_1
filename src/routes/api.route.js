@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
+const express = require('express');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
 const { checkLoginUser, checkLoginApp } = require("../controllers/auth.controllers");
 
 const {
@@ -44,7 +48,7 @@ const { getHistoryById, postHistory, sendFeedbackHandler } = require('../control
 router.post("/login-app", checkLoginApp)
 router.get("/get-history", getHistoryById)
 router.post("/new-history", postHistory)
-router.post("/send-feedback", sendFeedbackHandler)
+router.post("/send-feedback", upload.single('image'), sendFeedbackHandler)
 
 //Guest
 router.post("/login/:role", checkLoginUser);
