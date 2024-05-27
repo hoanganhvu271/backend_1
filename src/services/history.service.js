@@ -47,8 +47,24 @@ const insertHistory = async (data) => {
 
 }
 
-const saveFeedBack = async () => {
-
+const saveFeedBack = async (user, image, text) => {
+    try {
+        const result = await db.Feedback.create({
+            content: text,
+            img_url: image,
+            user_id: user
+        });
+        if (result === null) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    catch (err) {
+        console.log(err);
+        return false;
+    }
 }
 
 module.exports = {
