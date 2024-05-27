@@ -81,10 +81,17 @@ const checkLoginApp = async (req, res) => {
             var ok = await bcrypt.compareSync(req.body.password, data.data[0].MatKhau);
             let response = {}
             if (ok) {
+                userData = {
+                    id: req.body.username,
+                    role: 'user',
+                    email: data.data[0].email,
+                }
+                var token = await createTokenResponse(userData)
                 response = {
                     code: 1,
                     status: 200,
                     message: "Đăng nhập thành công",
+                    data: token.accessToken
 
                 };
                 res.status(200).json(response);
