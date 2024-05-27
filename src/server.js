@@ -13,6 +13,7 @@ const { connection } = require("./config/connectDB");
 const adminRoutes = require("./routes/admin/index.router");
 const userRoutes = require("./routes/user/index.router");
 const errorRoutes = require("./routes/pageError/index.router");
+const appRoutes = require("./routes/app.route")
 
 //test connection
 // connection();
@@ -32,8 +33,12 @@ app.use(cookieParser());
 
 // app.use(trimInputs)
 //express-session
-app.use("/api", apiRoutes);
+// app.use("/api", apiRoutes);
+
+app.use("/api", appRoutes);
 viewEngine(app);
+
+
 
 const server = app.listen(port, () => {
   //console.log(`Example app listening on port ${port}`);

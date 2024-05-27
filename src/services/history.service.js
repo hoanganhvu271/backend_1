@@ -47,6 +47,10 @@ const insertHistory = async (data) => {
 
 }
 
+const saveFeedBack = async () => {
+
+}
+
 module.exports = {
-    getDetectionHistory, insertHistory
+    getDetectionHistory, insertHistory, saveFeedBack
 }

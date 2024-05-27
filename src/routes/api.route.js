@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const multer = require('multer');
-const upload = multer({ storage: multer.memoryStorage() });
 
 const { checkLoginUser, checkLoginApp } = require("../controllers/auth.controllers");
 
@@ -40,13 +38,9 @@ const { isAuth, isAdmin } = require("../middleware/auth.middleware");
 const { codeSubmit } = require("../controllers/code.controller")
 
 const { saveMessageHandler, getMessageByRoomIdHandler, getMessageRoom } = require('../controllers/message.controller')
-const { getHistoryById, postHistory, sendFeedbackHandler } = require('../controllers/history.controller')
 
-//app api
-router.post("/login-app", checkLoginApp)
-router.get("/get-history", getHistoryById)
-router.post("/new-history", postHistory)
-router.post("/send-feedback", upload.single('image'), sendFeedbackHandler)
+
+
 
 //Guest
 router.post("/login/:role", checkLoginUser);

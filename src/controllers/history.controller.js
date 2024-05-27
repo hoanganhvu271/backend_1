@@ -1,4 +1,4 @@
-const { getDetectionHistory, insertHistory } = require('../services/history.service')
+const { getDetectionHistory, insertHistory, saveFeedBack } = require('../services/history.service')
 
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
@@ -71,7 +71,13 @@ const postHistory = (req, res) => {
 
 const sendFeedbackHandler = async (req, res) => {
     const text = req.body.text;
-    const image = req.file;
+    const image = req.file.path;
+    const token = req.headers['access-token']
+    const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const user = data.data.id;
+
+    await saveFeedBack(user, image, text)
+
 
     console.log(text, image);
 
