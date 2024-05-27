@@ -4,6 +4,8 @@ const { where, Op } = require("sequelize");
 const { default: Transaction } = require("sequelize/lib/transaction");
 
 const getDetectionHistory = async (id) => {
+
+    console.log(id);
     try {
         const data = await db.DetectionHistory.findAll({
             raw: true,
