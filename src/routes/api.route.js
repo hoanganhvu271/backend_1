@@ -38,7 +38,7 @@ const { isAuth, isAdmin } = require("../middleware/auth.middleware");
 const { codeSubmit } = require("../controllers/code.controller")
 
 const { saveMessageHandler, getMessageByRoomIdHandler, getMessageRoom } = require('../controllers/message.controller')
-const { getHistoryById, postHistory } = require('../controllers/history.controller')
+const { getHistoryById, postHistory, sendFeedbackHandler } = require('../controllers/history.controller')
 
 //app api
 router.post("/login-app", checkLoginApp)
