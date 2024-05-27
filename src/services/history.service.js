@@ -22,11 +22,14 @@ const getDetectionHistory = async (id) => {
 }
 
 const insertHistory = async (data) => {
+    console.log(data);
     try {
         const result = await db.DetectionHistory.create({
             SignId: data.SignId,
             Time: data.Time,
-            UserId: data.UserId
+            UserId: data.UserId,
+            Longitude: data.Longitude,
+            Latitude: data.Latitude
         });
         if (result === null) {
             return false;
