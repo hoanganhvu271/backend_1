@@ -48,7 +48,7 @@ const postHistory = (req, res) => {
     const token = req.headers['access-token'];
     //decode token
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    data.UserId = decoded.msv
+    data.UserId = decoded.data.id;
     console.log(data)
     const result = insertHistory(data);
     if (result === false) {
