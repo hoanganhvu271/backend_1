@@ -67,6 +67,50 @@ const saveFeedBack = async (user, image, text) => {
     }
 }
 
+const createNewUser = (user) => {
+    try {
+        const newUser = db.Student.create({
+            MSV: user.username,
+            Ten: user.name,
+            Lop: "123",
+            Email: user.email,
+            TaiKhoan: "123",
+            MatKhau: user.password,
+            ThoiGian: "2021-06-01",
+        });
+        return newUser;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
+const checkEmail = async (email) => {
+    const data = await db.Student.findAll({
+        where: {
+            email: email
+        }
+    });
+
+    if (data.length > 0) {
+        return false
+    }
+    return true
+}
+
+const checkAccount = async (username) => {
+    const data = await db.Student.findAll({
+        where: {
+            MSV: username
+        }
+    });
+
+    if (data.length > 0) {
+        return false
+    }
+    return true
+}
+
 module.exports = {
-    getDetectionHistory, insertHistory, saveFeedBack
+    getDetectionHistory, insertHistory, saveFeedBack, createNewUser, checkEmail, checkAccount
 }

@@ -1,5 +1,7 @@
-const { getDetectionHistory, insertHistory, saveFeedBack } = require('../services/history.service')
-
+const { getDetectionHistory, insertHistory, saveFeedBack, createNewUser
+    , checkEmail, checkAccount
+} = require('../services/history.service')
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
@@ -101,6 +103,55 @@ const sendFeedbackHandler = async (req, res) => {
 
 
 }
+
+const registerHandler = async (req, res) => {
+    const user = req.body;
+
+    const check = await checkEmail(user.email)
+    if (!check) {
+        const response = {
+            status: 400,
+            message: "Email đã được sử dụng",
+        };
+        res.status(400).json(response);
+        return
+    }
+
+    const check2 = await checkAccount(user.username)
+    if (!check2) {
+        const response = {
+            status: 400,
+            message: "Tên tài khoản đã được sử dụng",
+        };
+        res.status(400).json(response);
+        return
+    }
+
+
+    const hashPassword = await bcrypt.hash(user.password, 10)
+    user.password = hashPassword
+
+    const data = await createNewUser(user);
+    if (data != null) {
+        const response = {
+            status: 200,
+            message: "Đăng ký thành công"
+        };
+        res.status(200).json(response);
+    }
+    else {
+        const response = {
+            status: 500,
+            message: "Server Error",
+        };
+        res.status(500).json(response);
+    }
+
+}
+
+
+
+
 module.exports = {
-    getHistoryById, postHistory, sendFeedbackHandler
+    getHistoryById, postHistory, sendFeedbackHandler, registerHandler
 }
