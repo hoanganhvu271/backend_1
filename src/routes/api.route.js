@@ -44,6 +44,7 @@ const { getHistoryById, postHistory } = require('../controllers/history.controll
 router.post("/login-app", checkLoginApp)
 router.get("/get-history", getHistoryById)
 router.post("/new-history", postHistory)
+router.post("/send-feedback", sendFeedbackHandler)
 
 //Guest
 router.post("/login/:role", checkLoginUser);

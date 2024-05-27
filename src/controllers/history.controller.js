@@ -67,8 +67,34 @@ const postHistory = (req, res) => {
         }
         res.status(200).json(response);
     }
+}
+
+const sendFeedbackHandler = async (req, res) => {
+    const text = req.body.text;
+    const image = req.file;
+
+    console.log(text, image);
+
+    if (image && text) {
+        const response = {
+            code: 0,
+            status: 200,
+            message: "ok"
+        }
+        res.status(200).json(response);
+
+    }
+    else {
+        const response = {
+            code: 0,
+            status: 400,
+            message: "Bad Request"
+        }
+        res.status(400).json(response);
+    }
+
 
 }
 module.exports = {
-    getHistoryById, postHistory
+    getHistoryById, postHistory, sendFeedbackHandler
 }
