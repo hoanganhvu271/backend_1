@@ -11,7 +11,7 @@ const getHistoryById = async (req, res) => {
         //decode token
         const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         console.log(decoded)
-        var id = decoded.id
+        var id = decoded.data.id
         const data = await getDetectionHistory(id);
         if (data === null) {
             const response = {
