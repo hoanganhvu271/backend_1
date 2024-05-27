@@ -9,6 +9,6 @@ const { checkLoginUser, checkLoginApp } = require("../controllers/auth.controlle
 router.post("/login-app", checkLoginApp)
 router.get("/get-history", getHistoryById)
 router.post("/new-history", postHistory)
-router.post("/send-feedback", fileUploader.single('file'), sendFeedbackHandler)
+router.post("/send-feedback", fileUploader.single('image'), sendFeedbackHandler)
 
 module.exports = router;
