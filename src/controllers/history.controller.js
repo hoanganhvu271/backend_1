@@ -6,6 +6,7 @@ require('dotenv').config()
 const getHistoryById = async (req, res) => {
     //get access token:
     const token = req.headers['access-token'];
+    console.log(token)
     //decode token
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     var id = decoded.msv
