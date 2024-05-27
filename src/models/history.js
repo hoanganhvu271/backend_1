@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
 
             SignId: DataTypes.STRING,
             Time: DataTypes.STRING,
-            UserId: DataTypes.STRING
+            UserId: DataTypes.STRING,
+            Longitude: DataTypes.STRING,
+            Latitude: DataTypes.STRING
+
         },
         {
             sequelize,
