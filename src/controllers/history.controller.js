@@ -4,7 +4,11 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 const getHistoryById = async (req, res) => {
-    const id = req.query.id;
+    //get access token:
+    const token = req.headers['access-token'];
+    //decode token
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    var id = decoded.msv
     const data = await getDetectionHistory(id);
     if (data === null) {
         const response = {
