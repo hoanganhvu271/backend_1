@@ -11,7 +11,7 @@ const { getOtpWithEmail,
     createOtp,
     deleteOtp, updateOtp } = require("../services/otp.service")
 
-const { getStudentByEmail } = require('../services/student.service');
+const { getStudentByEmail, updatePassword } = require('../services/student.service');
 function generateOTP() {
     return Math.floor(100000 + Math.random() * 900000); // Tạo số ngẫu nhiên từ 100000 đến 999999
 }
