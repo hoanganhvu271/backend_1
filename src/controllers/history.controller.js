@@ -205,7 +205,7 @@ const forgotPassword = async (req, res) => {
 }
 
 const verifyOTP = async (req, res) => {
-    let newotp = await (req.body.digit1 + req.body.digit2 + req.body.digit3 + req.body.digit4 + req.body.digit5 + req.body.digit6);
+    let newotp = await req.body.otp;
     const email = await req.body.email;
     const data = await getOtpWithEmail(email);
     if (data.status != 200) {
