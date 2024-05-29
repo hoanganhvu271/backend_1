@@ -162,14 +162,16 @@ const registerHandler = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
     const email = req.body.email;
-
+    console.log(email)
     let data = await getStudentByEmail(email);
+    console.log(data)
     if (data.status != 200) {
         const response = {
             code: 0,
             status: 404,
             message: "Email này chưa được đăng ký tài khoản, hãy đăng ký"
         };
+
 
         res.status(404).json(response)
     }
