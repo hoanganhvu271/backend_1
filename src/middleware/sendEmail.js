@@ -1,19 +1,31 @@
 const nodemailer = require('nodemailer');
+require("dotenv").config();
+// dotenv.config();
 
+const accountSid = process.env.TWILLO_ACCOUNT_SID;
+const authToken = process.env.TWILLO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
 
 const sendToPhone = async (otp) => {
-    const accountSid = 'AC9072dc15dfd30d7ffa6bcbdaae1ee2ac';
-    const authToken = 'f639519aa3f3ae138258c3ad79533dd5';
-    const client = require('twilio')(accountSid, authToken);
 
-    client.messages
-        .create({
-            from: '+13312544315',
-            to: '+84382519718',
-            body: 'Your otp is: ' + otp
-        })
-        .then(message => console.log(message.sid))
-        .done();
+    const message = {
+        from: process.env.TWILLO_PHONE_FROM,
+        to: process.env.TWILLO_PHONE_TO,
+        body: 'Your otp is: ' + otp
+    }
+
+
+    // console.log(client)
+
+
+    try {
+        await client.messages
+            .create(message)
+    } catch (error) {
+        // console.log('hehee')
+        console.log(error)
+    }
+
 }
 
 const sendMailTo = async (email, otp) => {

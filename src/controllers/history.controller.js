@@ -172,7 +172,6 @@ const forgotPassword = async (req, res) => {
             message: "Email này chưa được đăng ký tài khoản, hãy đăng ký"
         };
 
-
         res.status(404).json(response)
     }
     else {
