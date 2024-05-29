@@ -1,4 +1,5 @@
 const db = require("../models/index");
+
 const getOtpWithEmail = async (email) => {
     var data = { status: null, data: null };
     try {

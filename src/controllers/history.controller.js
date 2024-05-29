@@ -2,8 +2,19 @@ const { getDetectionHistory, insertHistory, saveFeedBack, createNewUser
     , checkEmail, checkAccount
 } = require('../services/history.service')
 const bcrypt = require('bcrypt');
+const { json } = require('body-parser');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
+
+const { sendToPhone } = require("../middleware/sendEmail");
+const { getOtpWithEmail,
+    createOtp,
+    deleteOtp, updateOtp } = require("../services/otp.service")
+
+const { getStudentByEmail } = require('../services/student.service');
+function generateOTP() {
+    return Math.floor(100000 + Math.random() * 900000); // Tạo số ngẫu nhiên từ 100000 đến 999999
+}
 
 const getHistoryById = async (req, res) => {
     //get access token:
@@ -149,9 +160,130 @@ const registerHandler = async (req, res) => {
 
 }
 
+const forgotPassword = async (req, res) => {
+    const email = req.body.email;
+
+    let data = await getStudentByEmail(email);
+    if (data.status != 200) {
+        const response = {
+            code: 0,
+            status: 404,
+            message: "Email này chưa được đăng ký tài khoản, hãy đăng ký"
+        };
+
+        res.status(404).json(response)
+    }
+    else {
+        const otp = generateOTP();
+        await sendToPhone(otp);
+        const data = await createOtp(email, new Date(), new Date().setMinutes(new Date().getMinutes() + 5), otp);
+        if (data.status != 200) {
+            await updateOtp(email, new Date(), new Date().setMinutes(new Date().getMinutes() + 5), otp);
+
+            var response = {
+                code: 1,
+                status: 200,
+                message: "Mã OTP đã được gửi đến SDT của bạn"
+            }
+
+            res.status(200).json(response);
+
+        }
+        else {
+            var response = {
+                code: 1,
+                status: 200,
+                message: "Mã OTP đã được gửi đến SDT của bạn"
+            }
+
+            res.status(200).json(response);
+        }
+    }
+
+
+}
+
+const verifyOTP = async (req, res) => {
+    let newotp = await (req.body.digit1 + req.body.digit2 + req.body.digit3 + req.body.digit4 + req.body.digit5 + req.body.digit6);
+    const email = await req.body.email;
+    const data = await getOtpWithEmail(email);
+    if (data.status != 200) {
+        const response = {
+            code: 0,
+            status: 404,
+            message: "Mã OTP đã hết hạn, hãy gửi lại yêu cầu mã OTP",
+        };
+
+        res.status(404).json(response);
+    }
+    // Kiểm tra xem mã OTP được nhập có trùng khớp với mã OTP đã lưu trữ hay không
+
+    if (data.data[0].end_time < new Date()) {
+        await deleteOtp(email);
+        const response = {
+            code: 0,
+            status: 404,
+            message: "Mã OTP đã hết hạn, hãy gửi lại yêu cầu mã OTP",
+        };
+
+        res.status(404).json(response);
+    }
+    const otp = data.data[0].otp_code;
+    if (otp.toString() == newotp && data.data[0].end_time > new Date()) {
+        await deleteOtp(email);
+    } else {
+        const response = {
+            ode: 0,
+            status: 400,
+            message: "OTP không hợp lệ, hãy thử lại",
+
+        };
+
+        res.status(400).json(response);
+
+    }
+
+
+}
+const changePassword = async (req, res) => {
+    // nhớ chỉnh email thành khóa chính
+    const newPassword = req.body.newPassword;
+    const email = req.body.email;
+    const confirmPassword = req.body.confirmPassword;
+    try {
+        // Kiểm tra xem mật khẩu mới và mật khẩu xác nhận có khớp nhau không
+        if (newPassword != confirmPassword) {
+
+            const response = {
+                code: 0,
+                status: 400,
+                message: "Mật khẩu không trùng khớp, hãy thử lại",
+                title: "Thất bại",
+            };
+
+            res.status(400).json(response);
+        }
+        else {
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            await updatePassword(email, hashedPassword);
+            const response = {
+                code: 1,
+                status: 200,
+                message: "Đổi mật khẩu thành công",
+            };
+
+            res.status(200).json(response);
+        }
+
+
+    } catch (error) {
+        console.error('Lỗi khi thay đổi mật khẩu:', error);
+        res.status(500).json({ error: 'Đã xảy ra lỗi khi thay đổi mật khẩu.' });
+    }
+}
 
 
 
 module.exports = {
-    getHistoryById, postHistory, sendFeedbackHandler, registerHandler
+    getHistoryById, postHistory, sendFeedbackHandler, registerHandler, verifyOTP, forgotPassword, changePassword
 }

@@ -77,6 +77,7 @@ const createNewUser = (user) => {
             TaiKhoan: "123",
             MatKhau: user.password,
             ThoiGian: "2021-06-01",
+            Sdt: user.phone
         });
         return newUser;
     } catch (error) {

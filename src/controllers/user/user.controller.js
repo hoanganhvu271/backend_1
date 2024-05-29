@@ -13,7 +13,7 @@ function generateOTP() {
 }
 module.exports.index = async (req, res) => {
 
-    
+
 
     res.render("user/login.pug", {
         titlePage: "Thông tin cá nhân"
@@ -67,8 +67,6 @@ module.exports.forgotPassword = async (req, res) => {
 }
 
 module.exports.verifyOTP = async (req, res) => {
-
-
     let newotp = await (req.body.digit1 + req.body.digit2 + req.body.digit3 + req.body.digit4 + req.body.digit5 + req.body.digit6);
     // console.log(newotp);
     // Lấy email và mã OTP đã lưu trữ

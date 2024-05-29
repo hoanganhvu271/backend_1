@@ -1,4 +1,21 @@
 const nodemailer = require('nodemailer');
+
+
+const sendToPhone = async (otp) => {
+    const accountSid = 'AC9072dc15dfd30d7ffa6bcbdaae1ee2ac';
+    const authToken = 'f639519aa3f3ae138258c3ad79533dd5';
+    const client = require('twilio')(accountSid, authToken);
+
+    client.messages
+        .create({
+            from: '+13312544315',
+            to: '+84382519718',
+            body: 'Your otp is: ' + otp
+        })
+        .then(message => console.log(message.sid))
+        .done();
+}
+
 const sendMailTo = async (email, otp) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -38,4 +55,4 @@ const sendMailTo = async (email, otp) => {
         }
     });
 }
-module.exports = sendMailTo
+module.exports = { sendMailTo, sendToPhone }
