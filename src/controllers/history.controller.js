@@ -208,7 +208,9 @@ const verifyOTP = async (req, res) => {
     let newotp = await req.body.otp;
     const email = await req.body.email;
     const data = await getOtpWithEmail(email);
+    // console.log(data)
     if (data.status != 200) {
+        // console.log('ok')
         const response = {
             code: 0,
             status: 404,
@@ -217,33 +219,30 @@ const verifyOTP = async (req, res) => {
 
         res.status(404).json(response);
     }
-    // Kiểm tra xem mã OTP được nhập có trùng khớp với mã OTP đã lưu trữ hay không
 
-    if (data.data[0].end_time < new Date()) {
-        await deleteOtp(email);
-        const response = {
-            code: 0,
-            status: 404,
-            message: "Mã OTP đã hết hạn, hãy gửi lại yêu cầu mã OTP",
-        };
+    else {
+        const otp = data.data[0].otp_code;
+        if (otp.toString() == newotp) {
+            // await deleteOtp(email);
+            const response = {
+                code: 1,
+                status: 200,
+                message: "OK",
+            };
+            res.status(200).json(response);
+        } else {
+            const response = {
+                code: 0,
+                status: 400,
+                message: "OTP không hợp lệ, hãy thử lại",
 
-        res.status(404).json(response);
-    }
-    const otp = data.data[0].otp_code;
-    if (otp.toString() == newotp && data.data[0].end_time > new Date()) {
-        await deleteOtp(email);
-    } else {
-        const response = {
-            ode: 0,
-            status: 400,
-            message: "OTP không hợp lệ, hãy thử lại",
+            };
 
-        };
+            res.status(400).json(response);
 
-        res.status(400).json(response);
+        }
 
     }
-
 
 }
 const changePassword = async (req, res) => {

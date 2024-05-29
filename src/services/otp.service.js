@@ -2,6 +2,7 @@ const db = require("../models/index");
 
 const getOtpWithEmail = async (email) => {
     var data = { status: null, data: null };
+    console.log(email);
     try {
         const otp = await db.otp.findAll({
             raw: true,
